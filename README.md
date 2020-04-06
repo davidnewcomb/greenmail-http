@@ -5,7 +5,7 @@ Encapsulates GreenMail Standalone, adds a web server to deliver json and web pag
 ## Build
 
 ```
-https://github.com/davidnewcomb/greenmail-http.git
+git clone https://github.com/davidnewcomb/greenmail-http.git
 cd greenmail-http
 mvn clean install
 java -Dgreenmail.setup.test.smtp -Dgreenmail.setup.test.imap -Dgreenmail.setup.test.http -Dgreenmail.verbose jar target/greenail-http-<ver>.jar
