@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+$(document).ready(function () {
+
+    const base_url = 'http://localhost:7000';
+
+    $('#listusers').click(function () {
+        $.get(base_url + '/lu', function (data, status) {
+            let s = '';
+            s += '<h2>List Users</h2>';
+            s += '<table class="table">';
+            s += '<tr>';
+            s += '<th>Email</th>';
+            s += '<th>Login</th>';
+            s += '<th>Password</th>';
+            s += '<th>Qualified mailbox name</th>';
+            s += '</tr>';
+            for (let idx = 0 ; idx < data.length ; ++idx) {
+            	let d = data[idx];
+                s += '<tr>';
+                s += '<td>' + d.email + '</td>';
+                s += '<td>' + d.login + '</td>';
+                s += '<td>' + d.password + '</td>';
+                s += '<td>' + d.qualifiedMailboxName + '</td>';
+                s += '</tr>';
+            }
+            s += '</table>';
+
+            $('#answer').html(s);
+        });
+    });
+
+    $('#imap_all_messages').click(function () {
+        $.get(base_url + '/imap', function (data, status) {
+            let s = '';
+            s += '<h2>Messages</h2>';
+            s += '<table class="table">';
+            s += '<tr>';
+            s += '<th>Message Id</th>';
+            s += '<th>from</th>';
+            s += '<th>To</th>';
+            s += '<th>Cc</th>';
+            s += '<th>Bcc</th>';
+            s += '<th>Subject</th>';
+            s += '<th>Body</th>';
+            s += '</tr>';
+            for (let idx = 0 ; idx < data.length ; ++idx) {
+            	let d = data[idx];
+                s += '<tr>';
+                s += '<td>' + d.messageId + '</td>';
+                s += '<td>' + d.from + '</td>';
+                s += '<td>' + d.to + '</td>';
+                s += '<td>' + d.cc + '</td>';
+                s += '<td>' + d.bcc + '</td>';
+                s += '<td>' + d.subject + '</td>';
+                s += '<td>' + d.body + '</td>';
+                s += '</tr>';
+            }
+            s += '</table>';
+
+            $('#answer').html(s);
+        });
+    });
+
+});
+</script>
+</head>
+<body>
+
+<button id="listusers">List users</button>
+<button id="imap_all_messages">IMAP all messages</button>
+
+<div id="answer">
+</div>
+
+</body>
+</html>
