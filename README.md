@@ -16,6 +16,7 @@ java -Dgreenmail.setup.test.smtp -Dgreenmail.setup.test.imap -Dgreenmail.setup.t
 Run using same command line options as Greenmail Standalone ( https://greenmail-mail-test.github.io/greenmail/#deployment ).
 ```
 java -Dgreenmail.setup.test.smtp -Dgreenmail.setup.test.imap -Dgreenmail.setup.test.http -Dgreenmail.verbose jar target/greenail-http.jar
+```
 
 Goto http://localhost:7000/
 
