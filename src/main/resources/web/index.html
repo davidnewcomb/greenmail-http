@@ -7,66 +7,136 @@
 <script>
 $(document).ready(function () {
 
-    const base_url = '';
+const ANCH = {
+    EMAIL: '<a href="/email/%1">%1</a>',
+    DOMAIN: '<a href="/domain/%1">%1</a>',
+    MAILBOX: '<a href="/mailbox/%1">%1</a>',
+    MESSAGE_BODY: '<a href="/messbody/%1">%2</a>'
+};
 
-    $('#listusers').click(function () {
-        $.get(base_url + '/lu', function (data, status) {
-            let s = '';
-            s += '<h2>List Users</h2>';
-            s += '<table class="table">';
+const URLS = {
+    LIST_USERS: '/lu',
+    ALL_IMAP: '/imap',
+    PURGE: '/p',
+    RESET: '/r'
+};
+
+function mk_url(template, params) {
+    let s = template;
+    
+    for (let i = 0; i < params.length; ++i) {
+    	let re = new RegExp('%' + (i + 1), 'g');
+        s = s.replace(re, params[i]);
+    }
+    return s;
+}
+
+function print_emails(emails) {
+    let a = [];
+    for (let i = 0; i < emails.length; ++i) {
+        let email = emails[i];
+        a.push(print_email(email));
+    }
+    return a.join(', ');
+}
+
+function print_email(s) {
+    let at = s.indexOf('@');
+    if (at == -1) {
+        let ua = mk_url(ANCH.EMAIL, [s, s]);
+        return ua;
+    }
+    let u = s.substring(0, at - 1);
+    let d = s.substring(at + 1, s.length - 1);
+
+    let ua = mk_url(ANCH.EMAIL, [u]);
+    let da = mk_url(ANCH.DOMAIN, [d]);
+
+    let html = ua + '@' + da;
+    return html;
+}
+
+function print_mailbox(s) {
+    let x = mk_url(ANCH.MAILBOX, [s]);
+    return x;
+}
+
+function print_messageid(s) {
+    let part = s.substring(1, s.length - 1);
+    let x = mk_url(ANCH.MESSAGE_BODY, [part, s]);
+    return x;
+}
+
+$('#listusers').click(function () {
+    $.get(URLS.LIST_USERS, function (data, status) {
+        let s = '';
+        s += '<h2>List Users</h2>';
+        s += '<table class="table">';
+        s += '<tr>';
+        s += '<th>Email</th>';
+        s += '<th>Login</th>';
+        s += '<th>Password</th>';
+        s += '<th>Qualified mailbox name</th>';
+        s += '</tr>';
+        for (let idx = 0; idx < data.length; ++idx) {
+            let d = data[idx];
             s += '<tr>';
-            s += '<th>Email</th>';
-            s += '<th>Login</th>';
-            s += '<th>Password</th>';
-            s += '<th>Qualified mailbox name</th>';
+            s += '<td>' + print_email(d.email) + '</td>';
+            s += '<td>' + d.login + '</td>';
+            s += '<td>' + d.password + '</td>';
+            s += '<td>' + print_mailbox(d.qualifiedMailboxName) + '</td>';
             s += '</tr>';
-            for (let idx = 0 ; idx < data.length ; ++idx) {
-            	let d = data[idx];
-                s += '<tr>';
-                s += '<td>' + d.email + '</td>';
-                s += '<td>' + d.login + '</td>';
-                s += '<td>' + d.password + '</td>';
-                s += '<td>' + d.qualifiedMailboxName + '</td>';
-                s += '</tr>';
-            }
-            s += '</table>';
+        }
+        s += '</table>';
 
-            $('#answer').html(s);
-        });
+        $('#answer').html(s);
     });
+});
 
-    $('#imap_all_messages').click(function () {
-        $.get(base_url + '/imap', function (data, status) {
-            let s = '';
-            s += '<h2>Messages</h2>';
-            s += '<table class="table">';
+$('#imap_all_messages').click(function () {
+    $.get(URLS.ALL_IMAP, function (data, status) {
+        let s = '';
+        s += '<h2>Messages</h2>';
+        s += '<table class="table">';
+        s += '<tr>';
+        s += '<th>Message Id</th>';
+        s += '<th>from</th>';
+        s += '<th>To</th>';
+        s += '<th>Cc</th>';
+        s += '<th>Bcc</th>';
+        s += '<th>Subject</th>';
+        s += '<th>Body</th>';
+        s += '</tr>';
+        for (let idx = 0; idx < data.length; ++idx) {
+            let d = data[idx];
             s += '<tr>';
-            s += '<th>Message Id</th>';
-            s += '<th>from</th>';
-            s += '<th>To</th>';
-            s += '<th>Cc</th>';
-            s += '<th>Bcc</th>';
-            s += '<th>Subject</th>';
-            s += '<th>Body</th>';
+            s += '<td>' + print_messageid(d.messageId) + '</td>';
+            s += '<td>' + print_email(d.from) + '</td>';
+            s += '<td>' + print_emails(d.to) + '</td>';
+            s += '<td>' + print_emails(d.cc) + '</td>';
+            s += '<td>' + print_emails(d.bcc) + '</td>';
+            s += '<td>' + d.subject + '</td>';
+            s += '<td>' + d.body + '</td>';
             s += '</tr>';
-            for (let idx = 0 ; idx < data.length ; ++idx) {
-            	let d = data[idx];
-                s += '<tr>';
-                s += '<td>' + d.messageId + '</td>';
-                s += '<td>' + d.from + '</td>';
-                s += '<td>' + d.to + '</td>';
-                s += '<td>' + d.cc + '</td>';
-                s += '<td>' + d.bcc + '</td>';
-                s += '<td>' + d.subject + '</td>';
-                s += '<td>' + d.body + '</td>';
-                s += '</tr>';
-            }
-            s += '</table>';
+        }
+        s += '</table>';
 
-            $('#answer').html(s);
-        });
+        $('#answer').html(s);
     });
+});
 
+$('#purge_all').click(function () {
+    $.get(URLS.PURGE, function (data, status) {
+        $('#answer').html('Purged');
+    });
+});
+
+$('#reset_all').click(function () {
+    $.get(URLS.RESET, function (data, status) {
+        $('#answer').html('Reset');
+    });
+});
+	
 });
 </script>
 </head>
@@ -74,6 +144,8 @@ $(document).ready(function () {
 
 <button id="listusers">List users</button>
 <button id="imap_all_messages">IMAP all messages</button>
+<button id="purge_all">Purge email from all mailboxesCommand</button>
+<button id="reset_all">Reset everything</button>
 
 <div id="answer">
 </div>
