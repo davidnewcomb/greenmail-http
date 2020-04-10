@@ -8,8 +8,11 @@ import com.icegreen.greenmail.user.GreenMailUser;
 import com.icegreen.greenmail.util.GreenMail;
 
 import io.javalin.http.Context;
+import uk.co.bigsoft.greenmail.http.dto.Dto;
 
 public class ImapListMailBoxCommand extends BaseHandler {
+
+	private Dto dto = new Dto();
 
 	public ImapListMailBoxCommand(GreenMail greenMail) {
 		super(greenMail);
@@ -17,16 +20,10 @@ public class ImapListMailBoxCommand extends BaseHandler {
 
 	@Override
 	public void handle(Context ctx) throws Exception {
-		GreenMailUser u = utils.getUser(ctx, gm.getManagers().getUserManager());
-		ImapHostManager man = gm.getManagers().getImapHostManager();
-
-		Collection<MailFolder> mailboxes = man.listMailboxes(u, "*");
-		ctx.json(mailboxes);
-
-		// MailFolder mf = mailboxes.iterator().next();
-		// mf.getMessages();
-		// List<StoredMessage> x = man.getAllMessages();
-		// ctx.json(x);
+		GreenMailUser user = utils.getUser(ctx, gm.getManagers().getUserManager());
+		ImapHostManager manager = gm.getManagers().getImapHostManager();
+		Collection<MailFolder> mailboxes = manager.listMailboxes(user, "*");
+		ctx.json(dto.toMailFolder(mailboxes));
 	}
 
 }

@@ -15,6 +15,7 @@ import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 import uk.co.bigsoft.greenmail.http.commands.ImapAllMessagesCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapGetInBoxCommand;
+import uk.co.bigsoft.greenmail.http.commands.ImapListMailBoxCommand;
 import uk.co.bigsoft.greenmail.http.commands.ListUsersCommand;
 import uk.co.bigsoft.greenmail.http.commands.PurgeEmailFromAllMailboxesCommand;
 import uk.co.bigsoft.greenmail.http.commands.ReceivedMessagesCommand;
@@ -40,20 +41,53 @@ public class Main {
 			Utils utils = new Utils();
 			UserManager um = gm.getManagers().getUserManager();
 			ImapHostManager im = gm.getManagers().getImapHostManager();
-			GreenMailUser user1 = um.createUser("myemail@blar.com", "mylogin", "mypass");
-			GreenMailUser user2 = um.createUser("youremail", "yourlogin", "yourpass");
 
-			im.createPrivateMailAccount(user1);
-			im.createPrivateMailAccount(user2);
+			GreenMailUser user1 = um.createUser("blar@blar.com", "blar", "b123");
+			GreenMailUser user2 = um.createUser("foo@foo.com", "foo", "f123");
+
+			user1.create();
+			user2.create();
+
+			// im.createPrivateMailAccount(user1);
+			// im.createPrivateMailAccount(user2);
+			//
+			// // POP
+			// um.addUser(user1);
+			// um.addUser(user2);
+
+			// gm.getPop3().getState().
+
+			// IMAP
 
 			MailFolder fm1 = im.getInbox(user1);
 			MailFolder fm2 = im.getInbox(user2);
 
-			MimeMessage m1 = utils.createMessage(gm, "sub1", "myemail@blar.com", "myemail@blar.com", "the body");
-			MimeMessage m2 = utils.createMessage(gm, "sub2", "myemail@blar.com", "myemail@blarblar.com",
-					"the body again");
-			user1.deliver(m1);
-			user1.deliver(m2);
+			MimeMessage m1 = utils.createMessage(gm, "sub1", "blar@blar.com", "boo@dest1.com", "blar to dest1");
+			MimeMessage m2 = utils.createMessage(gm, "sub2", "foo@foo.com", "boo@dest2.com", "foo to dest2");
+			MimeMessage m3 = utils.createMessage(gm, "sub3", "boo@dest1.com", "blar@blar.com", "dest1 to blar");
+			MimeMessage m4 = utils.createMessage(gm, "sub4", "boo@dest2.com", "foo@foo.com", "dest2 to foo");
+			
+			System.out.println("Store1");
+			fm1.store(m1);
+			System.out.println("Store2");
+			fm1.store(m3);
+			
+			System.out.println("Store3");
+			fm2.store(m2);
+			System.out.println("Store4");
+			fm2.store(m4);
+			System.out.println("Store done");
+			
+			
+//			System.out.println("Deliver1");
+//			user1.deliver(m1);
+//			System.out.println("Deliver2");
+//			user1.deliver(m3);
+//			System.out.println("Deliver3");
+//			user2.deliver(m2);
+//			System.out.println("Deliver4");
+//			user2.deliver(m4);
+//			System.out.println("Done");
 
 			// fm1.store(m1);
 			// fm1.store(utils.createMessage();
@@ -69,11 +103,13 @@ public class Main {
 		Javalin app = Javalin.create().start(7000);
 		app.config.addStaticFiles("/web", Location.CLASSPATH);
 		app.get("/imap", new ImapAllMessagesCommand(greenMail));
-		app.get("/imap/:user/inbox", new ImapGetInBoxCommand(greenMail));
+		app.get("/imap/:email/inbox", new ImapGetInBoxCommand(greenMail));
 		app.get("/lu", new ListUsersCommand(greenMail));
 		app.get("/p", new PurgeEmailFromAllMailboxesCommand(greenMail));
 		app.get("/rm", new ReceivedMessagesCommand(greenMail));
 		app.get("/rmd/:domain", new ReceivedMessagesForDomainCommand(greenMail));
 		app.get("/r", new ResetCommand(greenMail));
+		app.get("/lf/:email", new ImapListMailBoxCommand(greenMail));
+		
 	}
 }

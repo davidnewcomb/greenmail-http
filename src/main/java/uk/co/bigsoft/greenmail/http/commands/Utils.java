@@ -13,8 +13,8 @@ import io.javalin.http.Context;
 public class Utils {
 
 	public GreenMailUser getUser(Context ctx, UserManager um) {
-		String user = ctx.pathParam("user");
-		return um.getUser(user);
+		String user = ctx.pathParam("email");
+		return um.getUserByEmail(user);
 	}
 
 	public MimeMessage createMessage(GreenMail gm, String subject, String from, String to, String body) {
