@@ -22,5 +22,5 @@ Goto http://localhost:7000/
 
 ## Future
 The project is still taking shape. Currently you can list users and all emails in imap.
-There's more features to come but If you want a particular feature first then raise a feature request.
+There's more features to come but if you want a particular feature first then raise a feature request.
 

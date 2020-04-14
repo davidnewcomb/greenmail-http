@@ -1,7 +1,6 @@
 package uk.co.bigsoft.greenmail.http.dto;
 
 import javax.mail.Flags;
-import javax.mail.Flags.Flag;
 
 import com.icegreen.greenmail.store.MailFolder;
 
@@ -34,7 +33,7 @@ public class MailFolderDto {
 
 	public String[] getPermanentFlags() {
 		Flags flags = folder.getPermanentFlags();
-		Flag[] sysFlags = flags.getSystemFlags();
+		//Flag[] sysFlags = flags.getSystemFlags();
 
 		String[] userFlags = flags.getUserFlags();
 		return userFlags;

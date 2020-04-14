@@ -1,0 +1,14 @@
+<h2>List Users</h2>
+
+<table class="table">
+	{{table_header "Email" "Login" "Password" "Mailbox" "Actions"}}
+ 	{{#each this}}
+	<tr>
+		<td> {{print_email email}} </td>
+		<td> {{login}} </td>
+		<td> {{print_password password}} </td>
+		<td> {{qualifiedMailboxName}} </td>
+		<td> {{action_delete}} {{action_mailbox}} </td>
+	</tr>
+	{{/each}}
+</table>

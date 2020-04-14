@@ -66,28 +66,27 @@ public class Main {
 			MimeMessage m2 = utils.createMessage(gm, "sub2", "foo@foo.com", "boo@dest2.com", "foo to dest2");
 			MimeMessage m3 = utils.createMessage(gm, "sub3", "boo@dest1.com", "blar@blar.com", "dest1 to blar");
 			MimeMessage m4 = utils.createMessage(gm, "sub4", "boo@dest2.com", "foo@foo.com", "dest2 to foo");
-			
+
 			System.out.println("Store1");
 			fm1.store(m1);
 			System.out.println("Store2");
 			fm1.store(m3);
-			
+
 			System.out.println("Store3");
 			fm2.store(m2);
 			System.out.println("Store4");
 			fm2.store(m4);
 			System.out.println("Store done");
-			
-			
-//			System.out.println("Deliver1");
-//			user1.deliver(m1);
-//			System.out.println("Deliver2");
-//			user1.deliver(m3);
-//			System.out.println("Deliver3");
-//			user2.deliver(m2);
-//			System.out.println("Deliver4");
-//			user2.deliver(m4);
-//			System.out.println("Done");
+
+			// System.out.println("Deliver1");
+			// user1.deliver(m1);
+			// System.out.println("Deliver2");
+			// user1.deliver(m3);
+			// System.out.println("Deliver3");
+			// user2.deliver(m2);
+			// System.out.println("Deliver4");
+			// user2.deliver(m4);
+			// System.out.println("Done");
 
 			// fm1.store(m1);
 			// fm1.store(utils.createMessage();
@@ -110,6 +109,6 @@ public class Main {
 		app.get("/rmd/:domain", new ReceivedMessagesForDomainCommand(greenMail));
 		app.get("/r", new ResetCommand(greenMail));
 		app.get("/lf/:email", new ImapListMailBoxCommand(greenMail));
-		
+
 	}
 }

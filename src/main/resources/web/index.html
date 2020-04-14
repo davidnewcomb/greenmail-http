@@ -4,7 +4,10 @@
 <meta charset="utf-8">
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.js"></script>
+<script src="handlebars_dynamic_loader.js"></script>
 <script>
+
 $(document).ready(function () {
 
 const ANCH = {
@@ -72,29 +75,17 @@ function print_messageid(s) {
 
 $('#listusers').click(function () {
     $.get(URLS.LIST_USERS, function (data, status) {
-        let s = '';
-        s += '<h2>List Users</h2>';
-        s += '<table class="table">';
-        s += '<tr>';
-        s += '<th>Email</th>';
-        s += '<th>Login</th>';
-        s += '<th>Password</th>';
-        s += '<th>Qualified mailbox name</th>';
-        s += '<th>Actions</th>';
-        s += '</tr>';
-        for (let idx = 0; idx < data.length; ++idx) {
-            let d = data[idx];
-            s += '<tr>';
-            s += '<td>' + print_email(d.email) + '</td>';
-            s += '<td>' + d.login + '</td>';
-            s += '<td>' + d.password + '</td>';
-            s += '<td>' + print_mailbox(d.qualifiedMailboxName) +' </td>';
-            s += '<td>' + mk_url(ANCH.LIST_MAILBOXES, [d.email, 'List folders']) +' </td>';
-            s += '</tr>';
-        }
-        s += '</table>';
 
-        $('#answer').html(s);
+	for (let i=0 ; i < data.length ; ++i) {
+		data[i].action_delete = new Handlebars.SafeString( '<a href="">D</a>');
+		data[i].action_mailbox = new Handlebars.SafeString( mk_url(ANCH.LIST_MAILBOXES, [data[i].email, 'List folders']) );
+	}
+	
+    display_template('#answer', 'list_users', data);
+
+// s += '<td>' + print_mailbox(d.qualifiedMailboxName) +' </td>';
+// s += '<td>' + mk_url(ANCH.LIST_MAILBOXES, [d.email, 'List folders']) +' </td>';
+
     });
 });
 
