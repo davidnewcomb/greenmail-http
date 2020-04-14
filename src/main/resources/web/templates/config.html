@@ -1,0 +1,15 @@
+<h2>Server Config</h2>
+
+{{#each this}}
+<h3> {{section}} </h3>
+<table class="table">
+	{{#each properties}}
+	<tr>
+		<td> {{key}} </td>
+		<td> {{value}} </td>
+	</tr>
+	{{/each}}
+	
+</table>
+{{/each}}
+

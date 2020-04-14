@@ -13,6 +13,7 @@ import com.icegreen.greenmail.util.GreenMail;
 
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
+import uk.co.bigsoft.greenmail.http.commands.CfgCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapAllMessagesCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapGetInBoxCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapListMailBoxCommand;
@@ -109,6 +110,7 @@ public class Main {
 		app.get("/rmd/:domain", new ReceivedMessagesForDomainCommand(greenMail));
 		app.get("/r", new ResetCommand(greenMail));
 		app.get("/lf/:email", new ImapListMailBoxCommand(greenMail));
+		app.get("/cfg", new CfgCommand(greenMail));
 
 	}
 }
