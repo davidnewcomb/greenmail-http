@@ -102,14 +102,14 @@ public class Main {
 	private static void startHttpServer(GreenMail greenMail) {
 		Javalin app = Javalin.create().start(7000);
 		app.config.addStaticFiles("/web", Location.CLASSPATH);
-		app.get("/imap", new ImapAllMessagesCommand(greenMail));
 		app.get("/imap/:email/inbox", new ImapGetInBoxCommand(greenMail));
+		app.get("/imap/:email", new ImapListMailBoxCommand(greenMail));
+		app.get("/imap", new ImapAllMessagesCommand(greenMail));
 		app.get("/lu", new ListUsersCommand(greenMail));
 		app.get("/p", new PurgeEmailFromAllMailboxesCommand(greenMail));
 		app.get("/rm", new ReceivedMessagesCommand(greenMail));
 		app.get("/rmd/:domain", new ReceivedMessagesForDomainCommand(greenMail));
 		app.get("/r", new ResetCommand(greenMail));
-		app.get("/lf/:email", new ImapListMailBoxCommand(greenMail));
 		app.get("/cfg", new CfgCommand(greenMail));
 
 	}

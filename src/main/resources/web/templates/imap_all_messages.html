@@ -1,0 +1,16 @@
+<h2>Messages</h2>
+
+<table class="table">
+	{{table_header "Message Id" "From" "To" "Cc" "Bcc" "Subject" "Body"}}
+ 	{{#each this}}
+	<tr>
+		<td> {{print_messageid messageId}} </td>
+		<td> {{print_email from}} </td>
+		<td> {{print_email to}} </td>
+		<td> {{print_email cc}} </td>
+		<td> {{print_email bcc}} </td>
+		<td> {{subject}} </td>
+		<td> {{body}} </td>
+	</tr>
+	{{/each}}
+</table>

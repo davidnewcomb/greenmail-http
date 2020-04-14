@@ -1,0 +1,12 @@
+<h2>List mailboxes</h2>
+
+<table class="table">
+	{{table_header "Name" "FQN" "# Messages"}}
+ 	{{#each this}}
+	<tr>
+		<td> {{name}} </td>
+		<td> {{fullName}} </td>
+		<td> {{messageCount}} </td>
+	</tr>
+	{{/each}}
+</table>

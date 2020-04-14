@@ -7,19 +7,18 @@
 <script src="handlebars_dynamic_loader.js"></script>
 <script>
 
-$(document).ready(function () {
-
 const ANCH = {
-    EMAIL: '<a href="/email/%1">%1</a>',
-    DOMAIN: '<a href="/domain/%1">%1</a>',
-    LIST_MAILBOXES: '<a href="/lf/%1">%2</a>',
-    MAILBOX: '<a href="/mailbox/%1">%1</a>',
-    MESSAGE_BODY: '<a href="/messbody/%1">%2</a>'
-};
+	    EMAIL: '<a href="/email/%1">%1</a>',
+	    DOMAIN: '<a href="/domain/%1">%1</a>',
+//	    LIST_MAILBOXES: '<a href="/imap/%1">%2</a>',
+	    LIST_MAILBOXES: '<a href="javascript:list_mailboxes(\'%1\')">%2</a>',
+	    MAILBOX: '<a href="/mailbox/%1">%1</a>',
+	    MESSAGE_BODY: '<a href="/messbody/%1">%2</a>'
+	};
 
 const URLS = {
     ALL_IMAP: '/imap',
-    LIST_MAILBOXES: '/lf',
+    LIST_MAILBOXES: '/imap/:email',
     LIST_USERS: '/lu',
     CONFIG: '/cfg',
     PURGE: '/p',
@@ -37,31 +36,10 @@ function mk_url(template, params) {
     return s;
 }
 
-function print_emails(emails) {
-    let a = [];
-    for (let i = 0; i < emails.length; ++i) {
-        let email = emails[i];
-        a.push(print_email(email));
-    }
-    return a.join(', ');
-}
+	
+$(document).ready(function () {
 
-function print_email(s) {
-    let at = s.indexOf('@');
-    if (at == -1) {
-        let ua = mk_url(ANCH.EMAIL, [s]);
-        return ua;
-    }
-    let u = s.substring(0, at);
-    let d = s.substring(at + 1, s.length);
-
-    let ua = mk_url(ANCH.EMAIL, [u]);
-    let da = mk_url(ANCH.DOMAIN, [d]);
-
-    let html = ua + '@' + da;
-    return html;
-}
-
+/*
 function print_mailbox(s) {
     let x = mk_url(ANCH.MAILBOX, [s]);
     return x;
@@ -72,13 +50,15 @@ function print_messageid(s) {
     let x = mk_url(ANCH.MESSAGE_BODY, [part, s]);
     return x;
 }
+*/
 
 $('#listusers').click(function () {
     $.get(URLS.LIST_USERS, function (data, status) {
 
 	for (let i=0 ; i < data.length ; ++i) {
 		data[i].action_delete = new Handlebars.SafeString( '<a href="">D</a>');
-		data[i].action_mailbox = new Handlebars.SafeString( mk_url(ANCH.LIST_MAILBOXES, [data[i].email, 'List folders']) );
+		data[i].action_mailbox = new Handlebars.SafeString( mk_url(ANCH.LIST_MAILBOXES, [data[i].email, 'LF']) );
+//		data[i].action_mailbox = new Handlebars.SafeString( mk_url(ANCH.LIST_MAILBOXES, [data[i].email, 'LF']) );
 	}
 	
     display_template('#answer', 'list_users', data);
@@ -91,33 +71,7 @@ $('#listusers').click(function () {
 
 $('#imap_all_messages').click(function () {
     $.get(URLS.ALL_IMAP, function (data, status) {
-        let s = '';
-        s += '<h2>Messages</h2>';
-        s += '<table class="table">';
-        s += '<tr>';
-        s += '<th>Message Id</th>';
-        s += '<th>from</th>';
-        s += '<th>To</th>';
-        s += '<th>Cc</th>';
-        s += '<th>Bcc</th>';
-        s += '<th>Subject</th>';
-        s += '<th>Body</th>';
-        s += '</tr>';
-        for (let idx = 0; idx < data.length; ++idx) {
-            let d = data[idx];
-            s += '<tr>';
-            s += '<td>' + print_messageid(d.messageId) + '</td>';
-            s += '<td>' + print_email(d.from) + '</td>';
-            s += '<td>' + print_emails(d.to) + '</td>';
-            s += '<td>' + print_emails(d.cc) + '</td>';
-            s += '<td>' + print_emails(d.bcc) + '</td>';
-            s += '<td>' + d.subject + '</td>';
-            s += '<td>' + d.body + '</td>';
-            s += '</tr>';
-        }
-        s += '</table>';
-
-        $('#answer').html(s);
+    	display_template('#answer', 'imap_all_messages', data);
     });
 });
 
@@ -133,39 +87,36 @@ $('#reset_all').click(function () {
     });
 });
 
+/*
+function list_mailboxes(email) {
+    $.get(URLS.LIST_MAILBOXES + '/' + email, function (data, status) {
+    	display_template('#answer', 'list_mailboxes', data);
+    });
+}
+*/
+
+/*
 $('#list_mailboxes').click(function () {
     $.get(URLS.LIST_MAILBOXES + '/blar@blar.com', function (data, status) {
-        let s = '';
-        s += '<h2>List mailboxes</h2>';
-        s += '<table class="table">';
-        s += '<tr>';
-        s += '<th>Name</th>';
-        s += '<th>FQN</th>';
-        s += '<th># Messages</th>';
-        s += '</tr>';
-        for (let idx = 0; idx < data.length; ++idx) {
-            let d = data[idx];
-            s += '<tr>';
-            s += '<td>' + d.name + '</td>';
-            s += '<td>' + d.fullName + '</td>';
-            s += '<td>' + d.messageCount + '</td>';
-            s += '</tr>';
-        }
-        s += '</table>';
-
-        $('#answer').html(s);
+    	display_template('#answer', 'list_mailboxes', data);
     });
 });
+*/
 
 $('#config').click(function () {
     $.get(URLS.CONFIG, function (data, status) {
         display_template('#answer', 'config', data);
-
-        //$('#answer').html('<pre>' + JSON.stringify(data, null, 4) + '</pre>');
     });
 });
 
 });
+
+function list_mailboxes(email) {
+	let url = URLS.LIST_MAILBOXES.replace(':email', email);
+    $.get(url, function (data, status) {
+    	display_template('#answer', 'list_mailboxes', data);
+    });
+}
 
 </script>
 </head>
@@ -176,7 +127,6 @@ $('#config').click(function () {
 <button id="imap_all_messages">IMAP all messages</button>
 <button id="purge_all">Remove all email</button>
 <button id="reset_all">Remove all users and emails</button>
-<button id="list_mailboxes">List mail boxes</button>
 
 <div id="answer">
 </div>
