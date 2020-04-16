@@ -10,8 +10,8 @@
 const ANCH = {
 	    EMAIL: '<a href="/email/%1">%1</a>',
 	    DOMAIN: '<a href="/domain/%1">%1</a>',
-//	    LIST_MAILBOXES: '<a href="/imap/%1">%2</a>',
 	    LIST_MAILBOXES: '<a href="javascript:list_mailboxes(\'%1\')">%2</a>',
+	    LIST_MESSAGES: '<a href="javascript:list_messages(\'%1\')">%2</a>',
 	    MAILBOX: '<a href="/mailbox/%1">%1</a>',
 	    MESSAGE_BODY: '<a href="/messbody/%1">%2</a>'
 	};
@@ -19,6 +19,7 @@ const ANCH = {
 const URLS = {
     ALL_IMAP: '/imap',
     LIST_MAILBOXES: '/imap/:email',
+    LIST_MESSAGES: '/m/:mailbox',
     LIST_USERS: '/lu',
     CONFIG: '/cfg',
     PURGE: '/p',
@@ -69,9 +70,9 @@ $('#listusers').click(function () {
     });
 });
 
-$('#imap_all_messages').click(function () {
+$('#list_messages').click(function () {
     $.get(URLS.ALL_IMAP, function (data, status) {
-    	display_template('#answer', 'imap_all_messages', data);
+    	display_template('#answer', 'list_messages', data);
     });
 });
 
@@ -114,7 +115,26 @@ $('#config').click(function () {
 function list_mailboxes(email) {
 	let url = URLS.LIST_MAILBOXES.replace(':email', email);
     $.get(url, function (data, status) {
+    	for (let i=0 ; i < data.length ; ++i) {
+    		data[i].action_delete = new Handlebars.SafeString( '<a href="">D</a>');
+    		data[i].action_list_messages = new Handlebars.SafeString( mk_url(ANCH.LIST_MESSAGES, [data[i].fullName, 'LM']) );
+    	}
+
     	display_template('#answer', 'list_mailboxes', data);
+    });
+}
+
+function list_messages(mailbox) {
+	
+	let url = URLS.LIST_MESSAGES.replace(':mailbox', encodeURIComponent(mailbox));
+    $.get(url, function (data, status) {
+
+    	for (let i=0 ; i < data.length ; ++i) {
+    		data[i].action_delete = new Handlebars.SafeString( '<a href="">D</a>');
+    		data[i].action_view = new Handlebars.SafeString( '<a href="">V</a>');
+    	}
+
+    	display_template('#answer', 'list_messages', data);
     });
 }
 
@@ -124,7 +144,7 @@ function list_mailboxes(email) {
 
 <button id="config">Config</button>
 <button id="listusers">List users</button>
-<button id="imap_all_messages">IMAP all messages</button>
+<button id="list_messages">All messages</button>
 <button id="purge_all">Remove all email</button>
 <button id="reset_all">Remove all users and emails</button>
 

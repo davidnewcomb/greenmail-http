@@ -16,8 +16,8 @@ public class ImapAllMessagesCommand extends BaseHandler {
 
 	@Override
 	public void handle(Context ctx) throws Exception {
-		ImapHostManager man = gm.getManagers().getImapHostManager();
-		List<StoredMessage> messages = man.getAllMessages();
+		ImapHostManager im = gm.getManagers().getImapHostManager();
+		List<StoredMessage> messages = im.getAllMessages();
 		ctx.json(dto.toMessages(messages));
 	}
 

@@ -2,6 +2,7 @@ var templates = {};
 
 var CFG = {};
 CFG.HIDE_PASSOWRDS = true;
+CFG.DEBUG = true;
 /*
 const ANCH = {
 	EMAIL: '<a href="/email/%1">%1</a>',
@@ -50,6 +51,9 @@ function display_template(selector, template, data) {
 
 	var template_cached = templates[template];
 	var html = template_cached(data);
+	if (CFG.DEBUG) {
+		html = '<p>' + template + '</p>' + html;
+	}
 
 	$(selector).html(html);
 }
