@@ -1,10 +1,11 @@
 <h2>Messages</h2>
 
 <table class="table">
-	{{table_header "Actions" "Message Id" "From" "To" "Cc" "Bcc" "Subject" "Body"}}
+	{{table_header "Actions" "Mailbox/Id" "Message Id" "From" "To" "Cc" "Bcc" "Subject" "Body"}}
  	{{#each this}}
 	<tr>
 		<td> {{action_view}} | {{action_delete}} </td>
+		<td> {{mailbox}} / {{uid}} </td>
 		<td> {{print_messageid messageId}} </td>
 		<td> {{print_email from}} </td>
 		<td> {{print_email to}} </td>

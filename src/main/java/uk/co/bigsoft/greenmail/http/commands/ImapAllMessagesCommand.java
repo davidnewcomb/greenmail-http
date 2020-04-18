@@ -1,12 +1,17 @@
 package uk.co.bigsoft.greenmail.http.commands;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.icegreen.greenmail.imap.ImapHostManager;
-import com.icegreen.greenmail.store.StoredMessage;
+import com.icegreen.greenmail.store.FolderException;
+import com.icegreen.greenmail.store.MailFolder;
+import com.icegreen.greenmail.store.Store;
 import com.icegreen.greenmail.util.GreenMail;
 
 import io.javalin.http.Context;
+import uk.co.bigsoft.greenmail.http.dto.MessageDto;
 
 public class ImapAllMessagesCommand extends BaseHandler {
 
@@ -17,8 +22,21 @@ public class ImapAllMessagesCommand extends BaseHandler {
 	@Override
 	public void handle(Context ctx) throws Exception {
 		ImapHostManager im = gm.getManagers().getImapHostManager();
-		List<StoredMessage> messages = im.getAllMessages();
-		ctx.json(dto.toMessages(messages));
+		List<MessageDto> all = getAllMessages(im.getStore());
+		ctx.json(all);
+	}
+
+	private List<MessageDto> getAllMessages(Store store) {
+		List<MessageDto> ret = new ArrayList<>();
+		try {
+			Collection<MailFolder> boxes = store.listMailboxes("*");
+			for (MailFolder box : boxes) {
+				ret.addAll(dto.toMessages(box, box.getMessages()));
+			}
+		} catch (FolderException e) {
+			throw new IllegalStateException(e);
+		}
+		return ret;
 	}
 
 }

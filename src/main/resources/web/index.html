@@ -8,135 +8,126 @@
 <script>
 
 const ANCH = {
-	    EMAIL: '<a href="/email/%1">%1</a>',
-	    DOMAIN: '<a href="/domain/%1">%1</a>',
-	    LIST_MAILBOXES: '<a href="javascript:list_mailboxes(\'%1\')">%2</a>',
-	    LIST_MESSAGES: '<a href="javascript:list_messages(\'%1\')">%2</a>',
-	    MAILBOX: '<a href="/mailbox/%1">%1</a>',
-	    MESSAGE_BODY: '<a href="/messbody/%1">%2</a>'
-	};
-
-const URLS = {
-    ALL_IMAP: '/imap',
-    LIST_MAILBOXES: '/imap/:email',
-    LIST_MESSAGES: '/m/:mailbox',
-    LIST_USERS: '/lu',
-    CONFIG: '/cfg',
-    PURGE: '/p',
-    RESET: '/r'
+	EMAIL: '<a href="/email/%1">%1</a>',
+	DOMAIN: '<a href="/domain/%1">%1</a>',
+	LIST_MAILBOXES: '<a href="javascript:list_mailboxes(\'%1\')">%2</a>',
+	LIST_MESSAGES: '<a href="javascript:list_messages(\'%1\')">%2</a>',
+	MAILBOX: '<a href="/mailbox/%1">%1</a>',
+	VIEW_MESSAGE: '<a href="javascript:view_message(\'%1\',\'%2\')">%3</a>',
+	DELETE_MESSAGE: '<a href="javascript:delete_message(\'%1\',\'%2\')">%3</a>'
 };
 
+const URLS = {
+	ALL_IMAP: '/imap',
+	LIST_MAILBOXES: '/imap/:email',
+	LIST_MESSAGES: '/m/:mailbox',
+	LIST_USERS: '/lu',
+	CONFIG: '/cfg',
+	PURGE: '/p',
+	RESET: '/r',
+	VIEW_MESSAGE: '/v/:mailbox/:uid',
+	DELETE_MESSAGE: '/d/:mailbox/:uid'
+};
 
 function mk_url(template, params) {
-    let s = template;
-    
-    for (let i = 0; i < params.length; ++i) {
-    	let re = new RegExp('%' + (i + 1), 'g');
-        s = s.replace(re, params[i]);
-    }
-    return s;
+	let s = template;
+
+	for (let i = 0; i < params.length; ++i) {
+		let re = new RegExp('%' + (i + 1), 'g');
+		s = s.replace(re, params[i]);
+	}
+	return s;
 }
 
-	
 $(document).ready(function () {
 
-/*
-function print_mailbox(s) {
-    let x = mk_url(ANCH.MAILBOX, [s]);
-    return x;
-}
+	$('#listusers').click(function () {
+		$.get(URLS.LIST_USERS, function (data, status) {
 
-function print_messageid(s) {
-    let part = s.substring(1, s.length - 1);
-    let x = mk_url(ANCH.MESSAGE_BODY, [part, s]);
-    return x;
-}
-*/
+			for (let i = 0; i < data.length; ++i) {
+				data[i].action_delete = new Handlebars.SafeString('D');
+				data[i].action_mailbox = new Handlebars.SafeString(mk_url(ANCH.LIST_MAILBOXES, [data[i].email, 'LF']));
+			}
 
-$('#listusers').click(function () {
-    $.get(URLS.LIST_USERS, function (data, status) {
+			display_template('#answer', 'list_users', data);
 
-	for (let i=0 ; i < data.length ; ++i) {
-		data[i].action_delete = new Handlebars.SafeString( '<a href="">D</a>');
-		data[i].action_mailbox = new Handlebars.SafeString( mk_url(ANCH.LIST_MAILBOXES, [data[i].email, 'LF']) );
-//		data[i].action_mailbox = new Handlebars.SafeString( mk_url(ANCH.LIST_MAILBOXES, [data[i].email, 'LF']) );
-	}
-	
-    display_template('#answer', 'list_users', data);
+		});
+	});
 
-// s += '<td>' + print_mailbox(d.qualifiedMailboxName) +' </td>';
-// s += '<td>' + mk_url(ANCH.LIST_MAILBOXES, [d.email, 'List folders']) +' </td>';
+	$('#list_messages').click(function () {
+		$.get(URLS.ALL_IMAP, function (data, status) {
+			for (let i = 0; i < data.length; ++i) {
+				let mailbox = encodeURIComponent(data[i].mailbox);
+				let uid = encodeURIComponent(data[i].uid);
+				let anc_delete = mk_url(ANCH.DELETE_MESSAGE, [mailbox, uid, 'D']);
+				let anc_view = mk_url(ANCH.VIEW_MESSAGE, [mailbox, uid, 'V']);
+				data[i].action_delete = new Handlebars.SafeString(anc_delete);
+				data[i].action_view = new Handlebars.SafeString(anc_view);
+			}
 
-    });
-});
+			display_template('#answer', 'list_messages', data);
+		});
+	});
 
-$('#list_messages').click(function () {
-    $.get(URLS.ALL_IMAP, function (data, status) {
-    	display_template('#answer', 'list_messages', data);
-    });
-});
+	$('#purge_all').click(function () {
+		$.get(URLS.PURGE, function (data, status) {
+			$('#answer').html('Purged');
+		});
+	});
 
-$('#purge_all').click(function () {
-    $.get(URLS.PURGE, function (data, status) {
-        $('#answer').html('Purged');
-    });
-});
+	$('#reset_all').click(function () {
+		$.get(URLS.RESET, function (data, status) {
+			$('#answer').html('Reset');
+		});
+	});
 
-$('#reset_all').click(function () {
-    $.get(URLS.RESET, function (data, status) {
-        $('#answer').html('Reset');
-    });
-});
-
-/*
-function list_mailboxes(email) {
-    $.get(URLS.LIST_MAILBOXES + '/' + email, function (data, status) {
-    	display_template('#answer', 'list_mailboxes', data);
-    });
-}
-*/
-
-/*
-$('#list_mailboxes').click(function () {
-    $.get(URLS.LIST_MAILBOXES + '/blar@blar.com', function (data, status) {
-    	display_template('#answer', 'list_mailboxes', data);
-    });
-});
-*/
-
-$('#config').click(function () {
-    $.get(URLS.CONFIG, function (data, status) {
-        display_template('#answer', 'config', data);
-    });
-});
+	$('#config').click(function () {
+		$.get(URLS.CONFIG, function (data, status) {
+			display_template('#answer', 'config', data);
+		});
+	});
 
 });
 
 function list_mailboxes(email) {
 	let url = URLS.LIST_MAILBOXES.replace(':email', email);
-    $.get(url, function (data, status) {
-    	for (let i=0 ; i < data.length ; ++i) {
-    		data[i].action_delete = new Handlebars.SafeString( '<a href="">D</a>');
-    		data[i].action_list_messages = new Handlebars.SafeString( mk_url(ANCH.LIST_MESSAGES, [data[i].fullName, 'LM']) );
-    	}
+	$.get(url, function (data, status) {
+		for (let i = 0; i < data.length; ++i) {
+			data[i].action_delete = new Handlebars.SafeString('D');
+			data[i].action_list_messages = new Handlebars.SafeString(mk_url(ANCH.LIST_MESSAGES, [data[i].fullName, 'LM']));
+		}
 
-    	display_template('#answer', 'list_mailboxes', data);
-    });
+		display_template('#answer', 'list_mailboxes', data);
+	});
 }
 
 function list_messages(mailbox) {
-	
+
 	let url = URLS.LIST_MESSAGES.replace(':mailbox', encodeURIComponent(mailbox));
-    $.get(url, function (data, status) {
+	$.get(url, function (data, status) {
 
-    	for (let i=0 ; i < data.length ; ++i) {
-    		data[i].action_delete = new Handlebars.SafeString( '<a href="">D</a>');
-    		data[i].action_view = new Handlebars.SafeString( '<a href="">V</a>');
-    	}
+		for (let i = 0; i < data.length; ++i) {
+			let mailbox = data[i].mailbox;
+			let uid = data[i].uid;
+			let anc_delete = mk_url(ANCH.DELETE_MESSAGE, [mailbox, uid, 'D']);
+			let anc_view = mk_url(ANCH.VIEW_MESSAGE, [mailbox, uid, 'V']);
 
-    	display_template('#answer', 'list_messages', data);
-    });
+			data[i].action_delete = new Handlebars.SafeString(anc_delete);
+			data[i].action_view = new Handlebars.SafeString(anc_view);
+		}
+
+		display_template('#answer', 'list_messages', data);
+	});
 }
+
+function view_message(mailbox, uid) {
+	let encMailbox = mailbox = encodeURIComponent(mailbox);
+	let url = URLS.VIEW_MESSAGE.replace(':mailbox', encMailbox).replace(':uid', uid);
+	$.get(url, function (data, status) {
+		display_template('#answer', 'view_message', data);
+	});
+}
+
 
 </script>
 </head>

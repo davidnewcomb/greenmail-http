@@ -14,8 +14,8 @@ public class SendEmail {
 
 	public static void main(String[] args) {
 
-		String to = "test_to@dom1.example.com";
-		String from = "test_from@dom2.example.com";
+		String to = "blar@blar.com";
+		String from = "boo@dest1.com";
 		String host = "127.0.0.1";
 		
 		// Recipient's email ID needs to be mentioned.

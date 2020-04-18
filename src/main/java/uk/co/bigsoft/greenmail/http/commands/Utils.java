@@ -39,4 +39,10 @@ public class Utils {
 		}
 		return mm;
 	}
+
+	public long getUid(Context ctx) {
+		String sUid = ctx.pathParam("uid");
+		Long uid = new Long(sUid);
+		return uid.longValue();
+	}
 }

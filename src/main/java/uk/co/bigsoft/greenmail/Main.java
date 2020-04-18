@@ -14,6 +14,7 @@ import com.icegreen.greenmail.util.GreenMail;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 import uk.co.bigsoft.greenmail.http.commands.CfgCommand;
+import uk.co.bigsoft.greenmail.http.commands.DeleteMessageCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapAllMessagesCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapGetInBoxCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapListMailBoxCommand;
@@ -24,6 +25,7 @@ import uk.co.bigsoft.greenmail.http.commands.ReceivedMessagesCommand;
 import uk.co.bigsoft.greenmail.http.commands.ReceivedMessagesForDomainCommand;
 import uk.co.bigsoft.greenmail.http.commands.ResetCommand;
 import uk.co.bigsoft.greenmail.http.commands.Utils;
+import uk.co.bigsoft.greenmail.http.commands.ViewMessageCommand;
 
 public class Main {
 
@@ -75,7 +77,7 @@ public class Main {
 			System.out.println("Store1");
 			fm1.store(m1);
 			System.out.println("Store2");
-			fm2.store(m3);
+			fm1.store(m3);
 
 			System.out.println("Store3");
 			fm3.store(m2);
@@ -116,6 +118,7 @@ public class Main {
 		app.get("/r", new ResetCommand(greenMail));
 		app.get("/cfg", new CfgCommand(greenMail));
 		app.get("/m/:mailbox", new MailboxMessagesCommand(greenMail));
-
+		app.get("/d/:mailbox/:uid", new DeleteMessageCommand(greenMail));
+		app.get("/v/:mailbox/:uid", new ViewMessageCommand(greenMail));
 	}
 }

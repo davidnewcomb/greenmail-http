@@ -18,7 +18,7 @@ public class ImapGetInBoxCommand extends BaseHandler {
 		GreenMailUser u = utils.getUser(ctx, gm.getManagers().getUserManager());
 		ImapHostManager man = gm.getManagers().getImapHostManager();
 		MailFolder mf = man.getInbox(u);
-		ctx.json(dto.toMessages(mf.getMessages()));
+		ctx.json(dto.toMessages(mf, mf.getMessages()));
 	}
 
 }

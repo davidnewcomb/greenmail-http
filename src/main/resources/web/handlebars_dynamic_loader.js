@@ -3,23 +3,8 @@ var templates = {};
 var CFG = {};
 CFG.HIDE_PASSOWRDS = true;
 CFG.DEBUG = true;
-/*
-const ANCH = {
-	EMAIL: '<a href="/email/%1">%1</a>',
-	DOMAIN: '<a href="/domain/%1">%1</a>',
-	LIST_MAILBOXES: '<a href="/lf/%1">%2</a>',
-	MAILBOX: '<a href="/mailbox/%1">%1</a>',
-	MESSAGE_BODY: '<a href="/messbody/%1">%2</a>'
-};
 
-const URLS = {
-	ALL_IMAP: '/imap',
-	LIST_MAILBOXES: '/lf',
-	LIST_USERS: '/lu',
-	PURGE: '/p',
-	RESET: '/r'
-};
-*/
+
 function mk_url(template, params) {
 	let s = template;
 
@@ -41,10 +26,10 @@ function display_template(selector, template, data) {
 		console.log("generating..");
 		let url = "/templates/" + template + ".html";
 		$.get(url, function (get_data, get_status) {
-			//console.log(get_data);
-			//console.log(get_status);
 			templates[template] = Handlebars.compile(get_data);
 			display_template(selector, template, data);
+		}).fail(function(resp, state, mesg) {
+			alert('Temaplate '+ template + ' ' + state + ' ' + mesg);
 		});
 		return;
 	}
@@ -104,12 +89,10 @@ Handlebars.registerHelper("print_password", function (pwd) {
 });
 
 Handlebars.registerHelper("print_mailbox", function (s) {
-    let x = mk_url(ANCH.MAILBOX, [s]);
-    return x;
+	let x = mk_url(ANCH.MAILBOX, [s]);
+	return x;
 });
 
 Handlebars.registerHelper("print_messageid", function (id) {
-    let part = id.substring(1, id.length - 1);
-    let x = new Handlebars.SafeString(mk_url(ANCH.MESSAGE_BODY, [part, id]));
-    return x;
+	return id;
 });

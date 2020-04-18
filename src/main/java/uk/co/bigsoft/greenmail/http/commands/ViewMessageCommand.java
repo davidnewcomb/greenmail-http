@@ -1,27 +1,25 @@
 package uk.co.bigsoft.greenmail.http.commands;
 
-import java.util.Collection;
-
 import com.icegreen.greenmail.store.MailFolder;
 import com.icegreen.greenmail.store.StoredMessage;
 import com.icegreen.greenmail.util.GreenMail;
 
 import io.javalin.http.Context;
-import uk.co.bigsoft.greenmail.http.dto.Dto;
+import uk.co.bigsoft.greenmail.http.dto.FullMessageDto;
 
-public class MailboxMessagesCommand extends BaseHandler {
+public class ViewMessageCommand extends BaseHandler {
 
-	private Dto dto = new Dto();
-
-	public MailboxMessagesCommand(GreenMail greenMail) {
+	public ViewMessageCommand(GreenMail greenMail) {
 		super(greenMail);
 	}
 
 	@Override
 	public void handle(Context ctx) throws Exception {
 		MailFolder mailbox = utils.getMailbox(ctx, gm.getManagers().getImapHostManager());
-		Collection<StoredMessage> messages = mailbox.getMessages();
-		ctx.json(dto.toMessages(mailbox, messages));
+		long uid = utils.getUid(ctx);
+		StoredMessage sm = mailbox.getMessage(uid);
+		FullMessageDto mesg = dto.toFullMessage(sm);
+		ctx.json(mesg);
 	}
 
 }

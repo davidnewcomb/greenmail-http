@@ -10,20 +10,34 @@ import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import com.icegreen.greenmail.store.StoredMessage;
+
 public class MessageDto {
 	private static final List<String> EMPTY_LIST = new ArrayList<>();
-	private MimeMessage m;
+	private MimeMessage mm;
+	private StoredMessage sm;
+	private String mailbox;
 
-	public MessageDto(MimeMessage mimeMessage) {
-		m = mimeMessage;
+	public MessageDto(String mailboxFqn, StoredMessage storedMessage) {
+		sm = storedMessage;
+		mm = storedMessage.getMimeMessage();
+		mailbox = mailboxFqn;
+	}
+
+	public long getUid() throws MessagingException {
+		 return sm.getUid();
+	}
+
+	public String getMailbox() throws MessagingException {
+		 return mailbox;
 	}
 
 	public String getMessageId() throws MessagingException {
-		return m.getMessageID();
+		return mm.getMessageID();
 	}
 
 	public String getFolder() throws MessagingException {
-		Folder f = m.getFolder();
+		Folder f = mm.getFolder();
 		if (f == null) {
 			return "";
 		}
@@ -31,26 +45,26 @@ public class MessageDto {
 	}
 
 	public String getSubject() throws MessagingException {
-		return m.getSubject();
+		return mm.getSubject();
 	}
 
 	public String getBody() throws MessagingException, IOException {
-		Object o = m.getContent();
+		Object o = mm.getContent();
 		return o.toString();
 	}
 
 	public String getFrom() throws MessagingException {
-		Address[] from = m.getFrom();
+		Address[] from = mm.getFrom();
 		return from[0].toString();
 	}
 
 	public List<String> getTo() throws MessagingException {
-		Address[] addrs = m.getRecipients(RecipientType.TO);
+		Address[] addrs = mm.getRecipients(RecipientType.TO);
 		return addressesArrayOfStrings(addrs);
 	}
 
 	public List<String> getCc() throws MessagingException {
-		Address[] addrs = m.getRecipients(RecipientType.CC);
+		Address[] addrs = mm.getRecipients(RecipientType.CC);
 		if (addrs == null) {
 			return EMPTY_LIST;
 		}
@@ -58,7 +72,7 @@ public class MessageDto {
 	}
 
 	public List<String> getBcc() throws MessagingException {
-		Address[] addrs = m.getRecipients(RecipientType.BCC);
+		Address[] addrs = mm.getRecipients(RecipientType.BCC);
 		if (addrs == null) {
 			return EMPTY_LIST;
 		}
