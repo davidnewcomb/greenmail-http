@@ -57,9 +57,9 @@ $(document).ready(function () {
 	$('#list_messages').click(function () {
 		$.get(URLS.ALL_IMAP, function (data, status) {
 			for (let i = 0; i < data.length; ++i) {
-				let mailbox = encodeURIComponent(data[i].mailbox);
-				let uid = encodeURIComponent(data[i].uid);
-				let anc_delete = mk_url(ANCH.DELETE_MESSAGE, [mailbox, uid, 'D']);
+				let mailbox = data[i].mailbox;
+				let uid = data[i].uid;
+ 				let anc_delete = mk_url(ANCH.DELETE_MESSAGE, [mailbox, uid, 'D']);
 				let anc_view = mk_url(ANCH.VIEW_MESSAGE, [mailbox, uid, 'V']);
 				data[i].action_delete = new Handlebars.SafeString(anc_delete);
 				data[i].action_view = new Handlebars.SafeString(anc_view);
@@ -127,6 +127,15 @@ function view_message(mailbox, uid) {
 		display_template('#answer', 'view_message', data);
 	});
 }
+
+function delete_message(mailbox, uid) {
+	let encMailbox = encodeURIComponent(mailbox);
+	let url = URLS.DELETE_MESSAGE.replace(':mailbox', encMailbox).replace(':uid', uid);
+	$.get(url, function (data, status) {
+		list_messages(mailbox);
+	});
+}
+
 
 
 </script>
