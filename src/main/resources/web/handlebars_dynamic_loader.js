@@ -20,10 +20,9 @@ function mk_url(template, params) {
 // https://code-maven.com/handlebars-with-dynamically-loaded-template
 
 function display_template(selector, template, data) {
-	console.log('display selector=' + selector + ' template=' + template + ' data=' + data);
 
 	if (templates[template] === undefined) {
-		console.log("generating..");
+		console.log('display selector=' + selector + ' template=' + template + ' data=' + data + ' *');
 		let url = "/templates/" + template + ".html";
 		$.get(url, function (get_data, get_status) {
 			templates[template] = Handlebars.compile(get_data);
@@ -34,6 +33,7 @@ function display_template(selector, template, data) {
 		return;
 	}
 
+	console.log('display selector=' + selector + ' template=' + template + ' data=' + data);
 	var template_cached = templates[template];
 	var html = template_cached(data);
 	if (CFG.DEBUG) {

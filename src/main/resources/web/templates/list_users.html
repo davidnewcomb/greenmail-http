@@ -2,13 +2,13 @@
 
 <table class="table">
 	{{table_header "Actions" "Email" "Login" "Password" "Mailbox"}}
- 	{{#each this}}
+	{{#each this}}
 	<tr>
-		<td> {{action_mailbox}}  | {{action_delete}}</td>
-		<td> {{print_email email}} </td>
-		<td> {{login}} </td>
-		<td> {{print_password password}} </td>
-		<td> {{qualifiedMailboxName}} </td>
+		<td>{{action_mailbox}} | {{action_delete}}</td>
+		<td>{{print_email email}}</td>
+		<td>{{login}}</td>
+		<td>{{print_password password}}</td>
+		<td>{{qualifiedMailboxName}}</td>
 	</tr>
 	{{/each}}
 </table>

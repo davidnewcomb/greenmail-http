@@ -2,11 +2,34 @@
 
 <table class="table">
 	<tr>
-		<th> Subject </th>
-		<td> {{subject}} </td>
+		<th>Header</th>
+		<td>
+			<table>
+				<tr>
+					<th>Key</th>
+					<th>Value</th>
+				</tr>
+				{{#each headers}}
+				<tr>
+					<td>{{@key}}</td>
+					<td>{{this}}</td>
+				</tr>
+				{{/each}}
+			</table>
+		</td>
+	</tr>
+
+	<tr>
+		<th>Flags</th>
+		<td>{{#each flags}} {{this}} {{/each}}</td>
+	</tr>
+
+	<tr>
+		<th>Subject</th>
+		<td>{{subject}}</td>
 	</tr>
 	<tr>
-		<th> Body </th>
-		<td> {{body}} </td>
+		<th>Body</th>
+		<td>{{body}}</td>
 	</tr>
 </table>

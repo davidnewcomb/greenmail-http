@@ -1,42 +1,61 @@
 package uk.co.bigsoft.greenmail.http.dto;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.mail.Flags;
 
 import com.icegreen.greenmail.store.MailFolder;
 
 public class MailFolderDto {
-	private MailFolder folder;
+	private static FlagConverter flagConverter = new FlagConverter();
+	private int firstUnseen;
+	private String fullName;
+	private String name;
+	private int messageCount;
+	private long[] messageUids;
+	private List<String> userFlags;
+	private List<String> sysFlags;
 
 	public MailFolderDto(MailFolder mailFolder) {
-		folder = mailFolder;
+		firstUnseen = mailFolder.getFirstUnseen();
+		fullName = mailFolder.getFullName();
+		name = mailFolder.getName();
+		messageCount = mailFolder.getMessageCount();
+		messageUids = mailFolder.getMessageUids();
+
+		Flags flags = mailFolder.getPermanentFlags();
+		sysFlags = flagConverter.toString(flags.getSystemFlags());
+		userFlags = Arrays.asList(flags.getUserFlags());
+
 	}
 
 	public int getFirstUnseen() {
-		return folder.getFirstUnseen();
+		return firstUnseen;
 	}
 
 	public String getFullName() {
-		return folder.getFullName();
+		return fullName;
 	}
 
 	public String getName() {
-		return folder.getName();
+		return name;
 	}
 
 	public int getMessageCount() {
-		return folder.getMessageCount();
+		return messageCount;
 	}
 
 	public long[] getMessageUids() {
-		return folder.getMessageUids();
+		return messageUids;
 	}
 
-	public String[] getPermanentFlags() {
-		Flags flags = folder.getPermanentFlags();
-		//Flag[] sysFlags = flags.getSystemFlags();
-
-		String[] userFlags = flags.getUserFlags();
+	public List<String> getPermanentFlagsUser() {
 		return userFlags;
+	}
+
+	public List<String> getPermanentFlagsSystem() {
+		return sysFlags;
 	}
 
 }

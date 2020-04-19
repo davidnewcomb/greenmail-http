@@ -1,8 +1,11 @@
 package uk.co.bigsoft.greenmail.http.commands;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import javax.mail.MessagingException;
 
 import com.icegreen.greenmail.imap.ImapHostManager;
 import com.icegreen.greenmail.store.FolderException;
@@ -26,7 +29,7 @@ public class ImapAllMessagesCommand extends BaseHandler {
 		ctx.json(all);
 	}
 
-	private List<MessageDto> getAllMessages(Store store) {
+	private List<MessageDto> getAllMessages(Store store) throws MessagingException, IOException {
 		List<MessageDto> ret = new ArrayList<>();
 		try {
 			Collection<MailFolder> boxes = store.listMailboxes("*");

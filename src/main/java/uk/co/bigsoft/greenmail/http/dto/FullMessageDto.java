@@ -1,51 +1,42 @@
 package uk.co.bigsoft.greenmail.http.dto;
 
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
-public class FullMessageDto {
-	private String[] to;
-	private String[] from;
-	private String[] cc;
-	private String[] bcc;
+import javax.mail.Header;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
+import com.icegreen.greenmail.store.MailFolder;
+import com.icegreen.greenmail.store.StoredMessage;
+
+public class FullMessageDto extends MessageDto {
+	private static FlagConverter flagConverter = new FlagConverter();
 	private Map<String, String> headers;
-	private String subject;
-	private String body;
-	private String[] flags;
+	private List<String> flags;
 
-	public FullMessageDto() {
+	public FullMessageDto(MailFolder mailbox, StoredMessage sm) throws MessagingException, IOException {
+		super(mailbox, sm);
+		MimeMessage mm = sm.getMimeMessage();
+		headers = toMap(mm.getAllHeaders());
+		flags = flagConverter.toString(sm.getFlags());
+
+		// String s= mm.getContentID();
+		// String[] ss=mm.getContentLanguage();
+		// Folder ff = mm.getFolder();
+		// int i = mm.getMessageNumber();
+		// Date dd = mm.getReceivedDate();
+		// List<String> x = toStrings(mm.getReplyTo());
 		//
-	}
+		// MailMessageAttributes mma = sm.getAttributes();
+		// String s1 = mma.getBodyStructure(true);
+		// String s2 = mma.getBodyStructure(false);
+		// String ee = mma.getEnvelope();
+		// int sz = mma.getSize();
 
-	public String[] getTo() {
-		return to;
-	}
-
-	public void setTo(String[] to) {
-		this.to = to;
-	}
-
-	public String[] getFrom() {
-		return from;
-	}
-
-	public void setFrom(String[] from) {
-		this.from = from;
-	}
-
-	public String[] getCc() {
-		return cc;
-	}
-
-	public void setCc(String[] cc) {
-		this.cc = cc;
-	}
-
-	public String[] getBcc() {
-		return bcc;
-	}
-
-	public void setBcc(String[] bcc) {
-		this.bcc = bcc;
 	}
 
 	public Map<String, String> getHeaders() {
@@ -56,27 +47,22 @@ public class FullMessageDto {
 		this.headers = headers;
 	}
 
-	public String getSubject() {
-		return subject;
-	}
-
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-
-	public String getBody() {
-		return body;
-	}
-
-	public void setBody(String body) {
-		this.body = body;
-	}
-
-	public String[] getFlags() {
+	public List<String> getFlags() {
 		return flags;
 	}
 
-	public void setFlags(String[] flags) {
+	public void setFlags(List<String> flags) {
 		this.flags = flags;
 	}
+
+	private Map<String, String> toMap(Enumeration<?> headers) {
+		TreeMap<String, String> map = new TreeMap<>();
+		while (headers.hasMoreElements()) {
+			Header h = (Header) headers.nextElement();
+			map.put(h.getName(), h.getValue());
+		}
+
+		return map;
+	}
+
 }

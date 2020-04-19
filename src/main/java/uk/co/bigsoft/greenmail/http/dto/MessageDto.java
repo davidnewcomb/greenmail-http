@@ -5,85 +5,88 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.mail.Address;
-import javax.mail.Folder;
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import com.icegreen.greenmail.store.MailFolder;
 import com.icegreen.greenmail.store.StoredMessage;
 
 public class MessageDto {
-	private static final List<String> EMPTY_LIST = new ArrayList<>();
-	private MimeMessage mm;
-	private StoredMessage sm;
-	private String mailbox;
+	private String mailboxFqn;
+	private long uid;
+	private String messageId;
+	private String subject;
+	private String body;
+	private List<String> to;
+	private List<String> from;
+	private List<String> cc;
+	private List<String> bcc;
 
-	public MessageDto(String mailboxFqn, StoredMessage storedMessage) {
-		sm = storedMessage;
-		mm = storedMessage.getMimeMessage();
-		mailbox = mailboxFqn;
+	public MessageDto(MailFolder mailbox, StoredMessage storedMessage) throws MessagingException, IOException {
+		MimeMessage mm = storedMessage.getMimeMessage();
+
+		uid = storedMessage.getUid();
+		mailboxFqn = mailbox.getFullName();
+		messageId = mm.getMessageID();
+		subject = mm.getSubject();
+		body = mm.getContent().toString();
+
+		Address[] a;
+		a = mm.getRecipients(RecipientType.TO);
+		to = toStrings(a);
+		a = mm.getRecipients(RecipientType.CC);
+		cc = toStrings(a);
+		a = mm.getRecipients(RecipientType.BCC);
+		bcc = toStrings(a);
+		a = mm.getFrom();
+		from = toStrings(a);
 	}
 
 	public long getUid() throws MessagingException {
-		 return sm.getUid();
+		return uid;
 	}
 
 	public String getMailbox() throws MessagingException {
-		 return mailbox;
+		return mailboxFqn;
 	}
 
 	public String getMessageId() throws MessagingException {
-		return mm.getMessageID();
-	}
-
-	public String getFolder() throws MessagingException {
-		Folder f = mm.getFolder();
-		if (f == null) {
-			return "";
-		}
-		return f.getName();
+		return messageId;
 	}
 
 	public String getSubject() throws MessagingException {
-		return mm.getSubject();
+		return subject;
 	}
 
 	public String getBody() throws MessagingException, IOException {
-		Object o = mm.getContent();
-		return o.toString();
+		return body;
 	}
 
-	public String getFrom() throws MessagingException {
-		Address[] from = mm.getFrom();
-		return from[0].toString();
+	public List<String> getFrom() throws MessagingException {
+		return from;
 	}
 
 	public List<String> getTo() throws MessagingException {
-		Address[] addrs = mm.getRecipients(RecipientType.TO);
-		return addressesArrayOfStrings(addrs);
+		return to;
 	}
 
 	public List<String> getCc() throws MessagingException {
-		Address[] addrs = mm.getRecipients(RecipientType.CC);
-		if (addrs == null) {
-			return EMPTY_LIST;
-		}
-		return addressesArrayOfStrings(addrs);
+		return cc;
 	}
 
 	public List<String> getBcc() throws MessagingException {
-		Address[] addrs = mm.getRecipients(RecipientType.BCC);
-		if (addrs == null) {
-			return EMPTY_LIST;
-		}
-		return addressesArrayOfStrings(addrs);
+		return bcc;
 	}
 
-	private List<String> addressesArrayOfStrings(Address[] addresses) {
-		ArrayList<String> list = new ArrayList<>();
-		for (Address a : addresses) {
-			list.add(a.toString());
+	private List<String> toStrings(Address[] addresses) {
+		ArrayList<String> out = new ArrayList<>();
+		if (addresses != null) {
+			for (Address a : addresses) {
+				out.add(a.toString());
+			}
 		}
-		return list;
+		return out;
 	}
+
 }

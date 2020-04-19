@@ -18,7 +18,7 @@ public class ViewMessageCommand extends BaseHandler {
 		MailFolder mailbox = utils.getMailbox(ctx, gm.getManagers().getImapHostManager());
 		long uid = utils.getUid(ctx);
 		StoredMessage sm = mailbox.getMessage(uid);
-		FullMessageDto mesg = dto.toFullMessage(sm);
+		FullMessageDto mesg = new FullMessageDto(mailbox, sm);
 		ctx.json(mesg);
 	}
 
