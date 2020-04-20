@@ -50,7 +50,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<versions.slf4j>1.7.29</versions.slf4j>
-		<versions.greenmail>1.5.12</versions.greenmail>
+		<versions.greenmail>1.5.13</versions.greenmail>
+		<versions.greenmail.core>1.5.13</versions.greenmail.core>
 
 	</properties>
 
@@ -59,7 +60,7 @@
 		<dependency>
 			<groupId>com.icegreen</groupId>
 			<artifactId>greenmail</artifactId>
-			<version>${versions.greenmail}</version>
+			<version>${versions.greenmail.core}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>

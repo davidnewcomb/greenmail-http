@@ -44,6 +44,9 @@ function display_template(selector, template, data) {
 }
 
 function print_email(email) {
+	return email;
+	
+	// Coming soon!
 	let at = email.indexOf('@');
 	if (at == -1) {
 		return email;

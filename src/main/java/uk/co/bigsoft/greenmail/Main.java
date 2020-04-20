@@ -31,6 +31,8 @@ import uk.co.bigsoft.greenmail.http.commands.ViewMessageCommand;
 
 public class Main {
 
+	private static Cfg cfg = new Cfg();
+	
 	public static void main(String[] args) {
 		final Properties properties = System.getProperties();
 
@@ -42,6 +44,10 @@ public class Main {
 	}
 
 	private static void populate(GreenMail gm) {
+		if (!cfg.useTestData()) {
+			return;
+		}
+		
 		try {
 
 			Utils utils = new Utils();
@@ -51,56 +57,28 @@ public class Main {
 			GreenMailUser user1 = um.createUser("blar@blar.com", "blar", "b123");
 			GreenMailUser user2 = um.createUser("foo@foo.com", "foo", "f123");
 
-			// user1.create();
-			// user2.create();
-
-			// im.createPrivateMailAccount(user1);
-			// im.createPrivateMailAccount(user2);
-			//
-			// // POP
-			// um.addUser(user1);
-			// um.addUser(user2);
-
-			// gm.getPop3().getState().
-
-			// IMAP
-
-			MailFolder fm1 = im.getInbox(user1);
-			MailFolder fm2 = im.getInbox(user2);
+			MailFolder user1Inbox = im.getInbox(user1);
+			MailFolder user2Inbox = im.getInbox(user2);
+			MailFolder user1Other = im.createMailbox(user1, "otherfolder1");
+			MailFolder user2Other = im.createMailbox(user2, "otherfolder2");
 
 			MimeMessage m1 = utils.createMessage(gm, "sub1", "blar@blar.com", "boo@dest1.com", "blar to dest1");
 			MimeMessage m2 = utils.createMessage(gm, "sub2", "foo@foo.com", "boo@dest2.com", "foo to dest2");
 			MimeMessage m3 = utils.createMessage(gm, "sub3", "boo@dest1.com", "blar@blar.com", "dest1 to blar");
 			MimeMessage m4 = utils.createMessage(gm, "sub4", "boo@dest2.com", "foo@foo.com", "dest2 to foo");
 
-			MailFolder fm3 = im.createMailbox(user1, "myfolder1");
-			MailFolder fm4 = im.createMailbox(user2, "myfolder2");
 
 			System.out.println("Store1");
-			fm1.store(m1);
+			user1Inbox.store(m1);
 			System.out.println("Store2");
-			fm1.store(m3);
+			user1Inbox.store(m3);
 
 			System.out.println("Store3");
-			fm3.store(m2);
+			user1Other.store(m2);
 			System.out.println("Store4");
-			fm4.store(m4);
+			user2Other.store(m4);
 			System.out.println("Store done");
 
-			// System.out.println("Deliver1");
-			// user1.deliver(m1);
-			// System.out.println("Deliver2");
-			// user1.deliver(m3);
-			// System.out.println("Deliver3");
-			// user2.deliver(m2);
-			// System.out.println("Deliver4");
-			// user2.deliver(m4);
-			// System.out.println("Done");
-
-			// fm1.store(m1);
-			// fm1.store(utils.createMessage();
-
-			// fm1.cr
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
