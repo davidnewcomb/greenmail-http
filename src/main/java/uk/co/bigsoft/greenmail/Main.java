@@ -16,6 +16,7 @@ import io.javalin.http.staticfiles.Location;
 import uk.co.bigsoft.greenmail.http.commands.CfgCommand;
 import uk.co.bigsoft.greenmail.http.commands.DeleteMailboxCommand;
 import uk.co.bigsoft.greenmail.http.commands.DeleteMessageCommand;
+import uk.co.bigsoft.greenmail.http.commands.DeleteUserCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapAllMessagesCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapGetInBoxCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapListMailBoxCommand;
@@ -50,8 +51,8 @@ public class Main {
 			GreenMailUser user1 = um.createUser("blar@blar.com", "blar", "b123");
 			GreenMailUser user2 = um.createUser("foo@foo.com", "foo", "f123");
 
-			user1.create();
-			user2.create();
+			// user1.create();
+			// user2.create();
 
 			// im.createPrivateMailAccount(user1);
 			// im.createPrivateMailAccount(user2);
@@ -122,5 +123,6 @@ public class Main {
 		app.get("/m/:mailbox/delete", new DeleteMailboxCommand(greenMail));
 		app.get("/d/:mailbox/:uid", new DeleteMessageCommand(greenMail));
 		app.get("/v/:mailbox/:uid", new ViewMessageCommand(greenMail));
+		app.get("/u/:email/delete", new DeleteUserCommand(greenMail));
 	}
 }

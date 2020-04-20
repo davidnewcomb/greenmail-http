@@ -15,7 +15,8 @@ const ANCH = {
 	MAILBOX: '<a href="/mailbox/%1">%1</a>',
 	VIEW_MESSAGE: '<a href="javascript:view_message(\'%1\',\'%2\')">%3</a>',
 	DELETE_MESSAGE: '<a href="javascript:delete_message(\'%1\',\'%2\')">%3</a>',
-	DELETE_MAILBOX: '<a href="javascript:delete_mailbox(\'%1\',\'%2\')">%3</a>'
+	DELETE_MAILBOX: '<a href="javascript:delete_mailbox(\'%1\',\'%2\')">%3</a>',
+	DELETE_USER: '<a href="javascript:delete_user(\'%1\')">%2</a>'
 };
 
 const URLS = {
@@ -29,6 +30,7 @@ const URLS = {
 	VIEW_MESSAGE: '/v/:mailbox/:uid',
 	DELETE_MESSAGE: '/d/:mailbox/:uid',
 	DELETE_MAILBOX: '/m/:mailbox/delete',
+	DELETE_USER: '/u/:email/delete'
 };
 
 function mk_url(template, params) {
@@ -99,7 +101,7 @@ function list_users() {
 	$.get(URLS.LIST_USERS, function (data, status) {
 	
 		for (let i = 0; i < data.length; ++i) {
-			data[i].action_delete = new Handlebars.SafeString('D');
+			data[i].action_delete = new Handlebars.SafeString(mk_url(ANCH.DELETE_USER, [data[i].email, 'D']));
 			data[i].action_mailbox = new Handlebars.SafeString(mk_url(ANCH.LIST_MAILBOXES, [data[i].email, 'LF']));
 		}
 	
@@ -148,6 +150,14 @@ function delete_mailbox(mailbox, email) {
 	let url = URLS.DELETE_MAILBOX.replace(':mailbox', encMailbox);
 	$.get(url, function (data, status) {
 		list_mailboxes(email);
+	});
+}
+
+function delete_user(email) {
+	let encEmail = encodeURIComponent(email);
+	let url = URLS.DELETE_USER.replace(':email', encEmail);
+	$.get(url, function (data, status) {
+		list_users();
 	});
 }
 
