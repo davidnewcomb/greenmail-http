@@ -14,6 +14,7 @@ import com.icegreen.greenmail.util.GreenMail;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 import uk.co.bigsoft.greenmail.http.commands.CfgCommand;
+import uk.co.bigsoft.greenmail.http.commands.DeleteMailboxCommand;
 import uk.co.bigsoft.greenmail.http.commands.DeleteMessageCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapAllMessagesCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapGetInBoxCommand;
@@ -70,7 +71,7 @@ public class Main {
 			MimeMessage m2 = utils.createMessage(gm, "sub2", "foo@foo.com", "boo@dest2.com", "foo to dest2");
 			MimeMessage m3 = utils.createMessage(gm, "sub3", "boo@dest1.com", "blar@blar.com", "dest1 to blar");
 			MimeMessage m4 = utils.createMessage(gm, "sub4", "boo@dest2.com", "foo@foo.com", "dest2 to foo");
-			
+
 			MailFolder fm3 = im.createMailbox(user1, "myfolder1");
 			MailFolder fm4 = im.createMailbox(user2, "myfolder2");
 
@@ -118,6 +119,7 @@ public class Main {
 		app.get("/r", new ResetCommand(greenMail));
 		app.get("/cfg", new CfgCommand(greenMail));
 		app.get("/m/:mailbox", new MailboxMessagesCommand(greenMail));
+		app.get("/m/:mailbox/delete", new DeleteMailboxCommand(greenMail));
 		app.get("/d/:mailbox/:uid", new DeleteMessageCommand(greenMail));
 		app.get("/v/:mailbox/:uid", new ViewMessageCommand(greenMail));
 	}

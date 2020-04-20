@@ -14,7 +14,8 @@ const ANCH = {
 	LIST_MESSAGES: '<a href="javascript:list_messages(\'%1\')">%2</a>',
 	MAILBOX: '<a href="/mailbox/%1">%1</a>',
 	VIEW_MESSAGE: '<a href="javascript:view_message(\'%1\',\'%2\')">%3</a>',
-	DELETE_MESSAGE: '<a href="javascript:delete_message(\'%1\',\'%2\')">%3</a>'
+	DELETE_MESSAGE: '<a href="javascript:delete_message(\'%1\',\'%2\')">%3</a>',
+	DELETE_MAILBOX: '<a href="javascript:delete_mailbox(\'%1\',\'%2\')">%3</a>'
 };
 
 const URLS = {
@@ -26,7 +27,8 @@ const URLS = {
 	PURGE: '/p',
 	RESET: '/r',
 	VIEW_MESSAGE: '/v/:mailbox/:uid',
-	DELETE_MESSAGE: '/d/:mailbox/:uid'
+	DELETE_MESSAGE: '/d/:mailbox/:uid',
+	DELETE_MAILBOX: '/m/:mailbox/delete',
 };
 
 function mk_url(template, params) {
@@ -42,16 +44,7 @@ function mk_url(template, params) {
 $(document).ready(function () {
 
 	$('#listusers').click(function () {
-		$.get(URLS.LIST_USERS, function (data, status) {
-
-			for (let i = 0; i < data.length; ++i) {
-				data[i].action_delete = new Handlebars.SafeString('D');
-				data[i].action_mailbox = new Handlebars.SafeString(mk_url(ANCH.LIST_MAILBOXES, [data[i].email, 'LF']));
-			}
-
-			display_template('#answer', 'list_users', data);
-
-		});
+		list_users();
 	});
 
 	$('#list_messages').click(function () {
@@ -93,11 +86,25 @@ function list_mailboxes(email) {
 	let url = URLS.LIST_MAILBOXES.replace(':email', email);
 	$.get(url, function (data, status) {
 		for (let i = 0; i < data.length; ++i) {
-			data[i].action_delete = new Handlebars.SafeString('D');
+			data[i].action_delete = new Handlebars.SafeString(mk_url(ANCH.DELETE_MAILBOX, [data[i].fullName, email, 'DM']));
 			data[i].action_list_messages = new Handlebars.SafeString(mk_url(ANCH.LIST_MESSAGES, [data[i].fullName, 'LM']));
 		}
 
 		display_template('#answer', 'list_mailboxes', data);
+	});
+}
+
+function list_users() {
+	
+	$.get(URLS.LIST_USERS, function (data, status) {
+	
+		for (let i = 0; i < data.length; ++i) {
+			data[i].action_delete = new Handlebars.SafeString('D');
+			data[i].action_mailbox = new Handlebars.SafeString(mk_url(ANCH.LIST_MAILBOXES, [data[i].email, 'LF']));
+		}
+	
+		display_template('#answer', 'list_users', data);
+	
 	});
 }
 
@@ -133,6 +140,14 @@ function delete_message(mailbox, uid) {
 	let url = URLS.DELETE_MESSAGE.replace(':mailbox', encMailbox).replace(':uid', uid);
 	$.get(url, function (data, status) {
 		list_messages(mailbox);
+	});
+}
+
+function delete_mailbox(mailbox, email) {
+	let encMailbox = encodeURIComponent(mailbox);
+	let url = URLS.DELETE_MAILBOX.replace(':mailbox', encMailbox);
+	$.get(url, function (data, status) {
+		list_mailboxes(email);
 	});
 }
 
