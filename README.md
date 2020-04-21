@@ -1,4 +1,4 @@
-# Greenmail HTTP
+# GreenMail HTTP
 
 Encapsulates GreenMail Standalone, adds a web server to deliver JSON and web pages showing the internals of GreenMail.
 
@@ -12,7 +12,7 @@ mvn clean install
 
 
 ## Run
-Run using same command line options as Greenmail Standalone ( https://greenmail-mail-test.github.io/greenmail/#deployment ).
+Run using same command line options as GreenMail Standalone ( https://greenmail-mail-test.github.io/greenmail/#deployment ).
 
 ```
 java -Dgreenmail.setup.test.smtp -Dgreenmail.setup.test.imap -Dgreenmail.setup.test.http -Dgreenmail.verbose -jar target/greenail-http.jar
