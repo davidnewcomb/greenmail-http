@@ -16,9 +16,9 @@ import uk.co.bigsoft.greenmail.http.dto.KeyOrderComparator;
 import uk.co.bigsoft.greenmail.http.dto.KeyValue;
 import uk.co.bigsoft.greenmail.http.dto.ServerConfigDto;
 
-public class CfgCommand extends BaseHandler {
+public class CfgGreenMailCommand extends BaseHandler {
 
-	public CfgCommand(GreenMail greenMail) {
+	public CfgGreenMailCommand(GreenMail greenMail) {
 		super(greenMail);
 	}
 

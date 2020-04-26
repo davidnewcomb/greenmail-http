@@ -13,7 +13,8 @@ import com.icegreen.greenmail.util.GreenMail;
 
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
-import uk.co.bigsoft.greenmail.http.commands.CfgCommand;
+import uk.co.bigsoft.greenmail.http.commands.CfgClientCommand;
+import uk.co.bigsoft.greenmail.http.commands.CfgGreenMailCommand;
 import uk.co.bigsoft.greenmail.http.commands.DeleteMailboxCommand;
 import uk.co.bigsoft.greenmail.http.commands.DeleteMessageCommand;
 import uk.co.bigsoft.greenmail.http.commands.DeleteUserCommand;
@@ -96,7 +97,8 @@ public class Main {
 		app.get("/rm", new ReceivedMessagesCommand(greenMail));
 		app.get("/rmd/:domain", new ReceivedMessagesForDomainCommand(greenMail));
 		app.get("/r", new ResetCommand(greenMail));
-		app.get("/cfg", new CfgCommand(greenMail));
+		app.get("/cfg/greenmail", new CfgGreenMailCommand(greenMail));
+		app.get("/cfg/client", new CfgClientCommand(greenMail));
 		app.get("/m/:mailbox", new MailboxMessagesCommand(greenMail));
 		app.get("/m/:mailbox/delete", new DeleteMailboxCommand(greenMail));
 		app.get("/d/:mailbox/:uid", new DeleteMessageCommand(greenMail));

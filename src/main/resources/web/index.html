@@ -24,7 +24,8 @@ const URLS = {
 	LIST_MAILBOXES: '/imap/:email',
 	LIST_MESSAGES: '/m/:mailbox',
 	LIST_USERS: '/lu',
-	CONFIG: '/cfg',
+	CONFIG_SERVER: '/cfg/greenmail',
+	CONFIG_CLIENT: '/cfg/client',
 	PURGE: '/p',
 	RESET: '/r',
 	VIEW_MESSAGE: '/v/:mailbox/:uid',
@@ -32,6 +33,12 @@ const URLS = {
 	DELETE_MAILBOX: '/m/:mailbox/delete',
 	DELETE_USER: '/u/:email/delete'
 };
+
+var CFG = {};
+$.get(URLS.CONFIG_CLIENT, function (data, status) {
+	CFG = data;
+	console.log('Config - ', data);
+});
 
 function mk_url(template, params) {
 	let s = template;
@@ -54,7 +61,7 @@ $(document).ready(function () {
 			for (let i = 0; i < data.length; ++i) {
 				let mailbox = data[i].mailbox;
 				let uid = data[i].uid;
- 				let anc_delete = mk_url(ANCH.DELETE_MESSAGE, [mailbox, uid, 'D']);
+				let anc_delete = mk_url(ANCH.DELETE_MESSAGE, [mailbox, uid, 'D']);
 				let anc_view = mk_url(ANCH.VIEW_MESSAGE, [mailbox, uid, 'V']);
 				data[i].action_delete = new Handlebars.SafeString(anc_delete);
 				data[i].action_view = new Handlebars.SafeString(anc_view);
@@ -77,7 +84,7 @@ $(document).ready(function () {
 	});
 
 	$('#config').click(function () {
-		$.get(URLS.CONFIG, function (data, status) {
+		$.get(URLS.CONFIG_SERVER, function (data, status) {
 			display_template('#answer', 'config', data);
 		});
 	});

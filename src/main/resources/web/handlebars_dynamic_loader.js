@@ -1,10 +1,5 @@
 var templates = {};
 
-var CFG = {};
-CFG.HIDE_PASSOWRDS = true;
-CFG.DEBUG = true;
-
-
 function mk_url(template, params) {
 	let s = template;
 
@@ -36,7 +31,7 @@ function display_template(selector, template, data) {
 	console.log('display selector=' + selector + ' template=' + template + ' data=' + data);
 	var template_cached = templates[template];
 	var html = template_cached(data);
-	if (CFG.DEBUG) {
+	if (CFG.debug) {
 		html = '<p>' + template + '</p>' + html;
 	}
 
@@ -85,7 +80,7 @@ Handlebars.registerHelper("print_email", function (email) {
 });
 
 Handlebars.registerHelper("print_password", function (pwd) {
-	if (CFG.HIDE_PASSOWRDS) {
+	if (CFG.hidePassword) {
 		return "*".repeat(pwd.length);
 	}
 	return pwd;
