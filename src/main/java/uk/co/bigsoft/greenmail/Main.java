@@ -29,6 +29,7 @@ import uk.co.bigsoft.greenmail.http.commands.ReceivedMessagesForDomainCommand;
 import uk.co.bigsoft.greenmail.http.commands.ResetCommand;
 import uk.co.bigsoft.greenmail.http.commands.Utils;
 import uk.co.bigsoft.greenmail.http.commands.ViewMessageCommand;
+import uk.co.bigsoft.greenmail.javalin.AccessControlAllowOriginHandler;
 
 public class Main {
 
@@ -104,5 +105,10 @@ public class Main {
 		app.get("/d/:mailbox/:uid", new DeleteMessageCommand(greenMail));
 		app.get("/v/:mailbox/:uid", new ViewMessageCommand(greenMail));
 		app.get("/u/:email/delete", new DeleteUserCommand(greenMail));
+		
+		if (cfg.useAccessControlAnywhere()) {
+			System.out.println("Allow REST connections from anywhere");
+			app.after("/*", new AccessControlAllowOriginHandler("*"));
+		}
 	}
 }

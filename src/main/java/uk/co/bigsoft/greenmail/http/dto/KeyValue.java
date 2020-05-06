@@ -1,20 +1,26 @@
 package uk.co.bigsoft.greenmail.http.dto;
 
 public class KeyValue {
-	private String key;
+	private String name;
 	private String value;
 
-	public KeyValue(String k, String v) {
-		key = k;
+	public KeyValue(String n, String v) {
+		name = n;
 		value = v;
-	}
-
-	public String getKey() {
-		return key;
 	}
 
 	public String getValue() {
 		return value;
+	}
+
+	// Needed for frontend v1
+	@Deprecated
+	public String getKey() {
+		return name;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 }

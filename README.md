@@ -25,13 +25,18 @@ If you would like to start with some test mailboxes then you can launch with the
 java -Duk.co.bigsoft.greenmail.add_test_data [opts] -jar target/greenail-http.jar
 ```
 
+Adds `Access-Control-Allow-Origin: *` to responses. I use it when testing the frontend externally.
+```
+java -Duk.co.bigsoft.greenmail.ac_anywhere [opts] -jar target/greenail-http.jar
+```
+
+
 ## Access
-Goto http://localhost:7000/
+1. Stable frontend - http://localhost:7000/
+1. Under development - http://localhost:7000/v2/
 
-## Project plan
-1. Prototype - make it work - done
-1. Make it better: breadcrumbs, more links, prettier.
+## Versions
 
-This is round one. So if you are interviewing me then don't judge this code yet! It's so dirty, but it works!
+### 1.0.0
+Initial release - Prototype
 
-If you want a particular feature first then raise a feature request.

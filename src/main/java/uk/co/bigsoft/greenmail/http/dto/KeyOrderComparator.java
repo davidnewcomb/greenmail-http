@@ -6,7 +6,7 @@ public class KeyOrderComparator implements Comparator<KeyValue> {
 
 	@Override
 	public int compare(KeyValue a, KeyValue b) {
-		return a.getKey().compareTo(b.getKey());
+		return a.getName().compareTo(b.getName());
 	}
 	
 }
