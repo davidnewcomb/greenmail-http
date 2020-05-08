@@ -8,6 +8,8 @@ import ServerConfigPage from './p/ServerConfigPage'
 import UsersPage from './p/UsersPage'
 import WelcomePage from './p/WelcomePage'
 import MessagesPage from './p/MessagesPage'
+import SystemPurgeMailsPage from './p/SystemPurgeMailsPage'
+import SystemPurgeUsersPage from './p/SystemPurgeUsersPage'
 
 import {
   BrowserRouter as Router,
@@ -21,10 +23,14 @@ function App() {
 	  <Router>
 	  <Container>
 	  	<HgmNav/>
+
 		<Route path="/" exact component={WelcomePage} />
 		<Route path="/c/g" exact component={ServerConfigPage} />
 		<Route path="/u/all" exact component={UsersPage} />
 		<Route path="/m/all" exact component={MessagesPage} />
+		<Route path="/sys/delete_mails" exact component={SystemPurgeMailsPage} />
+		<Route path="/sys/delete_users" exact component={SystemPurgeUsersPage} />
+
 	  </Container>
 	  </Router>
   )

@@ -39,5 +39,13 @@ export let ListUsersUrl = () => {
 	return base + mappings.LIST_USERS
 }
 
+export let PurgeUsersUrl = () => {
+	return base + mappings.RESET
+}
+
+export let PurgeMailsUrl = () => {
+	return base + mappings.PURGE
+}
+
 
 //export default public

@@ -44,9 +44,9 @@ class HgmNav extends Component {
         </Nav.Link>
       </Nav.Item>
       <NavDropdown title="Reset" id="nav-dropdown">
-        <NavDropdown.Item eventKey="4.1" title="Remove all emails">Emails</NavDropdown.Item>
+        <NavDropdown.Item eventKey="4.1" as={NavLink} to="/sys/delete_mails" title="Remove all emails">Emails</NavDropdown.Item>
         <NavDropdown.Divider />
-        <NavDropdown.Item eventKey="4.2"title="Remove all users and emails">Users</NavDropdown.Item>
+        <NavDropdown.Item eventKey="4.2" as={NavLink} to="/sys/delete_users" title="Remove all users and emails">Users</NavDropdown.Item>
       </NavDropdown>
     </Nav>
 		)
