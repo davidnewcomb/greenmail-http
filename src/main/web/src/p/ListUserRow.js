@@ -2,10 +2,10 @@ import React, {
 	Component
 } from 'react'
 import {
-  BrowserRouter as Router,
-  Link,
-  NavLink,
-  Route
+	BrowserRouter as Router,
+	Link,
+	NavLink,
+	Route
 } from "react-router-dom";
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
@@ -13,7 +13,7 @@ import Table from 'react-bootstrap/Table'
 import Container from 'react-bootstrap/Container'
 import {DeleteUserUrl} from '../c/HgmUrl'
 
-class UsersRow extends Component {
+class ListUserRow extends Component {
 
 	constructor(props) {
 		super(props)
@@ -33,12 +33,7 @@ class UsersRow extends Component {
 				<td>
 					<NavLink to={l} title="List folders">LF</NavLink>
 					&nbsp;|&nbsp;
-					{/*<NavLink to={d} title="Delete user">DU</NavLink>*/}
 					<Link to='#' onClick={() => this.deleteUser(email)} title="Delete user">DU</Link>
-					{/*}<button onClick={() => {
-						console.log('**** Clicked: ' + email)
-						this.deleteUser(email)
-						}}>DU</button>*/}
 				</td>
 				<td style={this.state.deleteStyle}>{email}</td>
 				<td>{login}</td>
@@ -67,4 +62,4 @@ class UsersRow extends Component {
 	}
 }
 
-export default UsersRow
+export default ListUserRow

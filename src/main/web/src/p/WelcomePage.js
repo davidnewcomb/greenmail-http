@@ -6,8 +6,6 @@ import Alert from 'react-bootstrap/Alert'
 import Table from 'react-bootstrap/Table'
 import Container from 'react-bootstrap/Container'
 
-import {ListUsersUrl} from '../c/HgmUrl'
-import UsersRow from './UsersRow'
 
 function WelcomePage() {
 

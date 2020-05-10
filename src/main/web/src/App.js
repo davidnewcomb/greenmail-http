@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container'
 import HgmNav from './c/HgmNav'
 import MainBody from './c/MainBody'
 import ServerConfigPage from './p/ServerConfigPage'
-import UsersPage from './p/UsersPage'
+import ListUserPage from './p/ListUserPage'
 import WelcomePage from './p/WelcomePage'
 import MessagesPage from './p/MessagesPage'
 import SystemPurgeMailsPage from './p/SystemPurgeMailsPage'
@@ -27,7 +27,7 @@ function App() {
 			<Switch>
 			<Route path="/" exact component={WelcomePage} />
 			<Route path="/c/g" exact component={ServerConfigPage} />
-			<Route path="/u/all" exact component={UsersPage} />
+			<Route path="/u/all" exact component={ListUserPage} />
 			<Route path="/m/all" exact component={MessagesPage} />
 			<Route path="/sys/delete_mails" exact component={SystemPurgeMailsPage} />
 			<Route path="/sys/delete_users" exact component={SystemPurgeUsersPage} />

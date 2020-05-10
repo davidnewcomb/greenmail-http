@@ -19,7 +19,6 @@ let mappings = {
 }
 
 export let ServerConfig = () => {
-	console.log('sssss')
 	return base + mappings.CONFIG_SERVER
 }
 
@@ -31,7 +30,7 @@ export let ListMailboxes = (email) => {
 	return base + mappings.LIST_MAILBOXES.replace(':email', email)
 }
 
-export let DeleteMailbox = (mailbox) => {
+export let DeleteMailboxUrl = (mailbox) => {
 	return base + mappings.DELETE_MAILBOX.replace(':mailbox', mailbox)
 }
 

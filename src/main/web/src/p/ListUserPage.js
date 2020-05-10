@@ -7,9 +7,9 @@ import Table from 'react-bootstrap/Table'
 import Container from 'react-bootstrap/Container'
 
 import {ListUsersUrl} from '../c/HgmUrl'
-import UsersRow from './UsersRow'
+import ListUserRow from './ListUserRow'
 
-class UsersPage extends Component {
+class ListUserPage extends Component {
 
 	constructor(props) {
 		super(props)
@@ -65,7 +65,7 @@ class UsersPage extends Component {
 				<th>Mailbox</th>
 			</tr>
 			{
-				this.state.data.map(user => <UsersRow key={user.id} user={user} reload={this.reload} />)
+				this.state.data.map(user => <ListUserRow key={user.id} user={user} reload={this.reload} />)
 			}
 			</tbody>
 		</Table>
@@ -74,4 +74,4 @@ class UsersPage extends Component {
 	}
 }
 
-export default UsersPage
+export default ListUserPage
