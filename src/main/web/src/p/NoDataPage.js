@@ -43,6 +43,10 @@ class NoDataPage extends Component {
 			let eMessage = this.state.data.toString() + " " +this.state.url
 			return <Alert variant="danger" dismissible>{eMessage}</Alert>
 		}
+		return this.getBody()
+	}
+
+	getBody() {
 		return (
 			<div>
 			<h1>Result</h1>

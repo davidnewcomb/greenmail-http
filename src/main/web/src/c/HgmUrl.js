@@ -31,6 +31,10 @@ export let ListMailboxes = (email) => {
 	return base + mappings.LIST_MAILBOXES.replace(':email', email)
 }
 
+export let DeleteMailbox = (mailbox) => {
+	return base + mappings.DELETE_MAILBOX.replace(':mailbox', mailbox)
+}
+
 export let ListMessagesUrl = (mailbox) => {
 	return base + mappings.LIST_MESSAGES.replace(':mailbox', mailbox)
 }
@@ -47,5 +51,8 @@ export let PurgeMailsUrl = () => {
 	return base + mappings.PURGE
 }
 
+export let DeleteUserUrl = (email) => {
+	return base + mappings.DELETE_USER.replace(':email', email)
+}
 
 //export default public

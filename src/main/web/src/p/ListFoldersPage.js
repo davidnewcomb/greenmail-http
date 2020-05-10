@@ -1,15 +1,23 @@
 import React, {
 	Component
 } from 'react'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams
+} from "react-router-dom";
+
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Table from 'react-bootstrap/Table'
 import Container from 'react-bootstrap/Container'
 
-import {ListUsersUrl} from '../c/HgmUrl'
-import UsersRow from './UsersRow'
+import {ListMailboxes} from '../c/HgmUrl'
+import ListFoldersRow from './ListFoldersRow'
 
-class UsersPage extends Component {
+class ListFoldersPage extends Component {
 
 	constructor(props) {
 		super(props)
@@ -17,11 +25,13 @@ class UsersPage extends Component {
 			data: [],
 			error: false
 		}
-		this.reload = this.reload.bind(this)
 	}
 
-	reload() {
-		let url = ListUsersUrl()
+	componentDidMount() {
+		console.log("***** componentDidMount")
+		let {email} = this.props.match.params
+
+		let url = ListMailboxes(email)
 		axios.get(url)
 			.then(res => {
 				console.log(res)
@@ -37,11 +47,7 @@ class UsersPage extends Component {
 					url: url,
 					error: true
 				})
-			});
-	}
-
-	componentDidMount() {
-		this.reload()
+			})
 	}
 
 	render() {
@@ -51,21 +57,24 @@ class UsersPage extends Component {
 			return <Alert variant="danger" dismissible>{eMessage}</Alert>
 		}
 
+		let email = ''
+		//let o = useParams()
+		console.log("*****")
+		console.log(this.props)
 		return (
 		<Container>
-		<h2>List Users</h2>
+		<h2>Mailboxes: {email}</h2>
 
 		<Table class="table">
 			<tbody>
 			<tr>
 				<th>Actions</th>
-				<th>Email</th>
-				<th>Login</th>
-				<th>Password</th>
-				<th>Mailbox</th>
+				<th>Name</th>
+				<th>FQN</th>
+				<th># Messages</th>
 			</tr>
 			{
-				this.state.data.map(user => <UsersRow key={user.id} user={user} reload={this.reload} />)
+				this.state.data.map(folder => <ListFoldersRow key={folder.id} email={email} folder={folder}/>)
 			}
 			</tbody>
 		</Table>
@@ -74,4 +83,4 @@ class UsersPage extends Component {
 	}
 }
 
-export default UsersPage
+export default ListFoldersPage
