@@ -79,7 +79,7 @@ class ListFolderPage extends Component {
 				<th># Messages</th>
 			</tr>
 			{
-				this.state.data.map(folder => <ListFolderRow key={folder.id} email={email} folder={folder}/>)
+				this.state.data.map(folder => <ListFolderRow key={folder.id} email={email} folder={folder} reload={this.reload}/>)
 			}
 			</tbody>
 		</Table>
