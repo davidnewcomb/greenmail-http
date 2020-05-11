@@ -20,7 +20,7 @@ public class Utils {
 	}
 
 	public MailFolder getMailbox(Context ctx, ImapHostManager im) {
-		String mailbox = ctx.pathParam("mailbox");
+		String mailbox = ctx.pathParam("mailbox").replace("%23", "#");
 		MailFolder m = im.getStore().getMailbox(mailbox);
 		return m;
 	}

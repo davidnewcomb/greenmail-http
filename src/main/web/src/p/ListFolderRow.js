@@ -14,7 +14,7 @@ import Table from 'react-bootstrap/Table'
 import Container from 'react-bootstrap/Container'
 import {DeleteMailboxUrl} from '../c/HgmUrl'
 
-class ListFoldersRow extends Component {
+class ListFolderRow extends Component {
 
 	constructor(props) {
 		super(props)
@@ -23,14 +23,13 @@ class ListFoldersRow extends Component {
 	render() {
 
 		let {email, folder} = this.props
-		let l = "/imap/" + email
-		let d = "/imap/" + email
+		let l = "/folder/" + encodeURIComponent(folder.fullName)
 		return (
 			<tr>
 				<td>
 					<NavLink to={l} title="List messages">LM</NavLink>
 					&nbsp;|&nbsp;
-					<Link to='#' onClick={() => this.deleteMailbox(email)} title="Delete folder">DF</Link>
+					<Link to='#' onClick={() => this.deleteMailbox(folder.fullName)} title="Delete folder">DF</Link>
 				</td>
 				<td>{folder.fullName}</td>
 				<td>{folder.name}</td>
@@ -39,10 +38,10 @@ class ListFoldersRow extends Component {
 		)
 	}
 
-	deleteMailbox(email) {
-		console.log("***** deleteUser: " + email)
+	deleteMailbox(mailbox) {
+		console.log("***** deleteMailbox: " + mailbox)
 		this.setState({deleteStyle: {color:'red'}})
-		let url = DeleteMailboxUrl(email)
+		let url = DeleteMailboxUrl(mailbox)
 		axios.get(url)
 			.then(res => {
 				this.props.reload()
@@ -56,4 +55,4 @@ class ListFoldersRow extends Component {
 	}
 }
 
-export default ListFoldersRow
+export default ListFolderRow

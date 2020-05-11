@@ -31,11 +31,13 @@ export let ListMailboxes = (email) => {
 }
 
 export let DeleteMailboxUrl = (mailbox) => {
-	return base + mappings.DELETE_MAILBOX.replace(':mailbox', mailbox)
+	let encMailbox = encodeURIComponent(mailbox)
+	return base + mappings.DELETE_MAILBOX.replace(':mailbox', encMailbox)
 }
 
-export let ListMessagesUrl = (mailbox) => {
-	return base + mappings.LIST_MESSAGES.replace(':mailbox', mailbox)
+export let ListFolderMessagesUrl = (mailbox) => {
+	let encMailbox = encodeURIComponent(mailbox)
+	return base + mappings.LIST_MESSAGES.replace(':mailbox', encMailbox)
 }
 
 export let ListUsersUrl = () => {
@@ -52,6 +54,11 @@ export let PurgeMailsUrl = () => {
 
 export let DeleteUserUrl = (email) => {
 	return base + mappings.DELETE_USER.replace(':email', email)
+}
+
+export let DeleteMessageUrl = (mailbox, uid) => {
+	let encMailbox = encodeURIComponent(mailbox)
+	return base + mappings.DELETE_MESSAGE.replace(':mailbox', encMailbox).replace(':uid', uid)
 }
 
 //export default public

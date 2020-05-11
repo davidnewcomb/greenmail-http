@@ -15,9 +15,9 @@ import Table from 'react-bootstrap/Table'
 import Container from 'react-bootstrap/Container'
 
 import {ListMailboxes} from '../c/HgmUrl'
-import ListFoldersRow from './ListFoldersRow'
+import ListFolderRow from './ListFolderRow'
 
-class ListFoldersPage extends Component {
+class ListFolderPage extends Component {
 
 	constructor(props) {
 		super(props)
@@ -25,9 +25,10 @@ class ListFoldersPage extends Component {
 			data: [],
 			error: false
 		}
+		this.reload = this.reload.bind(this)
 	}
 
-	componentDidMount() {
+	reload () {
 		console.log("***** componentDidMount")
 		let {email} = this.props.match.params
 
@@ -50,6 +51,10 @@ class ListFoldersPage extends Component {
 			})
 	}
 
+	componentDidMount() {
+		this.reload()
+	}
+
 	render() {
 
 		if (this.state.error) {
@@ -69,12 +74,12 @@ class ListFoldersPage extends Component {
 			<tbody>
 			<tr>
 				<th>Actions</th>
-				<th>Name</th>
 				<th>FQN</th>
+				<th>Name</th>
 				<th># Messages</th>
 			</tr>
 			{
-				this.state.data.map(folder => <ListFoldersRow key={folder.id} email={email} folder={folder}/>)
+				this.state.data.map(folder => <ListFolderRow key={folder.id} email={email} folder={folder}/>)
 			}
 			</tbody>
 		</Table>
@@ -83,4 +88,4 @@ class ListFoldersPage extends Component {
 	}
 }
 
-export default ListFoldersPage
+export default ListFolderPage

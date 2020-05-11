@@ -6,13 +6,15 @@ import Alert from 'react-bootstrap/Alert'
 import Table from 'react-bootstrap/Table'
 import Container from 'react-bootstrap/Container'
 
-import {AllImapUrl} from '../c/HgmUrl'
-import MessagesRow from './MessagesRow'
+import {ListFolderMessagesUrl} from '../c/HgmUrl'
+import MessagesTable from './MessagesTable'
 
-class MesssagsPage extends Component {
+class ListFolderMesssagePage extends Component {
 
 	constructor(props) {
 		super(props)
+		let {mailbox} = this.props.match.params
+		this.url = ListFolderMessagesUrl(mailbox)
 		this.state = {
 			data: [],
 			error: false
@@ -20,8 +22,7 @@ class MesssagsPage extends Component {
 	}
 
 	componentDidMount() {
-		let url = AllImapUrl()
-		axios.get(url)
+		axios.get(this.url)
 			.then(res => {
 				console.log(res)
 				for(let i = 0 ; i < res.data.length ; ++i) {
@@ -33,7 +34,6 @@ class MesssagsPage extends Component {
 			}, (error) => {
 				this.setState({
 					data: error,
-					url: url,
 					error: true
 				})
 			})
@@ -42,35 +42,17 @@ class MesssagsPage extends Component {
 	render() {
 
 		if (this.state.error) {
-			let eMessage = this.state.data.toString() + " " +this.state.url
+			let eMessage = this.state.data.toString() + " " + this.state.url
 			return <Alert variant="danger" dismissible>{eMessage}</Alert>
 		}
 
 		return (
-		<Container>
-		<h2>List Messages</h2>
-
-		<Table class="table">
-			<tbody>
-			<tr>
-				<th>Actions</th>
-				<th>Mailbox/Id</th>
-				<th>Message Id</th>
-				<th>From</th>
-				<th>To</th>
-				<th>Cc</th>
-				<th>Bcc</th>
-				<th>Subject</th>
-				<th>Body</th>
-			</tr>
-			{
-				this.state.data.map(message => <MessagesRow key={message.id} message={message}/>)
-			}
-			</tbody>
-		</Table>
-		</Container>
+			<Container>
+			<h2>List Messages</h2>
+			<MessagesTable messages={this.state.data} />
+			</Container>
 		)
 	}
 }
 
-export default MesssagsPage
+export default ListFolderMesssagePage

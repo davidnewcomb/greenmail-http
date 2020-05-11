@@ -1,26 +1,19 @@
 import React, {
 	Component
 } from 'react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams
-} from "react-router-dom";
-
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Table from 'react-bootstrap/Table'
 import Container from 'react-bootstrap/Container'
 
-import {DeleteMailbox} from '../c/HgmUrl'
-import ListFoldersRow from './ListFoldersRow'
+import {AllImapUrl} from '../c/HgmUrl'
+import MessagesTable from './MessagesTable'
 
-class DeleteFolderPage extends Component {
+class ListAllMesssagePage extends Component {
 
 	constructor(props) {
 		super(props)
+		this.url = AllImapUrl()
 		this.state = {
 			data: [],
 			error: false
@@ -28,11 +21,7 @@ class DeleteFolderPage extends Component {
 	}
 
 	componentDidMount() {
-		console.log("***** componentDidMount")
-		let {email} = this.props.match.params
-
-		let url = DeleteMailbox(email)
-		axios.get(url)
+		axios.get(this.url)
 			.then(res => {
 				console.log(res)
 				for(let i = 0 ; i < res.data.length ; ++i) {
@@ -44,15 +33,25 @@ class DeleteFolderPage extends Component {
 			}, (error) => {
 				this.setState({
 					data: error,
-					url: url,
 					error: true
 				})
 			})
 	}
 
 	render() {
-		return <ListFoldersPage email={this.props.match.params} />
+
+		if (this.state.error) {
+			let eMessage = this.state.data.toString() + " " + this.state.url
+			return <Alert variant="danger" dismissible>{eMessage}</Alert>
+		}
+
+		return (
+			<Container>
+			<h2>List All Messages</h2>
+			<MessagesTable messages={this.state.data} />
+			</Container>
+		)
 	}
 }
 
-export default DeleteFolderPage
+export default ListAllMesssagePage
