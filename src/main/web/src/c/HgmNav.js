@@ -2,10 +2,7 @@ import React, {Component} from 'react'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import {
-  BrowserRouter as Router,
-  Link,
-  NavLink,
-  Route
+	NavLink
 } from "react-router-dom";
 
 class HgmNav extends Component {
@@ -18,7 +15,6 @@ class HgmNav extends Component {
 	}
 
 	handleSelect = (eventKey, nav) => {
-		console.log(`handleSelect:${this.state.activeKey}`)
 		this.setState({
 			activeKey: eventKey
 		})

@@ -2,16 +2,12 @@ import React, {
 	Component
 } from 'react'
 import {
-  BrowserRouter as Router,
   Link,
   NavLink,
   Route
 } from "react-router-dom";
 
 import axios from 'axios'
-import Alert from 'react-bootstrap/Alert'
-import Table from 'react-bootstrap/Table'
-import Container from 'react-bootstrap/Container'
 import {DeleteMailboxUrl} from '../c/HgmUrl'
 
 class ListFolderRow extends Component {
@@ -39,7 +35,6 @@ class ListFolderRow extends Component {
 	}
 
 	deleteMailbox(mailbox) {
-		console.log("***** deleteMailbox: " + mailbox)
 		this.setState({deleteStyle: {color:'red'}})
 		let url = DeleteMailboxUrl(mailbox)
 		axios.get(url)

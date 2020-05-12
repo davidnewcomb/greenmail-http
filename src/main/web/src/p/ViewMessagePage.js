@@ -30,16 +30,12 @@ class ViewMessagePage extends Component {
 		let {mailbox, uid} = this.props.match.params
 
 		let url = ViewMessageUrl(mailbox, uid)
-		console.log(url)
 		axios.get(url)
 			.then(res => {
-				console.log('------OK-------')
-				console.log(res)
 				this.setState({
 					data: res.data
 				})
 			}, (error) => {
-				console.log('------BAD-------')
 				this.setState({
 					data: error,
 					error: true
@@ -55,9 +51,7 @@ class ViewMessagePage extends Component {
 		}
 
 		const {headers, flags, from, to, cc, bcc, subject, body} = this.state.data
-		const headerEntries = Object.entries(headers)
-		console.log(to)
-
+		
 		return (
 		<Container>
 		<h2>View message</h2>

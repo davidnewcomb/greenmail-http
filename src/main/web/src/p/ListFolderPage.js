@@ -2,11 +2,7 @@ import React, {
 	Component
 } from 'react'
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useParams
+	useParams
 } from "react-router-dom";
 
 import axios from 'axios'
@@ -23,16 +19,16 @@ class ListFolderPage extends Component {
 		super(props)
 		this.state = {
 			data: [],
-			error: false
+			error: false,
+			email: this.props.match.params.email
 		}
 		this.reload = this.reload.bind(this)
 	}
 
 	reload () {
-		console.log("***** componentDidMount")
-		let {email} = this.props.match.params
-
+		let email = this.state.email
 		let url = ListMailboxes(email)
+
 		axios.get(url)
 			.then(res => {
 				console.log(res)
@@ -62,13 +58,9 @@ class ListFolderPage extends Component {
 			return <Alert variant="danger" dismissible>{eMessage}</Alert>
 		}
 
-		let email = ''
-		//let o = useParams()
-		console.log("*****")
-		console.log(this.props)
 		return (
 		<Container>
-		<h2>Mailboxes: {email}</h2>
+		<h2>Mailboxes: {this.state.email}</h2>
 
 		<Table className="table">
 			<tbody>
@@ -79,7 +71,7 @@ class ListFolderPage extends Component {
 				<th># Messages</th>
 			</tr>
 			{
-				this.state.data.map(folder => <ListFolderRow key={folder.id} email={email} folder={folder} reload={this.reload}/>)
+				this.state.data.map(folder => <ListFolderRow key={folder.id} email={this.state.email} folder={folder} reload={this.reload}/>)
 			}
 			</tbody>
 		</Table>

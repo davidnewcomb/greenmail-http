@@ -1,10 +1,6 @@
-import React, {
-	Component
-} from 'react'
+import React from 'react'
 import axios from 'axios'
-import Alert from 'react-bootstrap/Alert'
 import Table from 'react-bootstrap/Table'
-import Container from 'react-bootstrap/Container'
 import MessagesTableRow from './MessagesTableRow'
 
 function MessagesTable(props) {

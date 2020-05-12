@@ -2,9 +2,7 @@ import React, {
 	Component
 } from 'react'
 import {ServerConfig} from '../c/HgmUrl'
-import axios from 'axios'
 import Table from 'react-bootstrap/Table'
-import Container from 'react-bootstrap/Container'
 
 class ServerConfigRow extends Component {
 
@@ -23,6 +21,7 @@ class ServerConfigRow extends Component {
 				<th>Value</th>
 				</tr>
 				{
+				// TODO use PrintMap
 				properties.map((item,index) => {
 					const {name, value} = item
 					return (

@@ -1,7 +1,6 @@
 import React from 'react'
 import Container from 'react-bootstrap/Container'
 import HgmNav from './c/HgmNav'
-import MainBody from './c/MainBody'
 import ServerConfigPage from './p/ServerConfigPage'
 import WelcomePage from './p/WelcomePage'
 import ListAllMessagePage from './p/ListAllMessagePage'
@@ -14,8 +13,6 @@ import ViewMessagePage from './p/ViewMessagePage'
 
 import {
 	BrowserRouter as Router,
-	Link,
-	NavLink,
 	Switch,
 	Route
 } from "react-router-dom";

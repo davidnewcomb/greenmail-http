@@ -2,15 +2,10 @@ import React, {
 	Component
 } from 'react'
 import {
-	BrowserRouter as Router,
 	Link,
-	NavLink,
-	Route
+	NavLink
 } from "react-router-dom";
 import axios from 'axios'
-import Alert from 'react-bootstrap/Alert'
-import Table from 'react-bootstrap/Table'
-import Container from 'react-bootstrap/Container'
 import {DeleteUserUrl} from '../c/HgmUrl'
 
 class ListUserRow extends Component {

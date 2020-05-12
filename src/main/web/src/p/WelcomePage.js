@@ -1,10 +1,4 @@
-import React, {
-	Component
-} from 'react'
-import axios from 'axios'
-import Alert from 'react-bootstrap/Alert'
-import Table from 'react-bootstrap/Table'
-import Container from 'react-bootstrap/Container'
+import React from 'react'
 
 
 function WelcomePage() {

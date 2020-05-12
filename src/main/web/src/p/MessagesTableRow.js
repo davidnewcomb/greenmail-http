@@ -2,16 +2,12 @@ import React, {
 	Component
 } from 'react'
 import {
-  BrowserRouter as Router,
   Link,
   NavLink,
   Route
 } from "react-router-dom";
 
 import axios from 'axios'
-import Alert from 'react-bootstrap/Alert'
-import Table from 'react-bootstrap/Table'
-import Container from 'react-bootstrap/Container'
 import {DeleteMessageUrl} from '../c/HgmUrl'
 
 class MessagesTableRow extends Component {
@@ -44,7 +40,6 @@ class MessagesTableRow extends Component {
 	}
 
 	deleteMessage(mailbox, uid) {
-		console.log(`***** deleteMessagebox: ${mailbox}/${uid}`)
 		let url = DeleteMessageUrl(mailbox, uid)
 		axios.get(url)
 			.then(res => {
