@@ -7,6 +7,7 @@ import Table from 'react-bootstrap/Table'
 import Container from 'react-bootstrap/Container'
 import {ViewMessageUrl} from '../c/HgmUrl'
 import PrintMap from './PrintMap'
+import {EmailAddresses} from './EmailAddress'
 
 class ViewMessagePage extends Component {
 
@@ -15,7 +16,11 @@ class ViewMessagePage extends Component {
 		this.state = {
 			data: {
 				"headers":{},
-				"flags": []
+				"flags": [],
+				"to": [],
+				"from": [],
+				"cc": [],
+				"bcc": [],
 			},
 			error: false
 		}
@@ -51,6 +56,7 @@ class ViewMessagePage extends Component {
 
 		const {headers, flags, from, to, cc, bcc, subject, body} = this.state.data
 		const headerEntries = Object.entries(headers)
+		console.log(to)
 
 		return (
 		<Container>
@@ -65,6 +71,23 @@ class ViewMessagePage extends Component {
 				<th>Flags</th>
 				<td>{flags.map(flag => {return flag})}</td>
 			</tr>
+			<tr>
+				<th>From</th>
+				<td><EmailAddresses emails={from}/></td>
+			</tr>
+			<tr>
+				<th>To</th>
+				<td><EmailAddresses emails={to}/></td>
+			</tr>
+			<tr>
+				<th>Cc</th>
+				<td><EmailAddresses emails={cc}/></td>
+			</tr>
+			<tr>
+				<th>Bcc</th>
+				<td><EmailAddresses emails={bcc}/></td>
+			</tr>
+
 			<tr>
 				<th>Subject</th>
 				<td>{subject}</td>

@@ -1,14 +1,10 @@
 
-export function EmailAddress(props) {
+import React from 'react'
 
-	render() {
-		return <div>EmailAddress</div>
-	}
-}
 
 export function EmailAddresses(props) {
 
-	render() {
-		props.emails.map(email => <EmailAddress key={email.id} email={email}/>)
-	}
+	return props.emails.map( (email, index) => {
+		return email
+	} )
 }

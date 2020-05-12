@@ -18,6 +18,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build-uat": "./support/build/build-uat.sh",
+    "build-production": "./support/build/build-production.sh",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -35,5 +37,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "envify": "^4.1.0",
+    "terser": "^4.6.13",
+    "terser-brunch": "^4.0.0",
+    "uglifyify": "^5.0.2"
   }
 }
