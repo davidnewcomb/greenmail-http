@@ -1,7 +1,6 @@
 import React, {
 	Component
 } from 'react'
-import {ServerConfig} from '../c/HgmUrl'
 import Table from 'react-bootstrap/Table'
 
 class ServerConfigRow extends Component {

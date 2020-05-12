@@ -17,6 +17,7 @@ class ListFolderPage extends Component {
 
 	constructor(props) {
 		super(props)
+
 		this.state = {
 			data: [],
 			error: false,
@@ -26,6 +27,7 @@ class ListFolderPage extends Component {
 	}
 
 	reload () {
+
 		let email = this.state.email
 		let url = ListMailboxes(email)
 
@@ -48,6 +50,7 @@ class ListFolderPage extends Component {
 	}
 
 	componentDidMount() {
+
 		this.reload()
 	}
 

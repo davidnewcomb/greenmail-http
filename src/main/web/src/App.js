@@ -18,21 +18,34 @@ import {
 } from "react-router-dom";
 
 function App() {
+	
 	return (
 		<Router>
 		<Container>
 			<HgmNav/>
 
 			<Switch>
-			<Route path="/" exact component={WelcomePage} />
-			<Route path="/c/g" exact component={ServerConfigPage} />
-			<Route path="/u/all" exact component={ListUserPage} />
-			<Route path="/m/all" exact component={ListAllMessagePage} />
-			<Route path="/sys/delete_mails" exact component={SystemPurgeMailsPage} />
-			<Route path="/sys/delete_users" exact component={SystemPurgeUsersPage} />
-			<Route path="/user/:email/folders" exact component={ListFolderPage} />
-			<Route path="/folder/:mailbox" exact component={ListFolderMessagePage} />
-			<Route path="/view/:mailbox/:uid" exact component={ViewMessagePage} />
+			<Route exact path="/">
+				<WelcomePage/>
+			</Route>
+			<Route exact path="/c/g">
+				<ServerConfigPage/>
+			</Route>
+			<Route exact path="/u/all">
+				<ListUserPage/>
+			</Route>
+			<Route exact path="/m/all">
+				<ListAllMessagePage/>
+			</Route>
+			<Route exact path="/sys/delete_mails">
+				<SystemPurgeMailsPage/>
+			</Route>
+			<Route exact path="/sys/delete_users">
+				<SystemPurgeUsersPage/>
+			</Route>
+			<Route exact path="/user/:email/folders" component={ListFolderPage} />
+			<Route exact path="/folder/:mailbox" component={ListFolderMessagePage} />
+			<Route exact path="/view/:mailbox/:uid" component={ViewMessagePage} />
 			</Switch>
 		</Container>
 		</Router>
