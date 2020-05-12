@@ -5,13 +5,13 @@ import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Table from 'react-bootstrap/Table'
 import Container from 'react-bootstrap/Container'
-import ListMessageRow from './ListMessageRow'
+import MessagesTableRow from './MessagesTableRow'
 
 function MessagesTable(props) {
 
-	let {messages} = props
+	let {messages, reload} = props
 	return (
-		<Table class="table">
+		<Table className="table">
 			<tbody>
 			<tr>
 				<th>Actions</th>
@@ -25,7 +25,7 @@ function MessagesTable(props) {
 				<th>Body</th>
 			</tr>
 			{
-				messages.map(message => <ListMessageRow key={message.id} message={message}/>)
+				messages.map(message => <MessagesTableRow key={message.id} message={message} reload={reload}/>)
 			}
 			</tbody>
 		</Table>

@@ -55,7 +55,7 @@ class ListUserPage extends Component {
 		<Container>
 		<h2>List Users</h2>
 
-		<Table class="table">
+		<Table className="table">
 			<tbody>
 			<tr>
 				<th>Actions</th>

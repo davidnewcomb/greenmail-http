@@ -14,7 +14,7 @@ import Table from 'react-bootstrap/Table'
 import Container from 'react-bootstrap/Container'
 import {DeleteMessageUrl} from '../c/HgmUrl'
 
-class ListMesssageRow extends Component {
+class MessagesTableRow extends Component {
 
 	constructor(props) {
 		super(props)
@@ -23,7 +23,7 @@ class ListMesssageRow extends Component {
 	render() {
 
 		let m = this.props.message
-		let v = ''
+		let v = '/view/' + encodeURIComponent(m.mailbox) + '/' + m.uid
 		return (
 			<tr>
 				<td>
@@ -60,4 +60,4 @@ class ListMesssageRow extends Component {
 
 }
 
-export default ListMesssageRow
+export default MessagesTableRow

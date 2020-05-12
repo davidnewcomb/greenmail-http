@@ -1,0 +1,12 @@
+HELO localhost
+MAIL FROM:<blarblar@example.com>
+RCPT TO:<foofoo@example.com>
+DATA
+From: [Me Me] <meme@example.com>
+To: <youyou@example.com>
+Date: THE_DATE
+Subject: Resultat de la restauration de GED
+blabla
+blabla
+
+.

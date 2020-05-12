@@ -19,9 +19,10 @@ class ListFolderMesssagePage extends Component {
 			data: [],
 			error: false
 		}
+		this.reload = this.reload.bind(this)
 	}
 
-	componentDidMount() {
+	reload() {
 		axios.get(this.url)
 			.then(res => {
 				console.log(res)
@@ -37,6 +38,11 @@ class ListFolderMesssagePage extends Component {
 					error: true
 				})
 			})
+
+	}
+
+	componentDidMount() {
+		this.reload()
 	}
 
 	render() {
@@ -49,7 +55,7 @@ class ListFolderMesssagePage extends Component {
 		return (
 			<Container>
 			<h2>List Messages</h2>
-			<MessagesTable messages={this.state.data} />
+			<MessagesTable messages={this.state.data} reload={this.reload}/>
 			</Container>
 		)
 	}

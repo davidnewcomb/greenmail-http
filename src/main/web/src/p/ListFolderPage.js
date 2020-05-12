@@ -70,7 +70,7 @@ class ListFolderPage extends Component {
 		<Container>
 		<h2>Mailboxes: {email}</h2>
 
-		<Table class="table">
+		<Table className="table">
 			<tbody>
 			<tr>
 				<th>Actions</th>

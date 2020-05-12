@@ -61,4 +61,7 @@ export let DeleteMessageUrl = (mailbox, uid) => {
 	return base + mappings.DELETE_MESSAGE.replace(':mailbox', encMailbox).replace(':uid', uid)
 }
 
-//export default public
+export let ViewMessageUrl = (mailbox, uid) => {
+	let encMailbox = encodeURIComponent(mailbox)
+	return base + mappings.VIEW_MESSAGE.replace(':mailbox', encMailbox).replace(':uid', uid)
+}

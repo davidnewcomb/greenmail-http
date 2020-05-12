@@ -10,6 +10,7 @@ import ListFolderPage from './p/ListFolderPage'
 import ListUserPage from './p/ListUserPage'
 import SystemPurgeMailsPage from './p/SystemPurgeMailsPage'
 import SystemPurgeUsersPage from './p/SystemPurgeUsersPage'
+import ViewMessagePage from './p/ViewMessagePage'
 
 import {
 	BrowserRouter as Router,
@@ -34,6 +35,7 @@ function App() {
 			<Route path="/sys/delete_users" exact component={SystemPurgeUsersPage} />
 			<Route path="/user/:email/folders" exact component={ListFolderPage} />
 			<Route path="/folder/:mailbox" exact component={ListFolderMessagePage} />
+			<Route path="/view/:mailbox/:uid" exact component={ViewMessagePage} />
 			</Switch>
 		</Container>
 		</Router>
