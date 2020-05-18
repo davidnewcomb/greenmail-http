@@ -8,8 +8,11 @@ import Container from 'react-bootstrap/Container'
 import {ViewMessageUrl} from '../c/HgmUrl'
 import PrintMap from './PrintMap'
 import {EmailAddresses} from './EmailAddress'
+import {BreadcrumbContext} from '../c/breadcrumbContext'
 
 class ViewMessagePage extends Component {
+
+	static contextType = BreadcrumbContext
 
 	constructor(props) {
 		super(props)
@@ -27,9 +30,9 @@ class ViewMessagePage extends Component {
 	}
 
 	componentDidMount() {
-		let {mailbox, uid} = this.props.match.params
+		const {mailbox, uid} = this.props.match.params
 
-		let url = ViewMessageUrl(mailbox, uid)
+		const url = ViewMessageUrl(mailbox, uid)
 		axios.get(url)
 			.then(res => {
 				this.setState({
@@ -41,6 +44,12 @@ class ViewMessagePage extends Component {
 					error: true
 				})
 			})
+
+		const hereUrl = window.location.pathname
+		const id = hereUrl.replace( /[^a-zA-Z0-9]/g, "")
+		const title = `View: ${mailbox}/${uid}`
+		this.context.addBanner(id, title, hereUrl)
+
 	}
 
 	render() {
@@ -51,7 +60,7 @@ class ViewMessagePage extends Component {
 		}
 
 		const {headers, flags, from, to, cc, bcc, subject, body} = this.state.data
-		
+
 		return (
 		<Container>
 		<h2>View message</h2>

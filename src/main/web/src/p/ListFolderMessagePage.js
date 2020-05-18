@@ -8,13 +8,16 @@ import Container from 'react-bootstrap/Container'
 
 import {ListFolderMessagesUrl} from '../c/HgmUrl'
 import MessagesTable from './MessagesTable'
+import {BreadcrumbContext} from '../c/breadcrumbContext'
 
 class ListFolderMesssagePage extends Component {
 
+	static contextType = BreadcrumbContext
+
 	constructor(props) {
 		super(props)
-		let {mailbox} = this.props.match.params
-		this.url = ListFolderMessagesUrl(mailbox)
+		this.mailbox = this.props.match.params.mailbox
+		this.url = ListFolderMessagesUrl(this.mailbox)
 		this.state = {
 			data: [],
 			error: false
@@ -43,6 +46,11 @@ class ListFolderMesssagePage extends Component {
 
 	componentDidMount() {
 		this.reload()
+
+		const hereUrl = window.location.pathname
+		const id = hereUrl.replace( /[^a-zA-Z0-9]/g, "")
+		const title = "List: " + this.mailbox
+		this.context.addBanner(id, title, hereUrl)
 	}
 
 	render() {

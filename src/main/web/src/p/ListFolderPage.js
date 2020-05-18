@@ -12,8 +12,11 @@ import Container from 'react-bootstrap/Container'
 
 import {ListMailboxes} from '../c/HgmUrl'
 import ListFolderRow from './ListFolderRow'
+import {BreadcrumbContext} from '../c/breadcrumbContext'
 
 class ListFolderPage extends Component {
+
+	static contextType = BreadcrumbContext
 
 	constructor(props) {
 		super(props)
@@ -50,8 +53,14 @@ class ListFolderPage extends Component {
 	}
 
 	componentDidMount() {
-
 		this.reload()
+
+		const hereUrl = window.location.pathname
+		console.log(hereUrl);
+		const id = hereUrl.replace( /[^a-zA-Z0-9]/g, "")
+		console.log('**ListFolderPage:id', id);
+		const title = "Folders: " + this.state.email
+		this.context.addBanner(id, title, hereUrl)
 	}
 
 	render() {

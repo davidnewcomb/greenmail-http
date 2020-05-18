@@ -10,6 +10,8 @@ import ListUserPage from './p/ListUserPage'
 import SystemPurgeMailsPage from './p/SystemPurgeMailsPage'
 import SystemPurgeUsersPage from './p/SystemPurgeUsersPage'
 import ViewMessagePage from './p/ViewMessagePage'
+import {BreadcrumbContextProvider} from './c/breadcrumbContext'
+import Breadcrumbs from './c/Breadcrumbs'
 
 import {
 	BrowserRouter as Router,
@@ -18,11 +20,13 @@ import {
 } from "react-router-dom";
 
 function App() {
-	
+
 	return (
+		<BreadcrumbContextProvider>
 		<Router>
 		<Container>
 			<HgmNav/>
+			<Breadcrumbs/>
 
 			<Switch>
 			<Route exact path="/">
@@ -49,6 +53,7 @@ function App() {
 			</Switch>
 		</Container>
 		</Router>
+		</BreadcrumbContextProvider>
 	)
 }
 
