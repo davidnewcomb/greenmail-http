@@ -1,5 +1,11 @@
 import React from 'react'
 import Container from 'react-bootstrap/Container'
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route
+} from "react-router-dom"
+
 import HgmNav from './c/HgmNav'
 import ServerConfigPage from './p/ServerConfigPage'
 import WelcomePage from './p/WelcomePage'
@@ -13,11 +19,6 @@ import ViewMessagePage from './p/ViewMessagePage'
 import {BreadcrumbContextProvider} from './c/breadcrumbContext'
 import Breadcrumbs from './c/Breadcrumbs'
 
-import {
-	BrowserRouter as Router,
-	Switch,
-	Route
-} from "react-router-dom";
 
 function App() {
 

@@ -5,9 +5,9 @@ import Breadcrumb from './Breadcrumb'
 class Breadcrumbs extends Component {
 
 	// static contextType =
-        constructor(props) {
-                super(props)
-        }
+	constructor(props) {
+		super(props)
+	}
 
 	render() {
 
@@ -16,23 +16,27 @@ class Breadcrumbs extends Component {
 			'border':'solid black 1px'
 		}
 
-                return (
-			<div style={style}>
-			History:
+		return (
 			<BreadcrumbContextConsumer>
 			{
 				({getBreadcrumbs}) => {
-					//console.log('getBreadcrumbs')
 					const breadcrumbs = getBreadcrumbs()
-					//console.log('Breadcrumbs.breadcrumbs', breadcrumbs);
-
-					return breadcrumbs.map( item => <Breadcrumb key={item.id} title={item.title} link={item.link}/>)
+					// if (breadcrumbs.length == 0) {
+					// 	return null
+					// }
+					return (
+						<div style={style}>
+						History:
+						{
+						breadcrumbs.map( item => <Breadcrumb key={item.id} title={item.title} link={item.link}/>)
+						}
+						</div>
+					)
 				}
 			}
 			</BreadcrumbContextConsumer>
-			</div>
 		)
-        }
-
+	}
 }
+
 export default Breadcrumbs
