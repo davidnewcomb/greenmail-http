@@ -5,13 +5,13 @@ import React, {Component} from 'react'
 // to be passed in via value=
 const BreadcrumbContext = React.createContext({
 	addBreadcrumb: (title) => {
-		console.error('BreadcrumbContext.addBreadcrumb');
+		console.error('BreadcrumbContext.addBreadcrumb')
 	},
 	removeBreadcrumb: (id) => {
-		console.error('BreadcrumbContext.removeBreadcrumb');
+		console.error('BreadcrumbContext.removeBreadcrumb')
 	},
 	getBreadcrumbs: () => {
-		console.error('BreadcrumbContext.getBreadcrumbs');
+		console.error('BreadcrumbContext.getBreadcrumbs')
 	}
 })
 //const BreadcrumbContext = React.createContext()
@@ -21,25 +21,25 @@ const Consumer = BreadcrumbContext.Consumer
 
 class BreadcrumbContextProvider extends Component {
 
-        constructor(props) {
-                super(props)
-                this.state = {
+	constructor(props) {
+		super(props)
+		this.state = {
 			breadcrumbs: [],
 			addBanner: this.addBanner,
 			removeBreadcrumb: this.removeBreadcrumb,
 			getBreadcrumbs: this.getBreadcrumbs
-                }
-        }
+		}
+	}
 
 	addBanner = (id, title, link) => {
 
 		let found = this.state.breadcrumbs.filter( i => i.link == link)
 		if (found.length === 1) {
-			console.log(`addBanner: not adding ${link}`);
+			console.log(`addBanner: not adding ${link}`)
 			return
 		}
 
-		console.log(`addBanner: adding: ${id}) ${title} - ${link}`);
+		console.log(`addBanner: adding: ${id}) ${title} - ${link}`)
 		const o = {id: id, title: title, link: link}
 		this.setState( (prevState, state) => {
 			const newBreadcrumbs = prevState.breadcrumbs.concat(o)
@@ -57,18 +57,18 @@ class BreadcrumbContextProvider extends Component {
 	}
 
 	getBreadcrumbs = () => {
-		console.log('getBreadcrumbs called', this.state.breadcrumbs);
+		console.log('getBreadcrumbs called', this.state.breadcrumbs)
 		return this.state.breadcrumbs
 	}
 
-        render() {
+	render() {
 
-                return (
-                        <Provider value={this.state}>
+		return (
+			<Provider value={this.state}>
 			{this.props.children}
-                        </Provider>
-                )
-        }
+			</Provider>
+		)
+	}
 }
 
 export {BreadcrumbContextProvider,

@@ -25,7 +25,7 @@ class ListAllMesssagePage extends Component {
 		axios.get(this.url)
 			.then(res => {
 				console.log(res)
-				for(let i = 0 ; i < res.data.length ; ++i) {
+				for (let i = 0 ; i < res.data.length ; ++i) {
 					res.data[i].id = '' + i
 				}
 				this.setState({

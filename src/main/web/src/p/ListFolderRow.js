@@ -5,7 +5,7 @@ import {
   Link,
   NavLink,
   Route
-} from "react-router-dom";
+} from "react-router-dom"
 
 import axios from 'axios'
 import {DeleteMailboxUrl} from '../c/HgmUrl'
@@ -46,7 +46,7 @@ class ListFolderRow extends Component {
 					url: url,
 					error: true
 				})
-			});
+			})
 	}
 }
 

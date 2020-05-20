@@ -3,7 +3,7 @@ import React, {
 } from 'react'
 import {
 	useParams
-} from "react-router-dom";
+} from "react-router-dom"
 
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
@@ -37,7 +37,7 @@ class ListFolderPage extends Component {
 		axios.get(url)
 			.then(res => {
 				console.log(res)
-				for(let i = 0 ; i < res.data.length ; ++i) {
+				for (let i = 0 ; i < res.data.length ; ++i) {
 					res.data[i].id = '' + i
 				}
 				this.setState({
@@ -56,9 +56,9 @@ class ListFolderPage extends Component {
 		this.reload()
 
 		const hereUrl = window.location.pathname
-		console.log(hereUrl);
+		console.log(hereUrl)
 		const id = hereUrl.replace( /[^a-zA-Z0-9]/g, "")
-		console.log('**ListFolderPage:id', id);
+		console.log('**ListFolderPage:id', id)
 		const title = "Folders: " + this.state.email
 		this.context.addBanner(id, title, hereUrl)
 	}

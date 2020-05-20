@@ -27,7 +27,7 @@ class NoDataPage extends Component {
 					url: url,
 					error: true
 				})
-			});
+			})
 	}
 
 	overrideMessage() {

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import SoftwareUpdateMessage from '../m/SoftwareUpdateMessage'
 import axios from 'axios'
-import packageJson from '../../package.json';
+import packageJson from '../../package.json'
 
 
 class WelcomePage extends Component {
@@ -19,7 +19,7 @@ class WelcomePage extends Component {
 	componentDidMount() {
 		axios.get("https://api.github.com/repos/davidnewcomb/greenmail-http/tags")
 			.then( (response, state) => {
-				console.log(response);
+				console.log(response)
 				const tags = response.data.map( tag => tag.name)
 				const stags = tags.sort( (a,b) => a < b)
 				const latestTag = stags[stags.length-1]

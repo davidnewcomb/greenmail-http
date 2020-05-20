@@ -4,7 +4,7 @@ import React, {
 import {
 	Link,
 	NavLink
-} from "react-router-dom";
+} from "react-router-dom"
 import axios from 'axios'
 import {DeleteUserUrl} from '../c/HgmUrl'
 
@@ -51,9 +51,7 @@ class ListUserRow extends Component {
 					url: url,
 					error: true
 				})
-			});
-
-		//this.props.reload()
+			})
 	}
 }
 

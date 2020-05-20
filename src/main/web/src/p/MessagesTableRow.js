@@ -5,7 +5,7 @@ import {
   Link,
   NavLink,
   Route
-} from "react-router-dom";
+} from "react-router-dom"
 
 import axios from 'axios'
 import {DeleteMessageUrl} from '../c/HgmUrl'
@@ -50,7 +50,7 @@ class MessagesTableRow extends Component {
 					url: url,
 					error: true
 				})
-			});
+			})
 	}
 
 }

@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import {
 	NavLink
-} from "react-router-dom";
+} from "react-router-dom"
 
 class HgmNav extends Component {
 

@@ -29,7 +29,7 @@ class ServerConfigRow extends Component {
 							<td>{value}</td>
 						</tr>
 					)
-					})
+				})
 				}
 				</tbody>
 			</Table>

@@ -25,7 +25,7 @@ class ListUserPage extends Component {
 		axios.get(url)
 			.then(res => {
 				console.log(res)
-				for(let i = 0 ; i < res.data.length ; ++i) {
+				for (let i = 0 ; i < res.data.length ; ++i) {
 					res.data[i].id = '' + i
 				}
 				this.setState({
@@ -37,7 +37,7 @@ class ListUserPage extends Component {
 					url: url,
 					error: true
 				})
-			});
+			})
 	}
 
 	componentDidMount() {
