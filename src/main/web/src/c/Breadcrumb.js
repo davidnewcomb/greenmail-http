@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
-import {Link} from "react-router-dom";
+import {Link} from "react-router-dom"
+import Octicon, {Trashcan} from '@primer/octicons-react'
 
 class Breadcrumb extends Component {
 
-        constructor(props) {
-                super(props)
-        }
+	constructor(props) {
+		super(props)
+	}
 
 	render() {
 
@@ -14,12 +15,12 @@ class Breadcrumb extends Component {
 			'border': 'solid black 1px',
 			'float': 'right'
 		}
-                return (
-			<div style={style}>
-			<Link to={this.props.link} title={this.props.title}>{this.props.title}</Link>
-			</div>
+		return (
+			<Link to={this.props.link} title={this.props.title}>
+				<Octicon icon={Trashcan} /> {this.props.title}
+			</Link>
 		)
-        }
-
+	}
 }
+
 export default Breadcrumb
