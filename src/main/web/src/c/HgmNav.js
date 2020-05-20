@@ -44,7 +44,7 @@ class HgmNav extends Component {
 					<NavDropdown.Item eventKey="4.2" as={NavLink} to="/sys/delete_users" title="Remove all users and emails">Users</NavDropdown.Item>
 				</NavDropdown>
 				<Nav.Item>
-					<Nav.Link eventKey="5" as={NavLink} to="/" title="Project info">
+					<Nav.Link exact eventKey="5" as={NavLink} to="/" title="Project info">
 					Project
 					</Nav.Link>
 				</Nav.Item>
