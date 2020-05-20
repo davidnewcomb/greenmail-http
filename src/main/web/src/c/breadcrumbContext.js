@@ -33,13 +33,12 @@ class BreadcrumbContextProvider extends Component {
 
 	addBanner = (id, title, link) => {
 
-		let found = this.state.breadcrumbs.filter( i => i.link == link)
+		let found = this.state.breadcrumbs.filter( i => i.link === link)
 		if (found.length === 1) {
 			console.log(`addBanner: not adding ${link}`)
 			return
 		}
 
-		console.log(`addBanner: adding: ${id}) ${title} - ${link}`)
 		const o = {id: id, title: title, link: link}
 		this.setState( (prevState, state) => {
 			const newBreadcrumbs = prevState.breadcrumbs.concat(o)
@@ -50,14 +49,13 @@ class BreadcrumbContextProvider extends Component {
 	}
 
 	removeBreadcrumb = (id) => {
-		const a = this.state.breadcrumbs.filter(item => item.id != id)
+		const a = this.state.breadcrumbs.filter(item => item.id !== id)
 		this.setState({
 			breadcrumbs: a
 		})
 	}
 
 	getBreadcrumbs = () => {
-		console.log('getBreadcrumbs called', this.state.breadcrumbs)
 		return this.state.breadcrumbs
 	}
 

@@ -1,9 +1,10 @@
 import React from 'react'
 import Alert from 'react-bootstrap/Alert'
+import {Link} from "react-router-dom"
 
 function SoftwareUpdateMessage(props) {
 
-	const {version, latest} = props
+	const {latest} = props
 
 	return (
 		<Alert variant="danger">
@@ -13,7 +14,7 @@ function SoftwareUpdateMessage(props) {
 			</p>
 			<hr />
 			<p>
-			Go to https://github.com/davidnewcomb/greenmail-http
+			<Link to="https://github.com/davidnewcomb/greenmail-http">GreenMail HTTP on Github</Link>
 			</p>
 		</Alert>
 	)

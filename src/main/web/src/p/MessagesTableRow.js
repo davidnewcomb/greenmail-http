@@ -1,20 +1,10 @@
-import React, {
-	Component
-} from 'react'
-import {
-  Link,
-  NavLink,
-  Route
-} from "react-router-dom"
-
+import React, {Component} from 'react'
+import {Link, NavLink} from "react-router-dom"
 import axios from 'axios'
+
 import {DeleteMessageUrl} from '../c/HgmUrl'
 
 class MessagesTableRow extends Component {
-
-	constructor(props) {
-		super(props)
-	}
 
 	render() {
 

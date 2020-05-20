@@ -3,7 +3,6 @@ import React, {
 } from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
-import Table from 'react-bootstrap/Table'
 import Container from 'react-bootstrap/Container'
 
 import {ListFolderMessagesUrl} from '../c/HgmUrl'
@@ -49,7 +48,7 @@ class ListFolderMesssagePage extends Component {
 
 		const hereUrl = window.location.pathname
 		const id = hereUrl.replace( /[^a-zA-Z0-9]/g, "")
-		const title = "List: " + this.mailbox
+		const title = `List: ${decodeURIComponent(this.mailbox)}`
 		this.context.addBanner(id, title, hereUrl)
 	}
 

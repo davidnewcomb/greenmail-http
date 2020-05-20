@@ -42,7 +42,7 @@ class WelcomePage extends Component {
 			<h1>GreenMail HTTP</h1>
 			<p>You are currently running version: {version}</p>
 			{
-				(version != latest) && <SoftwareUpdateMessage version={version} latest={latest}/>
+				(version !== latest) && <SoftwareUpdateMessage version={version} latest={latest}/>
 			}
 			</Jumbotron>
 		)

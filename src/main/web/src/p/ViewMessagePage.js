@@ -47,7 +47,7 @@ class ViewMessagePage extends Component {
 
 		const hereUrl = window.location.pathname
 		const id = hereUrl.replace( /[^a-zA-Z0-9]/g, "")
-		const title = `View: ${mailbox}/${uid}`
+		const title = `View: ${decodeURIComponent(mailbox)}/${uid}`
 		this.context.addBanner(id, title, hereUrl)
 
 	}

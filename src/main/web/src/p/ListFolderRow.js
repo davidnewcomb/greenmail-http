@@ -1,24 +1,14 @@
-import React, {
-	Component
-} from 'react'
-import {
-  Link,
-  NavLink,
-  Route
-} from "react-router-dom"
-
+import React, {Component} from 'react'
+import {Link, NavLink} from "react-router-dom"
 import axios from 'axios'
+
 import {DeleteMailboxUrl} from '../c/HgmUrl'
 
 class ListFolderRow extends Component {
 
-	constructor(props) {
-		super(props)
-	}
-
 	render() {
 
-		let {email, folder} = this.props
+		let {folder} = this.props
 		let l = "/folder/" + encodeURIComponent(folder.fullName)
 		return (
 			<tr>

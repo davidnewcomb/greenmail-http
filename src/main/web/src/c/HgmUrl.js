@@ -1,6 +1,4 @@
-import React from 'react'
 
-//let public = {}
 let base = 'http://localhost:7000'
 let mappings = {
 	//SERVER_CONFIG: '/',

@@ -1,10 +1,4 @@
-import React, {
-	Component
-} from 'react'
-import {
-	useParams
-} from "react-router-dom"
-
+import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Table from 'react-bootstrap/Table'
@@ -56,9 +50,7 @@ class ListFolderPage extends Component {
 		this.reload()
 
 		const hereUrl = window.location.pathname
-		console.log(hereUrl)
 		const id = hereUrl.replace( /[^a-zA-Z0-9]/g, "")
-		console.log('**ListFolderPage:id', id)
 		const title = "Folders: " + this.state.email
 		this.context.addBanner(id, title, hereUrl)
 	}
