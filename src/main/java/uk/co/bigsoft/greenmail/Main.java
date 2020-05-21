@@ -27,9 +27,9 @@ import uk.co.bigsoft.greenmail.http.commands.PurgeEmailFromAllMailboxesCommand;
 import uk.co.bigsoft.greenmail.http.commands.ReceivedMessagesCommand;
 import uk.co.bigsoft.greenmail.http.commands.ReceivedMessagesForDomainCommand;
 import uk.co.bigsoft.greenmail.http.commands.ResetCommand;
-import uk.co.bigsoft.greenmail.http.commands.Utils;
 import uk.co.bigsoft.greenmail.http.commands.ViewMessageCommand;
 import uk.co.bigsoft.greenmail.javalin.AccessControlAllowOriginHandler;
+import uk.co.bigsoft.greenmail.mailx.MimeMessageBuilder;
 
 public class Main {
 
@@ -50,28 +50,69 @@ public class Main {
 			return;
 		}
 		
+		String SUPERMAN = "clarke.kent@superman.com";
+		String SPIDERMAN = "peter.parker@spiderman.co.uk";
+		String BATMAN = "bruce.wayne@batman.gotham.us";
+		String WONDER_WOMAN = "diana.prince@wonderwoman.com";
+		String TGAH = "ralph.hinkley@thegreatestamericanhero.com";
+		String SFH = "stringfellow.hawk@airwolf.com";
+		
 		try {
 
-			Utils utils = new Utils();
 			UserManager um = gm.getManagers().getUserManager();
 			ImapHostManager im = gm.getManagers().getImapHostManager();
 
-			GreenMailUser user1 = um.createUser("blar@blar.com", "blar", "b123");
-			GreenMailUser user2 = um.createUser("foo@foo.com", "foo", "f123");
+			GreenMailUser user1 = um.createUser(SUPERMAN, "blar", "b123");
+			GreenMailUser user2 = um.createUser(SPIDERMAN, "foo", "f123");
 
 			MailFolder user1Inbox = im.getInbox(user1);
 			MailFolder user2Inbox = im.getInbox(user2);
 			MailFolder user1Other = im.createMailbox(user1, "otherfolder1");
 			MailFolder user2Other = im.createMailbox(user2, "otherfolder2");
 
-			MimeMessage m1 = utils.createMessage(gm, "sub1", "blar@blar.com", "boo@dest1.com", "blar to dest1");
-			MimeMessage m2 = utils.createMessage(gm, "sub2", "foo@foo.com", "boo@dest2.com", "foo to dest2");
-			MimeMessage m3 = utils.createMessage(gm, "sub3", "boo@dest1.com", "blar@blar.com", "dest1 to blar");
-			MimeMessage m4 = utils.createMessage(gm, "sub4", "boo@dest2.com", "foo@foo.com", "dest2 to foo");
+			MimeMessage m1 = new MimeMessageBuilder(gm.getSmtp().createSession())
+					.withSubject("sub1")
+					.withFrom(SUPERMAN)
+					.withTo(BATMAN)
+					.withBody("blar to dest1")
+					.build();
 
+			MimeMessage m2 = new MimeMessageBuilder(gm.getSmtp().createSession())
+					.withSubject("sub2")
+					.withFrom(SPIDERMAN)
+					.withTo(WONDER_WOMAN)
+					.withBody("foo to dest2")
+					.build();
+
+			MimeMessage m3 = new MimeMessageBuilder(gm.getSmtp().createSession())
+					.withSubject("sub3")
+					.withFrom(BATMAN)
+					.withTo(SUPERMAN)
+					.withBody("dest1 to blar")
+					.build();
+
+			MimeMessage m4 = new MimeMessageBuilder(gm.getSmtp().createSession())
+					.withSubject("sub4")
+					.withFrom(WONDER_WOMAN)
+					.withTo(SPIDERMAN)
+					.withBody("dest2 to foo")
+					.build();
+
+			MimeMessage m5 = new MimeMessageBuilder(gm.getSmtp().createSession())
+					.withSubject("sub5")
+					.withFrom(BATMAN)
+					.withCc(BATMAN)
+					.withCc(WONDER_WOMAN)
+					.withTo(SUPERMAN)
+					.withTo(SPIDERMAN)
+					.withBcc(TGAH)
+					.withBcc(SFH)
+					.withBody("dest2 to foo")
+					.build();
 
 			System.out.println("Store1");
 			user1Inbox.store(m1);
+			user1Inbox.store(m5);
 			System.out.println("Store2");
 			user1Inbox.store(m3);
 
