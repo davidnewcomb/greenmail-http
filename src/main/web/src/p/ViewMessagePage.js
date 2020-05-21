@@ -1,6 +1,4 @@
-import React, {
-	Component
-} from 'react'
+import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Table from 'react-bootstrap/Table'
@@ -9,6 +7,7 @@ import {ViewMessageUrl} from '../c/HgmUrl'
 import PrintMap from './PrintMap'
 import {EmailAddresses} from './EmailAddress'
 import {BreadcrumbContext} from '../c/breadcrumbContext'
+import PageHeader from '../m/PageHeader'
 
 class ViewMessagePage extends Component {
 
@@ -63,7 +62,8 @@ class ViewMessagePage extends Component {
 
 		return (
 		<Container>
-		<h2>View message</h2>
+		<PageHeader title="View message"/>
+
 		<Table>
 		<tbody>
 			<tr>

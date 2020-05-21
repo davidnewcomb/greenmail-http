@@ -1,6 +1,4 @@
-import React, {
-	Component
-} from 'react'
+import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Table from 'react-bootstrap/Table'
@@ -8,6 +6,7 @@ import Container from 'react-bootstrap/Container'
 
 import {ListUsersUrl} from '../c/HgmUrl'
 import ListUserRow from './ListUserRow'
+import PageHeader from '../m/PageHeader'
 
 class ListUserPage extends Component {
 
@@ -53,7 +52,7 @@ class ListUserPage extends Component {
 
 		return (
 		<Container>
-		<h2>List Users</h2>
+		<PageHeader title="List Users"/>
 
 		<Table className="table">
 			<tbody>

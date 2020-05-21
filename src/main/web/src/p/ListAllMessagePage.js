@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container'
 
 import {AllImapUrl} from '../c/HgmUrl'
 import MessagesTable from './MessagesTable'
+import PageHeader from '../m/PageHeader'
 
 class ListAllMesssagePage extends Component {
 
@@ -49,7 +50,8 @@ class ListAllMesssagePage extends Component {
 
 		return (
 			<Container>
-			<h2>List All Messages</h2>
+			<PageHeader title="List All Messages"/>
+
 			<MessagesTable messages={this.state.data} reload={this.reload}/>
 			</Container>
 		)

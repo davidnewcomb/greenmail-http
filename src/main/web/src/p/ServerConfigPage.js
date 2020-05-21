@@ -1,11 +1,11 @@
-import React, {
-	Component
-} from 'react'
+import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
+import Container from 'react-bootstrap/Container'
 
 import {ServerConfig} from '../c/HgmUrl'
 import ServerConfigRow from './ServerConfigRow'
+import PageHeader from '../m/PageHeader'
 
 class ServerConfigPage extends Component {
 
@@ -20,10 +20,14 @@ class ServerConfigPage extends Component {
 	componentDidMount() {
 		let url = ServerConfig()
 		axios.get(url)
-			.then(res => {
-				for (let i = 0 ; i <res.data.length ; ++i) {
+			.then((res, status) => {
+				console.log(res)
+				for (let i = 0 ; i < res.data.length ; ++i) {
 					res.data[i].id = '' + i
-					for (let j = 0 ; j <res.data.length ; ++j) {
+					console.log('-')
+					console.log(res.data[i].properties)
+					for (let j = 0 ; j < res.data[i].properties.length ; ++j) {
+
 						res.data[i].properties[j].id = i + '.' + j
 					}
 				}
@@ -46,7 +50,16 @@ class ServerConfigPage extends Component {
 			return <Alert variant="danger" dismissible>{eMessage}</Alert>
 		}
 		const page = this.state.data.map(item => <ServerConfigRow key={item.id} item={item}/>)
-		return <div>{page}</div>
+		return (
+			<Container>
+			<PageHeader title="Backend configuration"/>
+
+			<div className="intro">
+			These are all the configuration properties GreenMail HTTP was started with.
+			</div>
+			{page}
+			</Container>
+		)
 	}
 }
 

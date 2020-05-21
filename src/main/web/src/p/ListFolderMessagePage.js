@@ -1,6 +1,4 @@
-import React, {
-	Component
-} from 'react'
+import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Container from 'react-bootstrap/Container'
@@ -8,6 +6,7 @@ import Container from 'react-bootstrap/Container'
 import {ListFolderMessagesUrl} from '../c/HgmUrl'
 import MessagesTable from './MessagesTable'
 import {BreadcrumbContext} from '../c/breadcrumbContext'
+import PageHeader from '../m/PageHeader'
 
 class ListFolderMesssagePage extends Component {
 
@@ -61,7 +60,8 @@ class ListFolderMesssagePage extends Component {
 
 		return (
 			<Container>
-			<h2>List Messages</h2>
+			<PageHeader title="List Messages"/>
+
 			<MessagesTable messages={this.state.data} reload={this.reload}/>
 			</Container>
 		)

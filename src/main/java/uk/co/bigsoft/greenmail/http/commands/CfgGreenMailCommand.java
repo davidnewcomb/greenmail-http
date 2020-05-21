@@ -30,6 +30,7 @@ public class CfgGreenMailCommand extends BaseHandler {
 		ArrayList<ServerConfigDto> list = new ArrayList<>();
 
 		list.add(toServerConfigDto("greenmail", properties, "greenmail."));
+		list.add(toServerConfigDto("greenmail-http", properties, "uk.co.bigsoft.greenmail."));
 
 		// Service props
 		for (ServerSetup ss : serverSetup) {

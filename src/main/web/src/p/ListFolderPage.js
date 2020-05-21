@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container'
 import {ListMailboxes} from '../c/HgmUrl'
 import ListFolderRow from './ListFolderRow'
 import {BreadcrumbContext} from '../c/breadcrumbContext'
+import PageHeader from '../m/PageHeader'
 
 class ListFolderPage extends Component {
 
@@ -64,7 +65,7 @@ class ListFolderPage extends Component {
 
 		return (
 		<Container>
-		<h2>Mailboxes: {this.state.email}</h2>
+		<PageHeader title={`Mailboxes: ${this.state.email}`}/>
 
 		<Table className="table">
 			<tbody>

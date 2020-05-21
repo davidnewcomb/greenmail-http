@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import packageJson from '../../package.json'
 import Jumbotron from 'react-bootstrap/Jumbotron'
+import Container from 'react-bootstrap/Container'
 import {Link} from "react-router-dom"
 
 import SoftwareUpdateMessage from '../m/SoftwareUpdateMessage'
@@ -51,6 +52,7 @@ class WelcomePage extends Component {
 	render() {
 
 		return (
+			<Container>
 			<Jumbotron>
 			<h1>GreenMail HTTP</h1>
 			<p>You are currently running version: {packageJson.version}</p>
@@ -60,6 +62,7 @@ class WelcomePage extends Component {
 			<Link to="https://github.com/davidnewcomb/greenmail-http">GreenMail HTTP on Github</Link>
 			</p>
 			</Jumbotron>
+			</Container>
 		)
 	}
 }
