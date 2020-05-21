@@ -1,21 +1,15 @@
 import React from 'react'
 import Alert from 'react-bootstrap/Alert'
-import {Link} from "react-router-dom"
 
 function SoftwareUpdateMessage(props) {
 
-	const {latest} = props
+	const {latest, error} = props
+	let message = error ? error : `New version ${latest} is available`
 
 	return (
 		<Alert variant="danger">
 			<Alert.Heading>New software available...</Alert.Heading>
-			<p>
-			New version {latest} is available
-			</p>
-			<hr />
-			<p>
-			<Link to="https://github.com/davidnewcomb/greenmail-http">GreenMail HTTP on Github</Link>
-			</p>
+			<p>{message}</p>
 		</Alert>
 	)
 }
