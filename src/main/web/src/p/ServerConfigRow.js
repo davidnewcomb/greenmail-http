@@ -1,41 +1,17 @@
 import React, {
 	Component
 } from 'react'
-import Table from 'react-bootstrap/Table'
 
-class ServerConfigRow extends Component {
+import PrintMap from './PrintMap'
 
-	// constructor(props) {
-	// 	super(props)
-	// }
+function ServerConfigRow(props) {
 
-	render() {
-		const {section, properties} = this.props.item
-		return (<div>
-			<h2>{section}</h2>
-			<Table>
-				<tbody>
-				<tr>
-				<th>Key</th>
-				<th>Value</th>
-				</tr>
-				{
-				// TODO use PrintMap
-				properties.map((item,index) => {
-					const {name, value} = item
-					return (
-						<tr key={index}>
-							<td>{name}</td>
-							<td>{value}</td>
-						</tr>
-					)
-				})
-				}
-				</tbody>
-			</Table>
-			</div>
-		)
-	}
+	const {section, properties} = props.item
+	return (<div>
+		<h2>{section}</h2>
+		<PrintMap theMap={properties} headerKey="Key" headerValue="Value"/>
+		</div>
+	)
 }
 
 export default ServerConfigRow

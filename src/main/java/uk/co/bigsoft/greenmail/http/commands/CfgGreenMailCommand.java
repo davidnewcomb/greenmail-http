@@ -1,19 +1,16 @@
 package uk.co.bigsoft.greenmail.http.commands;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.PropertiesBasedServerSetupBuilder;
 import com.icegreen.greenmail.util.ServerSetup;
 
 import io.javalin.http.Context;
-import uk.co.bigsoft.greenmail.http.dto.KeyOrderComparator;
-import uk.co.bigsoft.greenmail.http.dto.KeyValue;
 import uk.co.bigsoft.greenmail.http.dto.ServerConfigDto;
 
 public class CfgGreenMailCommand extends BaseHandler {
@@ -37,24 +34,25 @@ public class CfgGreenMailCommand extends BaseHandler {
 			Properties serProp = ss.configureJavaMailSessionProperties(properties, false);
 			list.add(toServerConfigDto(ss.getProtocol(), serProp, "mail."));
 		}
-
+		
 		ctx.json(list);
 	}
 
 	private ServerConfigDto toServerConfigDto(String title, Properties properties, String filter) {
-		Collection<KeyValue> list = filterFor(properties, filter);
-		ServerConfigDto xx = new ServerConfigDto(title, list);
+		Map<String, String> map = filterFor(properties, filter);
+		ServerConfigDto xx = new ServerConfigDto(title, map);
 		return xx;
 	}
 
-	private Collection<KeyValue> filterFor(Properties properties, String prefix) {
-		SortedSet<KeyValue> list = new TreeSet<KeyValue>(new KeyOrderComparator());
-		for (Entry<Object, Object> e : properties.entrySet()) {
-			String key = e.getKey().toString();
+	private Map<String, String> filterFor(Properties properties, String prefix) {
+		HashMap<String, String> map = new HashMap<>();
+		for (Entry<Object, Object> entry : properties.entrySet()) {
+			String key = entry.getKey().toString();
 			if (key.startsWith(prefix)) {
-				list.add(new KeyValue(e.getKey().toString(), e.getValue().toString()));
+				map.put(key, entry.getValue().toString());
 			}
 		}
-		return list;
+		return  map;
 	}
+
 }

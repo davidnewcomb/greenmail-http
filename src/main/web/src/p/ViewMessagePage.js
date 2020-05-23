@@ -68,7 +68,7 @@ class ViewMessagePage extends Component {
 		<tbody>
 			<tr>
 				<th>Header</th>
-				<td><PrintMap headerKey="Property" headerValue="Value" m={headers} /></td>
+				<td><PrintMap headerKey="Property" headerValue="Value" theMap={headers} /></td>
 			</tr>
 			<tr>
 				<th>Flags</th>
