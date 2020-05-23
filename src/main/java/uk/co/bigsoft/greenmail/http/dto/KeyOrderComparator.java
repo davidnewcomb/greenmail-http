@@ -8,5 +8,5 @@ public class KeyOrderComparator implements Comparator<KeyValue> {
 	public int compare(KeyValue a, KeyValue b) {
 		return a.getName().compareTo(b.getName());
 	}
-	
+
 }

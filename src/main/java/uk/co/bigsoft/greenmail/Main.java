@@ -34,7 +34,7 @@ import uk.co.bigsoft.greenmail.mailx.MimeMessageBuilder;
 public class Main {
 
 	private static Cfg cfg = new Cfg();
-	
+
 	public static void main(String[] args) {
 		final Properties properties = System.getProperties();
 
@@ -49,76 +49,58 @@ public class Main {
 		if (!cfg.useTestData()) {
 			return;
 		}
-		
+
+		String SUPERMAN_USER = "superman";
+		String SUPERMAN_PASS = "x-ray-visible";
+		String SPIDERMAN_USER = "spiderman";
+		String SPIDERMAN_PASS = "spin-webs";
 		String SUPERMAN = "clarke.kent@superman.com";
 		String SPIDERMAN = "peter.parker@spiderman.co.uk";
 		String BATMAN = "bruce.wayne@batman.gotham.us";
 		String WONDER_WOMAN = "diana.prince@wonderwoman.com";
 		String TGAH = "ralph.hinkley@thegreatestamericanhero.com";
 		String SFH = "stringfellow.hawk@airwolf.com";
-		
+
 		try {
 
 			UserManager um = gm.getManagers().getUserManager();
 			ImapHostManager im = gm.getManagers().getImapHostManager();
 
-			GreenMailUser user1 = um.createUser(SUPERMAN, "blar", "b123");
-			GreenMailUser user2 = um.createUser(SPIDERMAN, "foo", "f123");
+			GreenMailUser superman = um.createUser(SUPERMAN, SUPERMAN_USER, SUPERMAN_PASS);
+			GreenMailUser spiderman = um.createUser(SPIDERMAN, SPIDERMAN_USER, SPIDERMAN_PASS);
 
-			MailFolder user1Inbox = im.getInbox(user1);
-			MailFolder user1Other = im.createMailbox(user1, "otherfolder1");
-			MailFolder user2Other = im.createMailbox(user2, "otherfolder2");
+			MailFolder supermanInbox = im.getInbox(superman);
+			MailFolder supermanPofF = im.createMailbox(superman, "PalaceOfF");
+			MailFolder spidermanWebjuce = im.createMailbox(spiderman, "web-juice");
 
-			MimeMessage m1 = new MimeMessageBuilder(gm.getSmtp().createSession())
-					.withSubject("sub1")
-					.withFrom(SUPERMAN)
-					.withTo(BATMAN)
-					.withBody("blar to dest1")
-					.build();
+			MimeMessage m1 = new MimeMessageBuilder(gm.getSmtp().createSession()).withSubject("Ears").withFrom(SUPERMAN)
+					.withTo(BATMAN).withBody("I like the pointy ears on your hat.").build();
 
-			MimeMessage m2 = new MimeMessageBuilder(gm.getSmtp().createSession())
-					.withSubject("sub2")
-					.withFrom(SPIDERMAN)
-					.withTo(WONDER_WOMAN)
-					.withBody("foo to dest2")
-					.build();
+			MimeMessage m2 = new MimeMessageBuilder(gm.getSmtp().createSession()).withSubject("Gym").withFrom(SPIDERMAN)
+					.withTo(WONDER_WOMAN).withBody("You look great, can you recommend a good gym?").build();
 
-			MimeMessage m3 = new MimeMessageBuilder(gm.getSmtp().createSession())
-					.withSubject("sub3")
-					.withFrom(BATMAN)
-					.withTo(SUPERMAN)
-					.withBody("dest1 to blar")
-					.build();
+			MimeMessage m3 = new MimeMessageBuilder(gm.getSmtp().createSession()).withSubject("Lift").withFrom(BATMAN)
+					.withTo(SUPERMAN).withBody("I need a lift to Gotham.").build();
 
-			MimeMessage m4 = new MimeMessageBuilder(gm.getSmtp().createSession())
-					.withSubject("sub4")
-					.withFrom(WONDER_WOMAN)
-					.withTo(SPIDERMAN)
-					.withBody("dest2 to foo")
-					.build();
+			MimeMessage m4 = new MimeMessageBuilder(gm.getSmtp().createSession()).withSubject("Re: Gym")
+					.withFrom(WONDER_WOMAN).withTo(SPIDERMAN)
+					.withBody("Why thank you! The best gym is Gymmy's in Birkdale, UK.").build();
 
-			MimeMessage m5 = new MimeMessageBuilder(gm.getSmtp().createSession())
-					.withSubject("sub5")
-					.withFrom(BATMAN)
-					.withCc(BATMAN)
-					.withCc(WONDER_WOMAN)
-					.withTo(SUPERMAN)
-					.withTo(SPIDERMAN)
-					.withBcc(TGAH)
-					.withBcc(SFH)
-					.withBody("dest2 to foo")
-					.build();
+			MimeMessage m5 = new MimeMessageBuilder(gm.getSmtp().createSession()).withSubject("New suit")
+					.withFrom(BATMAN).withCc(BATMAN).withCc(WONDER_WOMAN).withTo(SUPERMAN).withTo(SPIDERMAN)
+					.withBcc(TGAH).withBcc(SFH)
+					.withBody("I'm having a party to show off my new suit. Do you want to come?").build();
 
 			System.out.println("Store1");
-			user1Inbox.store(m1);
-			user1Inbox.store(m5);
+			supermanInbox.store(m1);
+			supermanInbox.store(m5);
 			System.out.println("Store2");
-			user1Inbox.store(m3);
+			supermanInbox.store(m3);
 
 			System.out.println("Store3");
-			user1Other.store(m2);
+			supermanPofF.store(m2);
 			System.out.println("Store4");
-			user2Other.store(m4);
+			spidermanWebjuce.store(m4);
 			System.out.println("Store done");
 
 		} catch (Exception e) {
@@ -145,7 +127,7 @@ public class Main {
 		app.get("/d/:mailbox/:uid", new DeleteMessageCommand(greenMail));
 		app.get("/v/:mailbox/:uid", new ViewMessageCommand(greenMail));
 		app.get("/u/:email/delete", new DeleteUserCommand(greenMail));
-		
+
 		if (cfg.useAccessControlAnywhere()) {
 			System.out.println("Allow REST connections from anywhere");
 			app.after("/*", new AccessControlAllowOriginHandler("*"));

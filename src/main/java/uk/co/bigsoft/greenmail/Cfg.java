@@ -1,6 +1,5 @@
 package uk.co.bigsoft.greenmail;
 
-
 public class Cfg {
 
 	public boolean useTestData() {

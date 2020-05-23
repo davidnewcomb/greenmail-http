@@ -8,16 +8,19 @@ public class CfgClient {
 	public CfgClient() {
 		//
 	}
-	
+
 	public boolean isHidePassword() {
 		return hidePassword;
 	}
+
 	public void setHidePassword(boolean hidePassword) {
 		this.hidePassword = hidePassword;
 	}
+
 	public boolean isDebug() {
 		return debug;
 	}
+
 	public void setDebug(boolean debug) {
 		this.debug = debug;
 	}

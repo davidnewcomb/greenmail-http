@@ -1,10 +1,12 @@
-# Build front end
+# GreenMail HTTP Frontend
+Maven builds this package as part of the main build but if you'd like to develop it then it's easy.
 
-Currently package.homepage is set to /v2. I need the old version and the new version running at the same time.
 ```
 yarn install
-yarn build
-rm -rf ../resources/web/v2
-cp -r build ../resources/web/v2
+yarn start
 ```
-**NOTE**: The maven build has not been updated to build the frontend yet.
+
+A web browser will open automatically showing the front page.
+You must have the GreenMail HTTP application running (obviously!).
+If you get CORS issues then consider adding [ac_anywhere](../../../README.md#user-content-run-with-access-control-allow-origin).
+

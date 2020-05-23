@@ -18,31 +18,28 @@ If you just want to see GreenMail HTTP in action, with a few pre-loaded test ema
 support/start-open.sh
 ```
 
-You can run GreenMail HTTP using the same options as GreenMail Standalone ( https://greenmail-mail-test.github.io/greenmail/#deployment ).
+You can run GreenMail HTTP using the same options as [GreenMail Standalone](https://greenmail-mail-test.github.io/greenmail/#deployment).
 
-### Test
-There are a few options specific to GreenMail HTTP. These are configured using `-D` options in the same way GreenMail does.
-If you would like to start with some test mailboxes then you can launch with the `add_test_data` option.
+There are a few options specific to GreenMail HTTP. Inline with GreenMail these are `-D` options too.
 
+### Run with test data
+Creates a couple of users with a couple of mail folders containing varying numbers of emails.
 ```
-java -Duk.co.bigsoft.greenmail.add_test_data [opts] -jar target/greenail-http.jar
+-Duk.co.bigsoft.greenmail.add_test_data
 ```
 
-## Develop
-To develop the frontend
+### Run with Access-Control-Allow-Origin
+When developing the frontend you can run into [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) issues.
+Using this flag will tell GreenMail HTTP to add Access-Control-Allow-Origin to the response headers.
 ```
-java -Duk.co.bigsoft.greenmail.ac_anywhere [opts] -jar target/greenail-http.jar
+-Duk.co.bigsoft.greenmail.ac_anywhere
 ```
-adds `Access-Control-Allow-Origin: *` to responses, so then you can do:
-```
-cd src/main/web
-yarn start
-```
-The browser will open automatically and off you go!
 
-
-## Access
+## Browser access
 http://localhost:7000/
+
+## Frontend development
+See [README](src/main/web/README.md).
 
 ## Versions
 
