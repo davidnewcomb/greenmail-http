@@ -55,7 +55,7 @@ class WelcomePage extends Component {
 			<Container>
 			<Jumbotron>
 			<h1>GreenMail HTTP</h1>
-			<p>You are currently running version: {packageJson.version}</p>
+			<div>You are currently running version: {packageJson.version}</div>
 			{this.state.status}
 			<p>
 			<hr/>

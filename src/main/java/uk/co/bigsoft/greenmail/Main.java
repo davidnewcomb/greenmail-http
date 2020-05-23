@@ -66,7 +66,6 @@ public class Main {
 			GreenMailUser user2 = um.createUser(SPIDERMAN, "foo", "f123");
 
 			MailFolder user1Inbox = im.getInbox(user1);
-			MailFolder user2Inbox = im.getInbox(user2);
 			MailFolder user1Other = im.createMailbox(user1, "otherfolder1");
 			MailFolder user2Other = im.createMailbox(user2, "otherfolder2");
 
@@ -130,7 +129,7 @@ public class Main {
 
 	private static void startHttpServer(GreenMail greenMail) {
 		Javalin app = Javalin.create().start(7000);
-		app.config.addStaticFiles("/web", Location.CLASSPATH);
+		app.config.addStaticFiles("/frontend", Location.CLASSPATH);
 		app.get("/imap/:email/inbox", new ImapGetInBoxCommand(greenMail));
 		app.get("/imap/:email", new ImapListMailBoxCommand(greenMail));
 		app.get("/imap", new ImapAllMessagesCommand(greenMail));

@@ -3,32 +3,25 @@
 Encapsulates GreenMail Standalone, adds a web server to deliver JSON and web pages showing the internals of GreenMail.
 
 ## Build
-The new frontend is experimental so it's not linked into the main build yet.
+One step build with Maven. Downloads `node` and `yarn` (to the `exe` folder) and uses them to build the React frontend.
+
 ```
 git clone https://github.com/davidnewcomb/greenmail-http.git
 cd greenmail-http
-root=$PWD
-```
-Optional: if you want the v2 frontend, then it still needs to be built by hand.
-```
-cd $root/src/main/web/
-yarn install
-yarn build
-mv build ../resources/web/v2
-```
-Then build and package.
-```
 mvn clean install
 ```
 
 ## Run
-Run using same command line options as GreenMail Standalone ( https://greenmail-mail-test.github.io/greenmail/#deployment ).
+If you just want to see GreenMail HTTP in action, with a few pre-loaded test emails, without a lot of faffing, then run:
 
 ```
-java -Dgreenmail.setup.test.smtp -Dgreenmail.setup.test.imap -Dgreenmail.setup.test.http -Dgreenmail.verbose -jar target/greenail-http.jar
+support/start-open.sh
 ```
+
+You can run GreenMail HTTP using the same options as GreenMail Standalone ( https://greenmail-mail-test.github.io/greenmail/#deployment ).
 
 ### Test
+There are a few options specific to GreenMail HTTP. These are configured using `-D` options in the same way GreenMail does.
 If you would like to start with some test mailboxes then you can launch with the `add_test_data` option.
 
 ```
@@ -42,17 +35,19 @@ java -Duk.co.bigsoft.greenmail.ac_anywhere [opts] -jar target/greenail-http.jar
 ```
 adds `Access-Control-Allow-Origin: *` to responses, so then you can do:
 ```
-cd yarn start
+cd src/main/web
+yarn start
 ```
 The browser will open automatically and off you go!
 
 
 ## Access
-1. Stable frontend - http://localhost:7000/
-1. Under development - http://localhost:7000/v2/
+http://localhost:7000/
 
 ## Versions
 
 ### 1.0.0
 Initial release - Prototype
+### 2.0.0
+Pretty frontend
 

@@ -41,6 +41,7 @@
 			</roles>
 		</developer>
 	</developers>
+
 	<properties>
 
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -52,7 +53,7 @@
 		<versions.slf4j>1.7.29</versions.slf4j>
 		<versions.greenmail>1.5.13</versions.greenmail>
 		<versions.greenmail.core>1.5.13</versions.greenmail.core>
-
+		<versions.eirslett>1.10.0</versions.eirslett>
 	</properties>
 
 	<dependencies>
@@ -129,6 +130,43 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>${versions.eirslett}</version>
+				<configuration>
+					<installDirectory>exe</installDirectory>
+					<workingDirectory>src/main/web</workingDirectory>
+				</configuration>
+
+				<executions>
+					<execution>
+						<id>install node and yarn</id>
+						<goals>
+							<goal>install-node-and-yarn</goal>
+						</goals>
+						<!-- optional: default phase is "generate-resources" -->
+						<phase>generate-resources</phase>
+						<configuration>
+							<yarnVersion>v1.22.4</yarnVersion>
+							<nodeVersion>v14.3.0</nodeVersion>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>yarn build</id>
+						<goals>
+							<goal>yarn</goal>
+						</goals>
+						<phase>compile</phase>
+						<configuration>
+							<arguments>build-production</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 

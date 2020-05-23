@@ -21,13 +21,9 @@ class ServerConfigPage extends Component {
 		let url = ServerConfig()
 		axios.get(url)
 			.then((res, status) => {
-				console.log(res)
 				for (let i = 0 ; i < res.data.length ; ++i) {
 					res.data[i].id = '' + i
-					console.log('-')
-					console.log(res.data[i].properties)
 					for (let j = 0 ; j < res.data[i].properties.length ; ++j) {
-
 						res.data[i].properties[j].id = i + '.' + j
 					}
 				}
