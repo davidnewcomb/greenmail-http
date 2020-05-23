@@ -12,13 +12,13 @@ function PrintMap(props) {
 	const mEntries = Object.entries(theMap).sort( (a,b) => a > b)
 
 	const containerStyle = {
-		'padding-bottom': '50px'
+		'paddingBottom': '50px'
 	}
 	const headerStyle = {
 		'fontWeight': 'bold'
 	}
 	const entryStyle = {
-		'border-top': '2px solid black'
+		'borderTop': '2px solid black'
 	}
 
 	return (

@@ -6,7 +6,9 @@ import {
 	NavLink
 } from "react-router-dom"
 import axios from 'axios'
+
 import {DeleteUserUrl} from '../c/GmhUrl'
+import PrintPassword from '../c/PrintPassword'
 
 class ListUserRow extends Component {
 
@@ -20,9 +22,7 @@ class ListUserRow extends Component {
 	render() {
 
 		let {email, password, login, qualifiedMailboxName} = this.props.user
-		let passwordHidden = "*".repeat(password.length)
 		let l = "/user/" + email + "/folders"
-		//let d = "/user/" + email + "/delete"
 		return (
 			<tr>
 				<td>
@@ -32,14 +32,13 @@ class ListUserRow extends Component {
 				</td>
 				<td style={this.state.deleteStyle}>{email}</td>
 				<td>{login}</td>
-				<td>{passwordHidden}</td>
+				<td><PrintPassword text={password}/></td>
 				<td>{qualifiedMailboxName}</td>
 			</tr>
 		)
 	}
 
 	deleteUser(email) {
-		console.log("***** deleteUser: " + email)
 		this.setState({deleteStyle: {color:'red'}})
 		let url = DeleteUserUrl(email)
 		axios.get(url)

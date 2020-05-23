@@ -54,6 +54,8 @@ class ListUserPage extends Component {
 		<Container>
 		<PageHeader title="List Users"/>
 
+		<div className="intro">Passwords are hidden by default, click the stars to reveal them.</div>
+
 		<Table className="table">
 			<tbody>
 			<tr>

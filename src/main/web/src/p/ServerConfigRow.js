@@ -1,8 +1,6 @@
-import React, {
-	Component
-} from 'react'
+import React from 'react'
 
-import PrintMap from './PrintMap'
+import PrintMap from '../c/PrintMap'
 
 function ServerConfigRow(props) {
 
