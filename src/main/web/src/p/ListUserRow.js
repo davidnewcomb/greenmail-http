@@ -6,7 +6,7 @@ import {
 	NavLink
 } from "react-router-dom"
 import axios from 'axios'
-import {DeleteUserUrl} from '../c/HgmUrl'
+import {DeleteUserUrl} from '../c/GmhUrl'
 
 class ListUserRow extends Component {
 

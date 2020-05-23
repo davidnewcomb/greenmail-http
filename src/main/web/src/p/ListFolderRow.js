@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Link, NavLink} from "react-router-dom"
 import axios from 'axios'
 
-import {DeleteMailboxUrl} from '../c/HgmUrl'
+import {DeleteMailboxUrl} from '../c/GmhUrl'
 
 class ListFolderRow extends Component {
 

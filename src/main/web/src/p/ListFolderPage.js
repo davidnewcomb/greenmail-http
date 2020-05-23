@@ -4,7 +4,7 @@ import Alert from 'react-bootstrap/Alert'
 import Table from 'react-bootstrap/Table'
 import Container from 'react-bootstrap/Container'
 
-import {ListMailboxes} from '../c/HgmUrl'
+import {ListMailboxes} from '../c/GmhUrl'
 import ListFolderRow from './ListFolderRow'
 import {BreadcrumbContext} from '../c/breadcrumbContext'
 import PageHeader from '../m/PageHeader'

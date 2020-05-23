@@ -3,7 +3,7 @@ import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Container from 'react-bootstrap/Container'
 
-import {ServerConfig} from '../c/HgmUrl'
+import {ServerConfig} from '../c/GmhUrl'
 import ServerConfigRow from './ServerConfigRow'
 import PageHeader from '../m/PageHeader'
 

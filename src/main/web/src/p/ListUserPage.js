@@ -4,7 +4,7 @@ import Alert from 'react-bootstrap/Alert'
 import Table from 'react-bootstrap/Table'
 import Container from 'react-bootstrap/Container'
 
-import {ListUsersUrl} from '../c/HgmUrl'
+import {ListUsersUrl} from '../c/GmhUrl'
 import ListUserRow from './ListUserRow'
 import PageHeader from '../m/PageHeader'
 

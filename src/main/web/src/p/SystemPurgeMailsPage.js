@@ -1,4 +1,4 @@
-import {PurgeMailsUrl} from '../c/HgmUrl'
+import {PurgeMailsUrl} from '../c/GmhUrl'
 import NoDataPage from './NoDataPage'
 
 class SystemPurgeMailsPage extends NoDataPage {

@@ -6,7 +6,7 @@ import {
 	Route
 } from "react-router-dom"
 
-import HgmNav from './c/HgmNav'
+import GmhNav from './c/GmhNav'
 import ServerConfigPage from './p/ServerConfigPage'
 import WelcomePage from './p/WelcomePage'
 import ListAllMessagePage from './p/ListAllMessagePage'
@@ -26,7 +26,7 @@ function App() {
 		<BreadcrumbContextProvider>
 		<Router>
 		<Container>
-			<HgmNav/>
+			<GmhNav/>
 			<Breadcrumbs/>
 
 			<Switch>

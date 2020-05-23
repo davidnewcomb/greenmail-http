@@ -5,7 +5,7 @@ import {
 	NavLink
 } from "react-router-dom"
 
-class HgmNav extends Component {
+class GmhNav extends Component {
 
 	constructor(props) {
 		super(props)
@@ -53,4 +53,4 @@ class HgmNav extends Component {
 	}
 }
 
-export default HgmNav
+export default GmhNav

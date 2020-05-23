@@ -3,7 +3,7 @@ import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Container from 'react-bootstrap/Container'
 
-import {AllImapUrl} from '../c/HgmUrl'
+import {AllImapUrl} from '../c/GmhUrl'
 import MessagesTable from './MessagesTable'
 import PageHeader from '../m/PageHeader'
 

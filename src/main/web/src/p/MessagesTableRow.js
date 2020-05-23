@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {Link, NavLink} from "react-router-dom"
 import axios from 'axios'
 
-import {DeleteMessageUrl} from '../c/HgmUrl'
+import {DeleteMessageUrl} from '../c/GmhUrl'
 
 class MessagesTableRow extends Component {
 
