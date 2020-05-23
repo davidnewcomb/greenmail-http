@@ -2,14 +2,13 @@ import React from 'react'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import Table from 'react-bootstrap/Table'
 
 
 function PrintMap(props) {
 
 	const {theMap, headerKey, headerValue} = props
 
-	const mEntries = Object.entries(theMap).sort( (a,b) => a > b)
+	const mEntries = Object.entries(theMap).sort((a,b) => a > b)
 
 	const containerStyle = {
 		'paddingBottom': '50px'
@@ -30,7 +29,7 @@ function PrintMap(props) {
 		{
 			mEntries.map((item, index) => {
 				return (
-					<Row style={entryStyle}>
+					<Row style={entryStyle} key={index}>
 						<Col>{item[0]}</Col>
 						<Col>{item[1]}</Col>
 					</Row>
