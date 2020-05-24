@@ -8,6 +8,8 @@ import {Link} from "react-router-dom"
 import SoftwareUpdateMessage from '../m/SoftwareUpdateMessage'
 import CheckingSoftwareVersion from '../m/CheckingSoftwareVersion'
 import SoftwareIsUpToDate from '../m/SoftwareIsUpToDate'
+import {read as brainRead, write as brainWrite} from '../c/Brain'
+
 
 class WelcomePage extends Component {
 
@@ -15,34 +17,28 @@ class WelcomePage extends Component {
 		super(props)
 		this.state = {
 			latest: packageJson.version,
-			checked: false,
 			status: <CheckingSoftwareVersion/>
 		}
 	}
 
 	componentDidMount() {
+		let latestTag = brainRead('latestTag')
+		if (latestTag !== null) {
+			this.displayUserMessage(latestTag)
+			return
+		}
+
 		axios.get("https://api.github.com/repos/davidnewcomb/greenmail-http/tags")
 			.then( (response, state) => {
-				console.log(response)
 				const tags = response.data.map( tag => tag.name)
 				const stags = tags.sort( (a,b) => a < b)
 				const latestTag = stags[stags.length-1]
-				let status = null
-				if (packageJson.version !== latestTag) {
-					status = <SoftwareUpdateMessage latest={latestTag}/>
-				} else {
-					status = <SoftwareIsUpToDate/>
-				}
-				this.setState({
-					latest: latestTag,
-					checked: true,
-					status: status
-				})
+				brainWrite('latestTag', latestTag)
+				this.displayUserMessage(latestTag)
 			})
 			.catch( (error) => {
 				let status = <SoftwareUpdateMessage error={error.toString()}/>
 				this.setState({
-					checked: true,
 					status: status
 				})
 				console.error('Error getting greenmail-http project tags', error)
@@ -57,13 +53,25 @@ class WelcomePage extends Component {
 			<h1>GreenMail HTTP</h1>
 			<div>You are currently running version: {packageJson.version}</div>
 			{this.state.status}
-			<p>
 			<hr/>
 			<Link to="https://github.com/davidnewcomb/greenmail-http">GreenMail HTTP on Github</Link>
-			</p>
 			</Jumbotron>
 			</Container>
 		)
+	}
+
+	displayUserMessage(version) {
+		let status = null
+		if (packageJson.version !== version) {
+			status = <SoftwareUpdateMessage latest={version}/>
+		} else {
+			status = <SoftwareIsUpToDate/>
+		}
+		this.setState({
+			latest: version,
+			status: status
+		})
+		return
 	}
 }
 

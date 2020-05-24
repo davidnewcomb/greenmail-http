@@ -31,7 +31,6 @@ class ListFolderPage extends Component {
 
 		axios.get(url)
 			.then(res => {
-				console.log(res)
 				for (let i = 0 ; i < res.data.length ; ++i) {
 					res.data[i].id = '' + i
 				}

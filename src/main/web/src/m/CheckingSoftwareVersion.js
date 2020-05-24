@@ -6,7 +6,7 @@ function CheckingSoftwareVersion(props) {
 	return (
 		<Alert variant="warning">
 			<Alert.Heading>Checking...</Alert.Heading>
-			<p>Contacting Github to see if you are up to date.</p>
+			<div>Contacting Github to see if you are up to date.</div>
 		</Alert>
 	)
 }

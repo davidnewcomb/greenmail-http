@@ -35,7 +35,6 @@ class BreadcrumbContextProvider extends Component {
 
 		let found = this.state.breadcrumbs.filter( i => i.link === link)
 		if (found.length === 1) {
-			console.log(`addBanner: not adding ${link}`)
 			return
 		}
 

@@ -6,7 +6,7 @@ function CheckingSoftwareVersion(props) {
 	return (
 		<Alert variant="success">
 			<Alert.Heading>Hurray!</Alert.Heading>
-			<p>You are on the latest version.</p>
+			<div>You are on the latest version.</div>
 		</Alert>
 	)
 }

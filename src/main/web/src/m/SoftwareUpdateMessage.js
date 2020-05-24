@@ -9,7 +9,7 @@ function SoftwareUpdateMessage(props) {
 	return (
 		<Alert variant="danger">
 			<Alert.Heading>New software available...</Alert.Heading>
-			<p>{message}</p>
+			<div>{message}</div>
 		</Alert>
 	)
 }
