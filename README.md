@@ -3,13 +3,14 @@
 Encapsulates GreenMail Standalone, adds a web server to deliver JSON and web pages showing the internals of GreenMail.
 
 ## Build
-One step build with Maven. Downloads `node` and `yarn` (to the `exe` folder) and uses them to build the React frontend.
+While the project is in flux, it's not in the Maven repos, but it is now a one step build.
 
 ```
 git clone https://github.com/davidnewcomb/greenmail-http.git
 cd greenmail-http
 mvn clean install
 ```
+Downloads `node` and `yarn` (to the `exe` folder) and uses them to build the React frontend.
 
 ## Run
 If you just want to see GreenMail HTTP in action, with a few pre-loaded test emails, without a lot of faffing, then run:

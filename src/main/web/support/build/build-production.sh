@@ -4,13 +4,14 @@
 # https://reactjs.org/docs/optimizing-performance.html#use-the-production-build
 # but without rollup. Is it needed, create issue for discussion?
 
-echo ""
-echo ""
-pwd
-echo ""
-echo ""
 
 OUT="../../../target/classes/frontend"
+
+echo "Switch off yarn commit"
+yarn config set version-git-tag false
+echo "Updating frontend package version to: $GREENMAIL_HTTP_VERSION"
+yarn version --new-version $GREENMAIL_HTTP_VERSION
+
 echo "Running React build"
 react-scripts build
 

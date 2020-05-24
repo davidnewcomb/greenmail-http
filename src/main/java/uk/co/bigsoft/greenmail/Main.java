@@ -51,7 +51,7 @@ public class Main {
 		}
 
 		String SUPERMAN_USER = "superman";
-		String SUPERMAN_PASS = "x-ray-visible";
+		String SUPERMAN_PASS = "x-ray-vision";
 		String SPIDERMAN_USER = "spiderman";
 		String SPIDERMAN_PASS = "spin-webs";
 		String SUPERMAN = "clarke.kent@superman.com";

@@ -162,6 +162,9 @@
 						<phase>compile</phase>
 						<configuration>
 							<arguments>build-production</arguments>
+							<environmentVariables>
+								<GREENMAIL_HTTP_VERSION>${project.version}</GREENMAIL_HTTP_VERSION>
+							</environmentVariables>
 						</configuration>
 					</execution>
 				</executions>
