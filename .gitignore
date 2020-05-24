@@ -8,6 +8,3 @@
 # Maven - how to move this into the target/ folder?
 /dependency-reduced-pom.xml
 
-# MacOS
-.DS_Store
-
