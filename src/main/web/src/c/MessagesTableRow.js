@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import {Link, NavLink} from "react-router-dom"
 import axios from 'axios'
 
-import {DeleteMessageUrl} from '../c/GmhUrl'
+import {DeleteMessageUrl} from './GmhUrl'
+import EmailAddresses from './EmailAddresses'
 
 class MessagesTableRow extends Component {
 
@@ -19,10 +20,10 @@ class MessagesTableRow extends Component {
 				</td>
 				<td>{m.mailbox} / {m.uid}</td>
 				<td>{m.messageId}</td>
-				<td>{m.from}</td>
-				<td>{m.to}</td>
-				<td>{m.cc}</td>
-				<td>{m.bcc}</td>
+				<td><EmailAddresses emails={m.from}/></td>
+				<td><EmailAddresses emails={m.to}/></td>
+				<td><EmailAddresses emails={m.cc}/></td>
+				<td><EmailAddresses emails={m.bcc}/></td>
 				<td>{m.subject}</td>
 				<td>{m.body}</td>
 			</tr>

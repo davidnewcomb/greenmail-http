@@ -4,7 +4,7 @@ import Alert from 'react-bootstrap/Alert'
 import Container from 'react-bootstrap/Container'
 
 import {AllImapUrl} from '../c/GmhUrl'
-import MessagesTable from './MessagesTable'
+import MessagesTable from '../c/MessagesTable'
 import PageHeader from '../m/PageHeader'
 
 class ListAllMesssagePage extends Component {

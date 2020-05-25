@@ -9,6 +9,7 @@ import axios from 'axios'
 
 import {DeleteUserUrl} from '../c/GmhUrl'
 import PrintPassword from '../c/PrintPassword'
+import EmailAddresses from '../c/EmailAddresses'
 
 class ListUserRow extends Component {
 
@@ -30,7 +31,7 @@ class ListUserRow extends Component {
 					&nbsp;|&nbsp;
 					<Link to='#' onClick={() => this.deleteUser(email)} title="Delete user">DU</Link>
 				</td>
-				<td style={this.state.deleteStyle}>{email}</td>
+				<td style={this.state.deleteStyle}><EmailAddresses emails={email}/></td>
 				<td>{login}</td>
 				<td><PrintPassword text={password}/></td>
 				<td>{qualifiedMailboxName}</td>

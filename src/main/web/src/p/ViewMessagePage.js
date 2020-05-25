@@ -5,7 +5,7 @@ import Table from 'react-bootstrap/Table'
 import Container from 'react-bootstrap/Container'
 import {ViewMessageUrl} from '../c/GmhUrl'
 import PrintMap from '../c/PrintMap'
-import {EmailAddresses} from '../c/EmailAddress'
+import EmailAddresses from '../c/EmailAddresses'
 import {BreadcrumbContext} from '../c/breadcrumbContext'
 import PageHeader from '../m/PageHeader'
 

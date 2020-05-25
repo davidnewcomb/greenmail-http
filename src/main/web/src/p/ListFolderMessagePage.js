@@ -4,7 +4,7 @@ import Alert from 'react-bootstrap/Alert'
 import Container from 'react-bootstrap/Container'
 
 import {ListFolderMessagesUrl} from '../c/GmhUrl'
-import MessagesTable from './MessagesTable'
+import MessagesTable from '../c/MessagesTable'
 import {BreadcrumbContext} from '../c/breadcrumbContext'
 import PageHeader from '../m/PageHeader'
 
