@@ -31,7 +31,7 @@ class WelcomePage extends Component {
 			.then( (response, state) => {
 				const tags = response.data.map( tag => tag.name)
 				const stags = tags.sort( (a,b) => a < b)
-				const latestTag = stags[stags.length-1]
+				const latestTag = stags[0]
 				brainWrite('latestTag', latestTag)
 				this.displayUserMessage(latestTag)
 			})
