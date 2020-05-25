@@ -54,7 +54,7 @@ class WelcomePage extends Component {
 			<div>You are currently running version: {packageJson.version}</div>
 			{this.state.status}
 			<hr/>
-			<Link to="https://github.com/davidnewcomb/greenmail-http">GreenMail HTTP on Github</Link>
+			<a href="https://github.com/davidnewcomb/greenmail-http">GreenMail HTTP on Github</a>
 			</Jumbotron>
 			</Container>
 		)

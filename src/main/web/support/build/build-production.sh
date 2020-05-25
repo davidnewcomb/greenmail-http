@@ -9,20 +9,17 @@ OUT="../../../target/classes/frontend"
 
 echo "Switch off yarn commit"
 yarn config set version-git-tag false
+
 echo "Updating frontend package version to: $GREENMAIL_HTTP_VERSION"
 yarn version --new-version $GREENMAIL_HTTP_VERSION
+
+echo "yarn install"
+yarn install
 
 echo "Running React build"
 react-scripts build
 
 echo "Moving build folder to $OUT"
-#find ../../../target
-
-#echo "Here"
-#ls -l
-#ls -l build
-#ls -l
-
 mv build $OUT
 
 
