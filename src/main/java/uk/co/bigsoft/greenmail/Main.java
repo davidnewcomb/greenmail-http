@@ -91,17 +91,32 @@ public class Main {
 					.withBcc(TGAH).withBcc(SFH)
 					.withBody("I'm having a party to show off my new suit. Do you want to come?").build();
 
-			System.out.println("Store1");
+			System.out.println("");
+			System.out.println("================ STORING TEST EMAILS - Start");
+			System.out.println("");
+			System.out.println("On my computer storing emails takes ages.");
+			System.out.println("So if it sticks for you then please wait a second or two.");
+			System.out.println("If it does stick for you, maybe you can help me figure out why!");
+			System.out.println("");
+
+			System.out.println("|......|");
+			System.out.print("|*");
 			supermanInbox.store(m1);
+
+			System.out.print("*");
 			supermanInbox.store(m5);
-			System.out.println("Store2");
+
+			System.out.print("*");
 			supermanInbox.store(m3);
 
-			System.out.println("Store3");
+			System.out.print("*");
 			supermanPofF.store(m2);
-			System.out.println("Store4");
+
+			System.out.print("*");
 			spidermanWebjuce.store(m4);
-			System.out.println("Store done");
+			System.out.println("|");
+
+			System.out.println("================ STORING TEST EMAILS - Done");
 
 		} catch (Exception e) {
 			e.printStackTrace();

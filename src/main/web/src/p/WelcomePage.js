@@ -3,7 +3,6 @@ import axios from 'axios'
 import packageJson from '../../package.json'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Container from 'react-bootstrap/Container'
-import {Link} from "react-router-dom"
 
 import SoftwareUpdateMessage from '../m/SoftwareUpdateMessage'
 import CheckingSoftwareVersion from '../m/CheckingSoftwareVersion'
