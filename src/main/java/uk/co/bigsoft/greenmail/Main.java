@@ -99,23 +99,25 @@ public class Main {
 			System.out.println("If it does stick for you, maybe you can help me figure out why!");
 			System.out.println("");
 
-			System.out.println("|......|");
-			System.out.print("|*");
+			System.out.println("|.....|");
+			System.out.print("|");
+
 			supermanInbox.store(m1);
-
 			System.out.print("*");
+
 			supermanInbox.store(m5);
-
 			System.out.print("*");
+
 			supermanInbox.store(m3);
-
 			System.out.print("*");
+
 			supermanPofF.store(m2);
-
 			System.out.print("*");
-			spidermanWebjuce.store(m4);
-			System.out.println("|");
 
+			spidermanWebjuce.store(m4);
+			System.out.print("*");
+
+			System.out.println("|");
 			System.out.println("================ STORING TEST EMAILS - Done");
 
 		} catch (Exception e) {

@@ -1,6 +1,6 @@
 {
   "name": "greenmail-http-frontend",
-  "version": "2.0.0-SNAPSHOT",
+  "version": "2.0.0",
   "private": true,
   "dependencies": {
     "@primer/octicons-react": "^9.6.0",
