@@ -1,11 +1,14 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
+import Button from 'react-bootstrap/Button'
 import MessagesTableRow from './MessagesTableRow'
 
 function MessagesTable(props) {
 
 	let {messages, reload} = props
+
 	return (
+		<>
 		<Table className="table">
 			<tbody>
 			<tr>
@@ -24,6 +27,8 @@ function MessagesTable(props) {
 			}
 			</tbody>
 		</Table>
+		<Button onClick={reload}>Refresh</Button>
+		</>
 	)
 }
 

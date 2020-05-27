@@ -27,7 +27,11 @@ public class MessageDto {
 		MimeMessage mm = storedMessage.getMimeMessage();
 
 		uid = storedMessage.getUid();
-		mailboxFqn = mailbox.getFullName();
+		if (mailbox == null) {
+			mailboxFqn = "(unknown)";
+		} else {
+			mailboxFqn = mailbox.getFullName();
+		}
 		messageId = mm.getMessageID();
 		subject = mm.getSubject();
 		body = mm.getContent().toString();

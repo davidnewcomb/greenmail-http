@@ -14,6 +14,11 @@ public class Utils {
 		return um.getUserByEmail(user);
 	}
 
+	public String getEmail(Context ctx) {
+		String email = ctx.pathParam("email");
+		return email;
+	}
+
 	public MailFolder getMailbox(Context ctx, ImapHostManager im) {
 		String mailbox = ctx.pathParam("mailbox").replace("%23", "#");
 		MailFolder m = im.getStore().getMailbox(mailbox);

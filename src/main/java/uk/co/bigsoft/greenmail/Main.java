@@ -1,18 +1,16 @@
 package uk.co.bigsoft.greenmail;
 
 import java.util.Properties;
-
 import javax.mail.internet.MimeMessage;
-
 import com.icegreen.greenmail.imap.ImapHostManager;
 import com.icegreen.greenmail.standalone.HttpGreenMailStandaloneRunner;
 import com.icegreen.greenmail.store.MailFolder;
 import com.icegreen.greenmail.user.GreenMailUser;
 import com.icegreen.greenmail.user.UserManager;
 import com.icegreen.greenmail.util.GreenMail;
-
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
+
 import uk.co.bigsoft.greenmail.http.commands.CfgClientCommand;
 import uk.co.bigsoft.greenmail.http.commands.CfgGreenMailCommand;
 import uk.co.bigsoft.greenmail.http.commands.DeleteMailboxCommand;
@@ -21,6 +19,7 @@ import uk.co.bigsoft.greenmail.http.commands.DeleteUserCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapAllMessagesCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapGetInBoxCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapListMailBoxCommand;
+import uk.co.bigsoft.greenmail.http.commands.ListUserMessageCommand;
 import uk.co.bigsoft.greenmail.http.commands.ListUsersCommand;
 import uk.co.bigsoft.greenmail.http.commands.MailboxMessagesCommand;
 import uk.co.bigsoft.greenmail.http.commands.PurgeEmailFromAllMailboxesCommand;
@@ -144,7 +143,11 @@ public class Main {
 		app.get("/d/:mailbox/:uid", new DeleteMessageCommand(greenMail));
 		app.get("/v/:mailbox/:uid", new ViewMessageCommand(greenMail));
 		app.get("/u/:email/delete", new DeleteUserCommand(greenMail));
-
+		app.get("/u/:email/to", new ListUserMessageCommand(greenMail, "to"));
+		app.get("/u/:email/from", new ListUserMessageCommand(greenMail, "from"));
+		app.get("/u/:email/cc", new ListUserMessageCommand(greenMail, "cc"));
+		app.get("/u/:email/bcc", new ListUserMessageCommand(greenMail, "bcc"));
+		
 		if (cfg.useAccessControlAnywhere()) {
 			System.out.println("Allow REST connections from anywhere");
 			app.after("/*", new AccessControlAllowOriginHandler("*"));

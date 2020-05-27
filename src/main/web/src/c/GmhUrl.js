@@ -5,6 +5,7 @@ let mappings = {
 	ALL_IMAP: '/imap',
 	LIST_MAILBOXES: '/imap/:email',
 	LIST_MESSAGES: '/m/:mailbox',
+	LIST_USER_MESSAGES: '/u/:email/:who',
 	LIST_USERS: '/lu',
 	CONFIG_SERVER: '/cfg/greenmail',
 	CONFIG_CLIENT: '/cfg/client',
@@ -36,6 +37,10 @@ export let DeleteMailboxUrl = (mailbox) => {
 export let ListFolderMessagesUrl = (mailbox) => {
 	let encMailbox = encodeURIComponent(mailbox)
 	return base + mappings.LIST_MESSAGES.replace(':mailbox', encMailbox)
+}
+
+export let ListUserMessageUrl = (email, who) => {
+	return base + mappings.LIST_USER_MESSAGES.replace(':email', email).replace(':who', who)
 }
 
 export let ListUsersUrl = () => {

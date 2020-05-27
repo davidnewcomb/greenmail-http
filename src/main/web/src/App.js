@@ -12,9 +12,11 @@ import WelcomePage from './p/WelcomePage'
 import ListAllMessagePage from './p/ListAllMessagePage'
 import ListFolderMessagePage from './p/ListFolderMessagePage'
 import ListFolderPage from './p/ListFolderPage'
+import ListUserMessagePage from './p/ListUserMessagePage'
 import ListUserPage from './p/ListUserPage'
 import SystemPurgeMailsPage from './p/SystemPurgeMailsPage'
 import SystemPurgeUsersPage from './p/SystemPurgeUsersPage'
+import UnderConstruction from './p/UnderConstruction'
 import ViewMessagePage from './p/ViewMessagePage'
 import {BreadcrumbContextProvider} from './c/breadcrumbContext'
 import Breadcrumbs from './c/Breadcrumbs'
@@ -49,8 +51,10 @@ function App() {
 				<SystemPurgeUsersPage/>
 			</Route>
 			<Route exact path="/user/:email/folders" component={ListFolderPage} />
+			<Route exact path="/user/:email" component={ListUserMessagePage} />
 			<Route exact path="/folder/:mailbox" component={ListFolderMessagePage} />
 			<Route exact path="/view/:mailbox/:uid" component={ViewMessagePage} />
+			<Route component={UnderConstruction} />
 			</Switch>
 		</Container>
 		</Router>
