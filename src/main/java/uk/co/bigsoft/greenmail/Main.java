@@ -19,6 +19,7 @@ import uk.co.bigsoft.greenmail.http.commands.DeleteUserCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapAllMessagesCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapGetInBoxCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapListMailBoxCommand;
+import uk.co.bigsoft.greenmail.http.commands.ListDomainMessageCommand;
 import uk.co.bigsoft.greenmail.http.commands.ListUserMessageCommand;
 import uk.co.bigsoft.greenmail.http.commands.ListUsersCommand;
 import uk.co.bigsoft.greenmail.http.commands.MailboxMessagesCommand;
@@ -49,14 +50,20 @@ public class Main {
 			return;
 		}
 
+		String SUPERMAN = "clarke.kent@superman.com";
 		String SUPERMAN_USER = "superman";
 		String SUPERMAN_PASS = "x-ray-vision";
+
+		String SPIDERMAN = "peter.parker@spiderman.co.uk";
 		String SPIDERMAN_USER = "spiderman";
 		String SPIDERMAN_PASS = "spin-webs";
-		String SUPERMAN = "clarke.kent@superman.com";
-		String SPIDERMAN = "peter.parker@spiderman.co.uk";
-		String BATMAN = "bruce.wayne@batman.gotham.us";
+
 		String WONDER_WOMAN = "diana.prince@wonderwoman.com";
+		String WONDER_WOMAN_USER = "wonderwoman";
+		String WONDER_WOMAN_PASS = "nice-boots";
+
+		String BATMAN = "bruce.wayne@gotham.us";
+		String ROBIN = "dick.grayson@gotham.us";
 		String TGAH = "ralph.hinkley@thegreatestamericanhero.com";
 		String SFH = "stringfellow.hawk@airwolf.com";
 
@@ -67,28 +74,58 @@ public class Main {
 
 			GreenMailUser superman = um.createUser(SUPERMAN, SUPERMAN_USER, SUPERMAN_PASS);
 			GreenMailUser spiderman = um.createUser(SPIDERMAN, SPIDERMAN_USER, SPIDERMAN_PASS);
+			GreenMailUser wonderwoman = um.createUser(WONDER_WOMAN, WONDER_WOMAN_USER, WONDER_WOMAN_PASS);
 
 			MailFolder supermanInbox = im.getInbox(superman);
 			MailFolder supermanPofF = im.createMailbox(superman, "PalaceOfF");
+			
 			MailFolder spidermanWebjuce = im.createMailbox(spiderman, "web-juice");
+			
+			MailFolder wonderwomanInbox = im.getInbox(wonderwoman);
+			
+			MimeMessage m1 = new MimeMessageBuilder(gm.getSmtp().createSession())
+					.withFrom(SUPERMAN)
+					.withTo(BATMAN)
+					.withSubject("Ears")
+					.withBody("I like the pointy ears on your hat.")
+					.build();
 
-			MimeMessage m1 = new MimeMessageBuilder(gm.getSmtp().createSession()).withSubject("Ears").withFrom(SUPERMAN)
-					.withTo(BATMAN).withBody("I like the pointy ears on your hat.").build();
+			MimeMessage m2 = new MimeMessageBuilder(gm.getSmtp().createSession())
+					.withFrom(SPIDERMAN)
+					.withTo(WONDER_WOMAN)
+					.withSubject("Gym")
+					.withBody("You look great, can you recommend a good gym?")
+					.build();
 
-			MimeMessage m2 = new MimeMessageBuilder(gm.getSmtp().createSession()).withSubject("Gym").withFrom(SPIDERMAN)
-					.withTo(WONDER_WOMAN).withBody("You look great, can you recommend a good gym?").build();
+			MimeMessage m3 = new MimeMessageBuilder(gm.getSmtp().createSession())
+					.withFrom(BATMAN)
+					.withTo(SUPERMAN)
+					.withSubject("Lift")
+					.withBody("I need a lift to Gotham.")
+					.build();
 
-			MimeMessage m3 = new MimeMessageBuilder(gm.getSmtp().createSession()).withSubject("Lift").withFrom(BATMAN)
-					.withTo(SUPERMAN).withBody("I need a lift to Gotham.").build();
+			MimeMessage m4 = new MimeMessageBuilder(gm.getSmtp().createSession())
+					.withFrom(WONDER_WOMAN)
+					.withTo(SPIDERMAN)
+					.withSubject("Re: Gym")
+					.withBody("Why thank you! The best gym is Gymmy's in Birkdale, UK.")
+					.build();
 
-			MimeMessage m4 = new MimeMessageBuilder(gm.getSmtp().createSession()).withSubject("Re: Gym")
-					.withFrom(WONDER_WOMAN).withTo(SPIDERMAN)
-					.withBody("Why thank you! The best gym is Gymmy's in Birkdale, UK.").build();
-
-			MimeMessage m5 = new MimeMessageBuilder(gm.getSmtp().createSession()).withSubject("New suit")
-					.withFrom(BATMAN).withCc(BATMAN).withCc(WONDER_WOMAN).withTo(SUPERMAN).withTo(SPIDERMAN)
+			MimeMessage m5 = new MimeMessageBuilder(gm.getSmtp().createSession())
+					.withFrom(BATMAN)
+					.withTo(SUPERMAN).withTo(SPIDERMAN)
+					.withCc(BATMAN).withCc(WONDER_WOMAN)
 					.withBcc(TGAH).withBcc(SFH)
-					.withBody("I'm having a party to show off my new suit. Do you want to come?").build();
+					.withSubject("New suit")
+					.withBody("I'm having a party to show off my new suit. Do you want to come?")
+					.build();
+			
+			MimeMessage m6 = new MimeMessageBuilder(gm.getSmtp().createSession())
+					.withFrom(ROBIN)
+					.withTo(WONDER_WOMAN).withTo(SUPERMAN)
+					.withSubject("Batman is evil!")
+					.withBody("I need a lift from Gotham to Metropolis, asap")
+					.build();
 
 			System.out.println("");
 			System.out.println("================ STORING TEST EMAILS - Start");
@@ -98,7 +135,7 @@ public class Main {
 			System.out.println("If it does stick for you, maybe you can help me figure out why!");
 			System.out.println("");
 
-			System.out.println("|.....|");
+			System.out.println("|......|");
 			System.out.print("|");
 
 			supermanInbox.store(m1);
@@ -114,6 +151,9 @@ public class Main {
 			System.out.print("*");
 
 			spidermanWebjuce.store(m4);
+			System.out.print("*");
+
+			wonderwomanInbox.store(m6);
 			System.out.print("*");
 
 			System.out.println("|");
@@ -143,10 +183,14 @@ public class Main {
 		app.get("/d/:mailbox/:uid", new DeleteMessageCommand(greenMail));
 		app.get("/v/:mailbox/:uid", new ViewMessageCommand(greenMail));
 		app.get("/u/:email/delete", new DeleteUserCommand(greenMail));
-		app.get("/u/:email/to", new ListUserMessageCommand(greenMail, "to"));
 		app.get("/u/:email/from", new ListUserMessageCommand(greenMail, "from"));
+		app.get("/u/:email/to", new ListUserMessageCommand(greenMail, "to"));
 		app.get("/u/:email/cc", new ListUserMessageCommand(greenMail, "cc"));
 		app.get("/u/:email/bcc", new ListUserMessageCommand(greenMail, "bcc"));
+		app.get("/dn/:domain/from", new ListDomainMessageCommand(greenMail, "from"));
+		app.get("/dn/:domain/to", new ListDomainMessageCommand(greenMail, "to"));
+		app.get("/dn/:domain/cc", new ListDomainMessageCommand(greenMail, "cc"));
+		app.get("/dn/:domain/bcc", new ListDomainMessageCommand(greenMail, "bcc"));
 		
 		if (cfg.useAccessControlAnywhere()) {
 			System.out.println("Allow REST connections from anywhere");

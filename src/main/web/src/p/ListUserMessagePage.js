@@ -8,10 +8,6 @@ class ListUserMessagePage extends Component {
 
 	static contextType = BreadcrumbContext
 
-	constructor(props) {
-		super(props)
-	}
-
 	componentDidUpdate(prevProps, prevState) {
 		if (prevProps.match.params.email !== this.props.match.params.email) {
 			this.updateBreadcrumbs()

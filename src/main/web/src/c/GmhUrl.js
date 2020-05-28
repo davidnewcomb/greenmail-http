@@ -6,6 +6,7 @@ let mappings = {
 	LIST_MAILBOXES: '/imap/:email',
 	LIST_MESSAGES: '/m/:mailbox',
 	LIST_USER_MESSAGES: '/u/:email/:who',
+	LIST_DOMAIN_MESSAGES: '/dn/:domain/:who',
 	LIST_USERS: '/lu',
 	CONFIG_SERVER: '/cfg/greenmail',
 	CONFIG_CLIENT: '/cfg/client',
@@ -41,6 +42,10 @@ export let ListFolderMessagesUrl = (mailbox) => {
 
 export let ListUserMessageUrl = (email, who) => {
 	return base + mappings.LIST_USER_MESSAGES.replace(':email', email).replace(':who', who)
+}
+
+export let ListDomainMessageUrl = (domain, who) => {
+	return base + mappings.LIST_DOMAIN_MESSAGES.replace(':domain', domain).replace(':who', who)
 }
 
 export let ListUsersUrl = () => {

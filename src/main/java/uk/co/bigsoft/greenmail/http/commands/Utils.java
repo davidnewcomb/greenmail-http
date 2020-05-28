@@ -19,6 +19,11 @@ public class Utils {
 		return email;
 	}
 
+	public String getDomain(Context ctx) {
+		String domain = ctx.pathParam("domain");
+		return domain;
+	}
+
 	public MailFolder getMailbox(Context ctx, ImapHostManager im) {
 		String mailbox = ctx.pathParam("mailbox").replace("%23", "#");
 		MailFolder m = im.getStore().getMailbox(mailbox);

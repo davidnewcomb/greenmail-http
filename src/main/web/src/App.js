@@ -10,6 +10,7 @@ import GmhNav from './c/GmhNav'
 import ServerConfigPage from './p/ServerConfigPage'
 import WelcomePage from './p/WelcomePage'
 import ListAllMessagePage from './p/ListAllMessagePage'
+import ListDomainMessagePage from './p/ListDomainMessagePage'
 import ListFolderMessagePage from './p/ListFolderMessagePage'
 import ListFolderPage from './p/ListFolderPage'
 import ListUserMessagePage from './p/ListUserMessagePage'
@@ -54,6 +55,7 @@ function App() {
 			<Route exact path="/user/:email" component={ListUserMessagePage} />
 			<Route exact path="/folder/:mailbox" component={ListFolderMessagePage} />
 			<Route exact path="/view/:mailbox/:uid" component={ViewMessagePage} />
+			<Route exact path="/domain/:domain" component={ListDomainMessagePage} />
 			<Route component={UnderConstruction} />
 			</Switch>
 		</Container>
