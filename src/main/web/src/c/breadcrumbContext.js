@@ -4,11 +4,11 @@ import React, {Component} from 'react'
 // The is the default context! i.e. placeholders for the one
 // to be passed in via value=
 const BreadcrumbContext = React.createContext({
-	addBreadcrumb: (title) => {
-		console.error('BreadcrumbContext.addBreadcrumb')
+	addBreadcrumb: (title, link) => {
+		console.error(`BreadcrumbContext.addBreadcrumb:${title}:${link}`)
 	},
 	removeBreadcrumb: (id) => {
-		console.error('BreadcrumbContext.removeBreadcrumb')
+		console.error(`BreadcrumbContext.removeBreadcrumb:${id}`)
 	},
 	getBreadcrumbs: () => {
 		console.error('BreadcrumbContext.getBreadcrumbs')
@@ -25,13 +25,14 @@ class BreadcrumbContextProvider extends Component {
 		super(props)
 		this.state = {
 			breadcrumbs: [],
-			addBanner: this.addBanner,
+			addBreadcrumb: this.addBreadcrumb,
 			removeBreadcrumb: this.removeBreadcrumb,
 			getBreadcrumbs: this.getBreadcrumbs
 		}
 	}
 
-	addBanner = (id, title, link) => {
+	addBreadcrumb = (title, link) => {
+		const id = link.replace( /[^a-zA-Z0-9]/g, "")
 
 		let found = this.state.breadcrumbs.filter( i => i.link === link)
 		if (found.length === 1) {

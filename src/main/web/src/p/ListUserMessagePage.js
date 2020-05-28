@@ -35,9 +35,8 @@ class ListUserMessagePage extends Component {
 
 	updateBreadcrumbs() {
 		const hereUrl = window.location.pathname
-		const id = hereUrl.replace( /[^a-zA-Z0-9]/g, "")
 		const title = `Emails with ${this.props.match.params.email}`
-		this.context.addBanner(id, title, hereUrl)
+		this.context.addBreadcrumb(title, hereUrl)
 	}
 }
 

@@ -35,9 +35,8 @@ class ListDomainMessagePage extends Component {
 
 	updateBreadcrumbs() {
 		const hereUrl = window.location.pathname
-		const id = hereUrl.replace( /[^a-zA-Z0-9]/g, "")
 		const title = `@${this.props.match.params.domain}`
-		this.context.addBanner(id, title, hereUrl)
+		this.context.addBreadcrumb(title, hereUrl)
 	}
 }
 

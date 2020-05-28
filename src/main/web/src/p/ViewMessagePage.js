@@ -44,16 +44,15 @@ class ViewMessagePage extends Component {
 			})
 
 		const hereUrl = window.location.pathname
-		const id = hereUrl.replace( /[^a-zA-Z0-9]/g, "")
 		const title = `View: ${decodeURIComponent(mailbox)}/${uid}`
-		this.context.addBanner(id, title, hereUrl)
+		this.context.addBreadcrumb(title, hereUrl)
 
 	}
 
 	render() {
 
 		if (this.state.error) {
-			let eMessage = this.state.data.toString() + " " +this.state.url
+			const eMessage = this.state.data.toString() + " " +this.state.url
 			return <Alert variant="danger" dismissible>{eMessage}</Alert>
 		}
 
