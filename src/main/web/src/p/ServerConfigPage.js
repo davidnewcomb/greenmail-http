@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
+import Container from 'react-bootstrap/Container'
 
 import {ServerConfig} from '../c/GmhUrl'
 import ServerConfigRow from './ServerConfigRow'
@@ -43,14 +44,14 @@ class ServerConfigPage extends Component {
 		}
 		const page = this.state.data.map(item => <ServerConfigRow key={item.id} item={item}/>)
 		return (
-			<div>
+			<Container>
 			<PageHeader title="Backend configuration"/>
 
 			<div className="intro">
 			These are all the configuration properties GreenMail HTTP was started with.
 			</div>
 			{page}
-			</div>
+			</Container>
 		)
 	}
 }
