@@ -7,21 +7,27 @@ import MessagesTable from './MessagesTable'
 
 class EmailDestinationList extends Component {
 
-        constructor(props) {
-                super(props)
-                this.state = {
+	constructor(props) {
+		super(props)
+		this.state = {
 			data: [],
 			error: false
-                }
+		}
 		this.reload = this.reload.bind(this)
-		this.url = ListUserMessageUrl(this.props.email, this.props.who)
-        }
+	}
 
 	componentDidMount() {
 		this.reload()
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		if (prevProps.email !== this.props.email) {
+			this.reload()
+		}
+	}
+
 	reload() {
+		this.url = ListUserMessageUrl(this.props.email, this.props.who)
 		axios.get(this.url)
 			.then(res => {
 				for (let i = 0 ; i < res.data.length ; ++i) {
@@ -39,20 +45,19 @@ class EmailDestinationList extends Component {
 
 	}
 
-        render() {
-
+	render() {
 		if (this.state.error) {
 			let eMessage = this.state.data.toString() + " " +this.url
 			return <Alert variant="danger" dismissible>{eMessage}</Alert>
 		}
 
-                return (
-                        <div>
+		return (
+			<div>
 			<b>{this.props.who}:</b>
 			<MessagesTable messages={this.state.data} reload={this.reload}/>
-                        </div>
-                )
-        }
+			</div>
+		)
+	}
 }
 
 export default EmailDestinationList

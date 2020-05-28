@@ -8,54 +8,16 @@ class ListUserMessagePage extends Component {
 
 	static contextType = BreadcrumbContext
 
-	state = {
-		email: ''
-	}
-
-	constructor(props) {
-		super(props)
-		this.status = {
-			email: this.props.match.params.email
-		}
-		console.log('ListUserMessagePage:constructor')
-	}
-
 	componentDidMount() {
-
-		console.log('ListUserMessagePage:componentDidMount')
 		const hereUrl = window.location.pathname
 		const id = hereUrl.replace( /[^a-zA-Z0-9]/g, "")
-		const title = `Emails with ${this.state.email}`
+		const title = `Emails with ${this.props.match.params.email}`
 		this.context.addBanner(id, title, hereUrl)
 	}
 
-	static getDerivedStateFromProps(props, state) {
-		console.log('ListUserMessagePage:getDerivedStateFromProps')
-		return {
-			email: props.match.params.email
-		}
-	}
-
-	shouldComponentUpdate() {
-		console.log('ListUserMessagePage:shouldComponentUpdate')
-		console.log(arguments)
-		return true
-	}
-
-	getSnapshotBeforeUpdate(prevProps, prevState) {
-		console.log('ListUserMessagePage:getSnapshotBeforeUpdate')
-		return null
-	}
-
-	componentDidUpdate(prevProps, prevState, snapshot) {
-		console.log('ListUserMessagePage:componentDidUpdate')
-	}
-
 	render() {
+		const email = this.props.match.params.email
 
-		console.log('ListUserMessagePage:render')
-		const {email} = this.state
-		console.log('************ ' + email)
 		return (
 			<div>
 			<PageHeader title={`Emails with ${email}`}/>
