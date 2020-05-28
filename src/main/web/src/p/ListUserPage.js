@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Table from 'react-bootstrap/Table'
-import Container from 'react-bootstrap/Container'
 
 import {ListUsersUrl} from '../c/GmhUrl'
 import ListUserRow from './ListUserRow'
@@ -50,7 +49,7 @@ class ListUserPage extends Component {
 		}
 
 		return (
-		<Container>
+		<div>
 		<PageHeader title="List Users"/>
 
 		<div className="intro">Passwords are hidden by default, click the stars to reveal them.</div>
@@ -69,7 +68,7 @@ class ListUserPage extends Component {
 			}
 			</tbody>
 		</Table>
-		</Container>
+		</div>
 		)
 	}
 }

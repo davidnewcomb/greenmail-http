@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Table from 'react-bootstrap/Table'
-import Container from 'react-bootstrap/Container'
 import {ViewMessageUrl} from '../c/GmhUrl'
 import PrintMap from '../c/PrintMap'
 import EmailAddresses from '../c/EmailAddresses'
@@ -61,7 +60,7 @@ class ViewMessagePage extends Component {
 		const {headers, flags, from, to, cc, bcc, subject, body} = this.state.data
 
 		return (
-		<Container>
+		<div>
 		<PageHeader title="View message"/>
 
 		<Table>
@@ -101,7 +100,7 @@ class ViewMessagePage extends Component {
 			</tr>
 		</tbody>
 		</Table>
-		</Container>
+		</div>
 		)
 	}
 }

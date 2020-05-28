@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Table from 'react-bootstrap/Table'
-import Container from 'react-bootstrap/Container'
 
 import {ListMailboxes} from '../c/GmhUrl'
 import ListFolderRow from './ListFolderRow'
@@ -63,7 +62,7 @@ class ListFolderPage extends Component {
 		}
 
 		return (
-		<Container>
+		<div>
 		<PageHeader title={`Mailboxes: ${this.state.email}`}/>
 
 		<Table className="table">
@@ -79,7 +78,7 @@ class ListFolderPage extends Component {
 			}
 			</tbody>
 		</Table>
-		</Container>
+		</div>
 		)
 	}
 }

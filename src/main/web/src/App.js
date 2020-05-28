@@ -28,7 +28,7 @@ function App() {
 	return (
 		<BreadcrumbContextProvider>
 		<Router>
-		<Container>
+		<Container fluid>
 			<GmhNav/>
 			<Breadcrumbs/>
 

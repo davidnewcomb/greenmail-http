@@ -1,6 +1,5 @@
 import React from 'react'
 import Col from 'react-bootstrap/Col'
-import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 
 
@@ -14,14 +13,15 @@ function PrintMap(props) {
 		'paddingBottom': '50px'
 	}
 	const headerStyle = {
-		'fontWeight': 'bold'
+		'fontWeight': 'bold',
+		'fontStyle': 'italic'
 	}
 	const entryStyle = {
 		'borderTop': '2px solid black'
 	}
 
 	return (
-		<Container style={containerStyle}>
+		<div style={containerStyle}>
 		<Row>
 		<Col style={headerStyle}>{headerKey}</Col>
 		<Col style={headerStyle}>{headerValue}</Col>
@@ -38,7 +38,7 @@ function PrintMap(props) {
 		}
 		<Row style={entryStyle}>
 		</Row>
-		</Container>
+		</div>
 	)
 }
 

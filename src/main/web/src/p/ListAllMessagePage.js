@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
-import Container from 'react-bootstrap/Container'
 
 import {AllImapUrl} from '../c/GmhUrl'
 import MessagesTable from '../c/MessagesTable'
@@ -48,11 +47,11 @@ class ListAllMesssagePage extends Component {
 		}
 
 		return (
-			<Container>
+			<div>
 			<PageHeader title="List All Messages"/>
 
 			<MessagesTable messages={this.state.data} reload={this.reload}/>
-			</Container>
+			</div>
 		)
 	}
 }
