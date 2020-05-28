@@ -8,11 +8,18 @@ class ListUserMessagePage extends Component {
 
 	static contextType = BreadcrumbContext
 
+	constructor(props) {
+		super(props)
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevProps.match.params.email !== this.props.match.params.email) {
+			this.updateBreadcrumbs()
+		}
+	}
+
 	componentDidMount() {
-		const hereUrl = window.location.pathname
-		const id = hereUrl.replace( /[^a-zA-Z0-9]/g, "")
-		const title = `Emails with ${this.props.match.params.email}`
-		this.context.addBanner(id, title, hereUrl)
+		this.updateBreadcrumbs()
 	}
 
 	render() {
@@ -28,6 +35,13 @@ class ListUserMessagePage extends Component {
 			<EmailDestinationList email={email} who="bcc"/>
 			</div>
 		)
+	}
+
+	updateBreadcrumbs() {
+		const hereUrl = window.location.pathname
+		const id = hereUrl.replace( /[^a-zA-Z0-9]/g, "")
+		const title = `Emails with ${this.props.match.params.email}`
+		this.context.addBanner(id, title, hereUrl)
 	}
 }
 
