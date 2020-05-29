@@ -54,7 +54,7 @@ class DomainDestinationList extends Component {
 		return (
 			<div>
 			<b>{this.props.who}:</b>
-			<MessagesTable messages={this.state.data} reload={this.reload}/>
+			<MessagesTable messages={this.state.data} reload={this.reload} who={this.props.who}/>
 			</div>
 		)
 	}

@@ -11,7 +11,7 @@ class MessagesTableRow extends Component {
 
 		let m = this.props.message
 		let v = '/view/' + encodeURIComponent(m.mailbox) + '/' + m.uid
-		let messageId = m.messageId.replace('@', ' @ ')
+
 		return (
 			<tr>
 				<td>
@@ -20,7 +20,6 @@ class MessagesTableRow extends Component {
 					<Link to='#' onClick={() => this.deleteMessage(m.mailbox, m.uid)} title="Delete message">DM</Link>
 				</td>
 				<td>{m.mailbox} / {m.uid}</td>
-				<td>{messageId}</td>
 				<td><EmailAddresses emails={m.from}/></td>
 				<td><EmailAddresses emails={m.to}/></td>
 				<td><EmailAddresses emails={m.cc}/></td>
