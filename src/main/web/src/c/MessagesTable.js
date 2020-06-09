@@ -1,37 +1,51 @@
 import React from 'react'
-import Table from 'react-bootstrap/Table'
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 import Button from 'react-bootstrap/Button'
 import MessagesTableRow from './MessagesTableRow'
-import {highlightcolumn} from '../css/gmh.css'
+import RefreshIcon from '@material-ui/icons/Refresh';
+import {Tooltip} from "@material-ui/core";
+import Card from "@material-ui/core/Card";
 
 function MessagesTable(props) {
 
-	const columnLookUp = {"from": 3, "to": 4, "cc": 5, "bcc": 6, "": -1}
-	const {messages, reload, who=''} = props
-	const highlightColumn = columnLookUp[who]
+	const columnLookUp = {"from": 3, "to": 4, "cc": 5, "bcc": 6, "": -1};
+	const {messages, reload, who = ''} = props;
+	const highlightColumn = columnLookUp[who];
 
 	return (
-		<>
-		<Table className="table">
-			<HighlightColumn col={highlightColumn}/>
-			<tbody>
-			<tr>
-				<th>Actions</th>
-				<th>Mailbox/Id</th>
-				<th>From</th>
-				<th>To</th>
-				<th>Cc</th>
-				<th>Bcc</th>
-				<th>Subject</th>
-				<th>Body</th>
-			</tr>
-			{
-				messages.map(message => <MessagesTableRow key={message.id} message={message} reload={reload}/>)
-			}
-			</tbody>
-		</Table>
-		<Button style={{'width':'100%'}} onClick={reload}>Refresh {who}</Button>
-		</>
+		<div>
+			<div>
+				<Tooltip title="Refresh">
+					<Button onClick={reload}>
+						<RefreshIcon/>Refresh
+					</Button>
+				</Tooltip>
+			</div>
+
+			<Card>
+				<Table>
+					<HighlightColumn col={highlightColumn}/>
+					<TableHead>
+						<TableRow>
+							<TableCell style={{width: '5%'}}>Actions</TableCell>
+							<TableCell style={{width: '18%'}}>Mailbox/Id</TableCell>
+							<TableCell style={{width: '18%'}}>From</TableCell>
+							<TableCell style={{width: '18%'}}>To</TableCell>
+							<TableCell>Subject</TableCell>
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{
+							messages.map(message => <MessagesTableRow key={message.id} message={message} reload={reload}/>)
+						}
+					</TableBody>
+				</Table>
+			</Card>
+		</div>
 	)
 }
 

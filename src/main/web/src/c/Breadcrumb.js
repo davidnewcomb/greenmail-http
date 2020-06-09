@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {Link} from "react-router-dom"
-import Octicon, {Trashcan} from '@primer/octicons-react'
-
+import DeleteIcon from '@material-ui/icons/Delete';
 import {BreadcrumbContext} from '../c/breadcrumbContext'
+import {Button} from "@material-ui/core";
 
 class Breadcrumb extends Component {
 
@@ -25,11 +25,13 @@ class Breadcrumb extends Component {
 			'padding': '0px 0px 0px 15px'
 		}
 		return (
-			<li className="list-inline-item" style={style}>
-				<button onClick={this.deleteBreadcrumb}><Octicon icon={Trashcan}/></button>
 
+			<li className="list-inline-item" style={style}>
+				<Button onClick={this.deleteBreadcrumb}>
+					<DeleteIcon/>
+				</Button>
 				<Link style={gap_style} to={this.props.link} title={this.props.title}>
-					 {this.props.title}
+					{this.props.title}
 				</Link>
 			</li>
 		)

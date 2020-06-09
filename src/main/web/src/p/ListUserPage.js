@@ -1,8 +1,13 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
-import Table from 'react-bootstrap/Table'
-
+import Table from '@material-ui/core/Table';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import {ListUsersUrl} from '../c/GmhUrl'
 import ListUserRow from './ListUserRow'
 import PageHeader from '../m/PageHeader'
@@ -49,26 +54,33 @@ class ListUserPage extends Component {
 		}
 
 		return (
-		<div>
-		<PageHeader title="List Users"/>
-
-		<div className="intro">Passwords are hidden by default, click the stars to reveal them.</div>
-
-		<Table className="table">
-			<tbody>
-			<tr>
-				<th>Actions</th>
-				<th>Email</th>
-				<th>Login</th>
-				<th>Password</th>
-				<th>Mailbox</th>
-			</tr>
-			{
-				this.state.data.map(user => <ListUserRow key={user.id} user={user} reload={this.reload} />)
-			}
-			</tbody>
-		</Table>
-		</div>
+			<div>
+				<PageHeader title="All Users"/>
+				<Paper>
+					<Table>
+						<TableHead>
+						<TableRow>
+							<TableCell>Actions</TableCell>
+							<TableCell>Email</TableCell>
+							<TableCell>Login</TableCell>
+							<TableCell>Password</TableCell>
+							<TableCell>Mailbox</TableCell>
+						</TableRow>
+						</TableHead>
+							<TableBody>
+								{
+									this.state.data.map((user) => (
+									<ListUserRow key={user.id} user={user} reload={this.reload} />))
+								}
+						</TableBody>
+					</Table>
+					<div>
+					<Typography>
+						**Passwords are hidden by default, click the stars to reveal them.
+					</Typography>
+					</div>
+				</Paper>
+			</div>
 		)
 	}
 }

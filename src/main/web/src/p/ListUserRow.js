@@ -9,7 +9,12 @@ import axios from 'axios'
 
 import {DeleteUserUrl} from '../c/GmhUrl'
 import PrintPassword from '../c/PrintPassword'
+import DeleteIcon from '@material-ui/icons/Delete';
+import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import EmailAddresses from '../c/EmailAddresses'
+import {Tooltip} from "@material-ui/core";
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 
 class ListUserRow extends Component {
 
@@ -25,17 +30,24 @@ class ListUserRow extends Component {
 		let {email, password, login, qualifiedMailboxName} = this.props.user
 		let l = "/user/" + email + "/folders"
 		return (
-			<tr>
-				<td>
-					<NavLink to={l} title="List folders">LF</NavLink>
-					&nbsp;|&nbsp;
-					<Link to='#' onClick={() => this.deleteUser(email)} title="Delete user">DU</Link>
-				</td>
-				<td style={this.state.deleteStyle}><EmailAddresses emails={email}/></td>
-				<td>{login}</td>
-				<td><PrintPassword text={password}/></td>
-				<td>{qualifiedMailboxName}</td>
-			</tr>
+			<TableRow>
+				<TableCell>
+					<NavLink to={l} title="List folders" style={{margin:4}}>
+						<Tooltip title="List Folder">
+							<FolderOpenIcon/>
+						</Tooltip>
+					</NavLink>
+					<Link to='#' onClick={() => this.deleteUser(email)} title="Delete user" style={{margin:4}}>
+						<Tooltip title="Delete User">
+							<DeleteIcon/>
+						</Tooltip>
+					</Link>
+				</TableCell>
+				<TableCell style={this.state.deleteStyle}><EmailAddresses emails={email}/></TableCell>
+				<TableCell>{login}</TableCell>
+				<TableCell><PrintPassword text={password}/></TableCell>
+				<TableCell>{qualifiedMailboxName}</TableCell>
+			</TableRow>
 		)
 	}
 

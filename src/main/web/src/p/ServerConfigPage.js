@@ -2,7 +2,10 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Container from 'react-bootstrap/Container'
-
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import {ServerConfig} from '../c/GmhUrl'
 import ServerConfigRow from './ServerConfigRow'
 import PageHeader from '../m/PageHeader'
@@ -39,21 +42,34 @@ class ServerConfigPage extends Component {
 
 	render() {
 		if (this.state.error) {
-			let eMessage = this.state.data.toString() + " " +this.state.url
+			let eMessage = this.state.data.toString() + " " +this.state.url;
 			return <Alert variant="danger" dismissible>{eMessage}</Alert>
 		}
-		const page = this.state.data.map(item => <ServerConfigRow key={item.id} item={item}/>)
+		const page = this.state.data.map(item =>
+			<ExpansionPanel onChange={this.handleChange('panel1')} name="status_expand_list" style={{width:'100%'}}>
+				<ExpansionPanelSummary
+					expandIcon={<ExpandMoreIcon />}
+					aria-controls="panel1bh-content"
+					id="panel1bh-header" >
+					{item.section}
+				</ExpansionPanelSummary>
+				<ExpansionPanelDetails style={{width:'100%'}}>
+					<ServerConfigRow key={item.id} item={item}/>
+				</ExpansionPanelDetails>
+			</ExpansionPanel>
+		);
 		return (
 			<Container>
 			<PageHeader title="Backend configuration"/>
-
-			<div className="intro">
-			These are all the configuration properties GreenMail HTTP was started with.
-			</div>
 			{page}
 			</Container>
 		)
 	}
+
+	handleChange = panel => (event, isExpanded) => {
+		this.setState({setExpanded: isExpanded?panel:false})
+	};
+
 }
 
 export default ServerConfigPage
