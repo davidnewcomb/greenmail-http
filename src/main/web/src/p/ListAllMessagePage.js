@@ -48,7 +48,7 @@ class ListAllMesssagePage extends Component {
 
 		return (
 			<div>
-			<PageHeader title="List All Messages"/>
+			<PageHeader title="All Messages"/>
 
 			<MessagesTable messages={this.state.data} reload={this.reload}/>
 			</div>

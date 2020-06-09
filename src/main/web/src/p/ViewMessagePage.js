@@ -1,12 +1,17 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
-import Table from 'react-bootstrap/Table'
+import Table from '@material-ui/core/Table';
 import {ViewMessageUrl} from '../c/GmhUrl'
-import PrintMap from '../c/PrintMap'
 import EmailAddresses from '../c/EmailAddresses'
 import {BreadcrumbContext} from '../c/breadcrumbContext'
-import PageHeader from '../m/PageHeader'
+import PageHeader from '../m/PageHeader';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import TableCell from "@material-ui/core/TableCell/TableCell";
 
 class ViewMessagePage extends Component {
 
@@ -23,7 +28,8 @@ class ViewMessagePage extends Component {
 				"cc": [],
 				"bcc": [],
 			},
-			error: false
+			error: false,
+			value:0
 		}
 	}
 
@@ -49,57 +55,104 @@ class ViewMessagePage extends Component {
 
 	}
 
+	handleChange = (event, newValue) => {
+		this.setState({value:newValue});
+	};
+
+	getContent = () =>{
+		let value = this.state.value;
+		return (value == 0)?this.getMessageDetails():this.getHeaderDetails();
+	};
+
+	getHeaderDetails = () =>{
+		const {headers} = this.state.data;
+		const mEntries = Object.entries(headers).sort((a,b) => a > b);
+		return (
+			<Paper>
+				<Table>
+					<TableBody>
+							{
+								mEntries.map((item) => (
+									<TableRow>
+										<TableCell>{item[0]}</TableCell>
+										<TableCell>{item[1]}</TableCell>
+									</TableRow>
+								))
+							}
+					</TableBody>
+				</Table>
+			</Paper>
+		)
+	};
+
+	getMessageDetails = () =>{
+		const {flags, from, to, cc, bcc, subject, body} = this.state.data;
+		return(
+			<Paper>
+				<Table>
+					<TableBody>
+						<TableRow>
+							<TableCell>Flags</TableCell>
+							<TableCell>{flags.map(flag => {return flag})}</TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell>From</TableCell>
+							<TableCell><EmailAddresses emails={from}/></TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell>To</TableCell>
+							<TableCell><EmailAddresses emails={to}/></TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell>Cc</TableCell>
+							<TableCell><EmailAddresses emails={cc}/></TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell>Bcc</TableCell>
+							<TableCell><EmailAddresses emails={bcc}/></TableCell>
+						</TableRow>
+
+						<TableRow>
+							<TableCell>Subject</TableCell>
+							<TableCell>{subject}</TableCell>
+						</TableRow>
+						<TableRow>
+							<TableCell>Body</TableCell>
+							<TableCell>{body}</TableCell>
+						</TableRow>
+					</TableBody>
+				</Table>
+			</Paper>);
+	};
+
 	render() {
 
 		if (this.state.error) {
-			const eMessage = this.state.data.toString() + " " +this.state.url
+			const eMessage = this.state.data.toString() + " " +this.state.url;
 			return <Alert variant="danger" dismissible>{eMessage}</Alert>
 		}
 
-		const {headers, flags, from, to, cc, bcc, subject, body} = this.state.data
-
 		return (
-		<div>
-		<PageHeader title="View message"/>
-
-		<Table>
-		<tbody>
-			<tr>
-				<th>Header</th>
-				<td><PrintMap headerKey="Property" headerValue="Value" theMap={headers} /></td>
-			</tr>
-			<tr>
-				<th>Flags</th>
-				<td>{flags.map(flag => {return flag})}</td>
-			</tr>
-			<tr>
-				<th>From</th>
-				<td><EmailAddresses emails={from}/></td>
-			</tr>
-			<tr>
-				<th>To</th>
-				<td><EmailAddresses emails={to}/></td>
-			</tr>
-			<tr>
-				<th>Cc</th>
-				<td><EmailAddresses emails={cc}/></td>
-			</tr>
-			<tr>
-				<th>Bcc</th>
-				<td><EmailAddresses emails={bcc}/></td>
-			</tr>
-
-			<tr>
-				<th>Subject</th>
-				<td>{subject}</td>
-			</tr>
-			<tr>
-				<th>Body</th>
-				<td>{body}</td>
-			</tr>
-		</tbody>
-		</Table>
-		</div>
+			<div>
+				<PageHeader title="Message"/>
+				<Paper>
+					<Tabs
+						value={this.state.value}
+						indicatorColor="primary"
+						textColor="primary"
+						onChange={this.handleChange}>
+						<Tab label="Message">
+							{this.getMessageDetails}
+						</Tab>
+						<Tab label="Headers">
+							headers here
+						</Tab>
+					</Tabs>
+				</Paper>
+				{
+					this.getContent()
+				}
+			</div>
 		)
 	}
 }
