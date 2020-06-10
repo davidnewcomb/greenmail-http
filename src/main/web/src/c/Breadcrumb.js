@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {Link} from "react-router-dom"
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from '@material-ui/icons/Delete'
 import {BreadcrumbContext} from '../c/breadcrumbContext'
-import {Button} from "@material-ui/core";
+import {Button} from '@material-ui/core'
 
 class Breadcrumb extends Component {
 

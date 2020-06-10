@@ -9,12 +9,12 @@ import axios from 'axios'
 
 import {DeleteUserUrl} from '../c/GmhUrl'
 import PrintPassword from '../c/PrintPassword'
-import DeleteIcon from '@material-ui/icons/Delete';
-import FolderOpenIcon from '@material-ui/icons/FolderOpen';
+import DeleteIcon from '@material-ui/icons/Delete'
+import FolderOpenIcon from '@material-ui/icons/FolderOpen'
 import EmailAddresses from '../c/EmailAddresses'
-import {Tooltip} from "@material-ui/core";
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
+import {Tooltip} from '@material-ui/core'
+import TableRow from '@material-ui/core/TableRow'
+import TableCell from '@material-ui/core/TableCell'
 
 class ListUserRow extends Component {
 
