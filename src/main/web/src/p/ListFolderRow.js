@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import {Link, NavLink} from "react-router-dom"
 import axios from 'axios'
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow'
+import TableCell from '@material-ui/core/TableCell'
 import {DeleteMailboxUrl} from '../c/GmhUrl'
-import DraftsIcon from '@material-ui/icons/Drafts';
-import Tooltip from '@material-ui/core/Tooltip';
-import DeleteIcon from '@material-ui/icons/Delete';
+import DraftsIcon from '@material-ui/icons/Drafts'
+import Tooltip from '@material-ui/core/Tooltip'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 class ListFolderRow extends Component {
 

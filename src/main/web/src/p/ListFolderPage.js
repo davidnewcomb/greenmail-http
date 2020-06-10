@@ -1,18 +1,16 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
-//import Table from 'react-bootstrap/Table'
-import Table from '@material-ui/core/Table';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
-import TableBody from '@material-ui/core/TableBody';
-import TableHead from '@material-ui/core/TableHead';
-import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table'
+import TableCell from '@material-ui/core/TableCell'
+import TableRow from '@material-ui/core/TableRow'
+import TableBody from '@material-ui/core/TableBody'
+import TableHead from '@material-ui/core/TableHead'
+import Paper from '@material-ui/core/Paper'
 import {ListMailboxes} from '../c/GmhUrl'
 import ListFolderRow from './ListFolderRow'
 import {BreadcrumbContext} from '../c/breadcrumbContext'
 import PageHeader from '../m/PageHeader'
-import ListUserRow from "./ListUserRow";
 
 class ListFolderPage extends Component {
 

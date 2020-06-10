@@ -1,17 +1,17 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
-import Table from '@material-ui/core/Table';
+import Table from '@material-ui/core/Table'
 import {ViewMessageUrl} from '../c/GmhUrl'
 import EmailAddresses from '../c/EmailAddresses'
 import {BreadcrumbContext} from '../c/breadcrumbContext'
-import PageHeader from '../m/PageHeader';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import TableCell from "@material-ui/core/TableCell/TableCell";
+import PageHeader from '../m/PageHeader'
+import TableBody from '@material-ui/core/TableBody'
+import TableRow from '@material-ui/core/TableRow'
+import Paper from '@material-ui/core/Paper'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+import TableCell from '@material-ui/core/TableCell/TableCell'
 
 class ViewMessagePage extends Component {
 
@@ -56,24 +56,26 @@ class ViewMessagePage extends Component {
 	}
 
 	handleChange = (event, newValue) => {
-		this.setState({value:newValue});
-	};
+		this.setState({
+				value: newValue
+		})
+	}
 
-	getContent = () =>{
-		let value = this.state.value;
-		return (value == 0)?this.getMessageDetails():this.getHeaderDetails();
-	};
+	getContent = () => {
+		let value = this.state.value
+		return (value === 0) ? this.getMessageDetails() : this.getHeaderDetails()
+	}
 
-	getHeaderDetails = () =>{
-		const {headers} = this.state.data;
-		const mEntries = Object.entries(headers).sort((a,b) => a > b);
+	getHeaderDetails = () => {
+		const {headers} = this.state.data
+		const mEntries = Object.entries(headers).sort((a,b) => a > b)
 		return (
 			<Paper>
 				<Table>
 					<TableBody>
 							{
 								mEntries.map((item) => (
-									<TableRow>
+									<TableRow key={item}>
 										<TableCell>{item[0]}</TableCell>
 										<TableCell>{item[1]}</TableCell>
 									</TableRow>
@@ -83,10 +85,10 @@ class ViewMessagePage extends Component {
 				</Table>
 			</Paper>
 		)
-	};
+	}
 
-	getMessageDetails = () =>{
-		const {flags, from, to, cc, bcc, subject, body} = this.state.data;
+	getMessageDetails = () => {
+		const {flags, from, to, cc, bcc, subject, body} = this.state.data
 		return(
 			<Paper>
 				<Table>
@@ -122,13 +124,13 @@ class ViewMessagePage extends Component {
 						</TableRow>
 					</TableBody>
 				</Table>
-			</Paper>);
-	};
+			</Paper>)
+	}
 
 	render() {
 
 		if (this.state.error) {
-			const eMessage = this.state.data.toString() + " " +this.state.url;
+			const eMessage = this.state.data.toString() + " " +this.state.url
 			return <Alert variant="danger" dismissible>{eMessage}</Alert>
 		}
 
@@ -141,12 +143,8 @@ class ViewMessagePage extends Component {
 						indicatorColor="primary"
 						textColor="primary"
 						onChange={this.handleChange}>
-						<Tab label="Message">
-							{this.getMessageDetails}
-						</Tab>
-						<Tab label="Headers">
-							headers here
-						</Tab>
+						<Tab label="Message" key="message"/>
+						<Tab label="Headers" key="headers"/>
 					</Tabs>
 				</Paper>
 				{

@@ -1,19 +1,19 @@
 import React, {Component} from 'react'
 import {Link, NavLink} from "react-router-dom"
 import axios from 'axios'
-import Tooltip from "@material-ui/core/Tooltip";
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import DeleteIcon from '@material-ui/icons/Delete';
+import Tooltip from "@material-ui/core/Tooltip"
+import VisibilityIcon from '@material-ui/icons/Visibility'
+import DeleteIcon from '@material-ui/icons/Delete'
 import {DeleteMessageUrl} from './GmhUrl'
-import EmailAddresses from './EmailAddresses';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
+import EmailAddresses from './EmailAddresses'
+import TableRow from '@material-ui/core/TableRow'
+import TableCell from '@material-ui/core/TableCell'
 
 class MessagesTableRow extends Component {
 
 	render() {
-		let m = this.props.message;
-		let v = '/view/' + encodeURIComponent(m.mailbox) + '/' + m.uid;
+		let m = this.props.message
+		let v = '/view/' + encodeURIComponent(m.mailbox) + '/' + m.uid
 
 		return (
 			<TableRow >
