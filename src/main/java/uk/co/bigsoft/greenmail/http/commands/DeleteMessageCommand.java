@@ -16,7 +16,7 @@ public class DeleteMessageCommand extends BaseHandler {
 
 	@Override
 	public void handle(Context ctx) throws Exception {
-		MailFolder mailbox = utils.getMailbox(ctx, gm.getManagers().getImapHostManager());
+		MailFolder mailbox = utils.getMailbox(ctx, im);
 		long uid = utils.getUid(ctx);
 		StoredMessage sm = mailbox.getMessage(uid);
 

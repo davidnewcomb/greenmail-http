@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 
-import com.icegreen.greenmail.imap.ImapHostManager;
 import com.icegreen.greenmail.store.FolderException;
 import com.icegreen.greenmail.store.MailFolder;
 import com.icegreen.greenmail.store.Store;
@@ -24,7 +23,6 @@ public class ImapAllMessagesCommand extends BaseHandler {
 
 	@Override
 	public void handle(Context ctx) throws Exception {
-		ImapHostManager im = gm.getManagers().getImapHostManager();
 		List<MessageDto> all = getAllMessages(im.getStore());
 		ctx.json(all);
 	}

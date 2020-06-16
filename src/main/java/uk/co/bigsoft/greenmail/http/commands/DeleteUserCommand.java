@@ -14,7 +14,6 @@ public class DeleteUserCommand extends BaseHandler {
 
 	@Override
 	public void handle(Context ctx) throws Exception {
-
 		UserManager um = gm.getManagers().getUserManager();
 		GreenMailUser user = utils.getUser(ctx, um);
 		um.deleteUser(user);

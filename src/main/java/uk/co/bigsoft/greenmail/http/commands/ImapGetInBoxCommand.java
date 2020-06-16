@@ -1,6 +1,5 @@
 package uk.co.bigsoft.greenmail.http.commands;
 
-import com.icegreen.greenmail.imap.ImapHostManager;
 import com.icegreen.greenmail.store.MailFolder;
 import com.icegreen.greenmail.user.GreenMailUser;
 import com.icegreen.greenmail.util.GreenMail;
@@ -16,8 +15,7 @@ public class ImapGetInBoxCommand extends BaseHandler {
 	@Override
 	public void handle(Context ctx) throws Exception {
 		GreenMailUser u = utils.getUser(ctx, gm.getManagers().getUserManager());
-		ImapHostManager man = gm.getManagers().getImapHostManager();
-		MailFolder mf = man.getInbox(u);
+		MailFolder mf = im.getInbox(u);
 		ctx.json(dto.toMessages(mf, mf.getMessages()));
 	}
 

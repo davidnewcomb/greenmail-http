@@ -8,7 +8,6 @@ import javax.mail.MessagingException;
 import javax.mail.Message.RecipientType;
 import javax.mail.internet.MimeMessage;
 
-import com.icegreen.greenmail.imap.ImapHostManager;
 import com.icegreen.greenmail.store.StoredMessage;
 import com.icegreen.greenmail.util.GreenMail;
 
@@ -26,7 +25,6 @@ public class ListDomainMessageCommand extends BaseHandler {
 	@Override
 	public void handle(Context ctx) throws Exception {
 		String domain = utils.getDomain(ctx);
-		ImapHostManager im = gm.getManagers().getImapHostManager();
 		List<StoredMessage> allStoredMessages = im.getAllMessages();
 
 		ArrayList<StoredMessage> end;

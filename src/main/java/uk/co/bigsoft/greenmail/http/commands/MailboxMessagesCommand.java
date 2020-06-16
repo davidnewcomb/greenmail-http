@@ -19,7 +19,7 @@ public class MailboxMessagesCommand extends BaseHandler {
 
 	@Override
 	public void handle(Context ctx) throws Exception {
-		MailFolder mailbox = utils.getMailbox(ctx, gm.getManagers().getImapHostManager());
+		MailFolder mailbox = utils.getMailbox(ctx, im);
 		Collection<StoredMessage> messages = mailbox.getMessages();
 		ctx.json(dto.toMessages(mailbox, messages));
 	}
