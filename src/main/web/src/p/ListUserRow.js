@@ -30,7 +30,7 @@ class ListUserRow extends Component {
 		let {email, password, login, qualifiedMailboxName} = this.props.user
 		let l = "/user/" + email + "/folders"
 		return (
-			<TableRow>
+			<TableRow hover>
 				<TableCell>
 					<NavLink to={l} title="List folders" style={{margin:4}}>
 						<Tooltip title="List Folder">

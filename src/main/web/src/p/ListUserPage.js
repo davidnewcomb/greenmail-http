@@ -59,25 +59,26 @@ class ListUserPage extends Component {
 				<Paper>
 					<Table>
 						<TableHead>
-						<TableRow>
-							<TableCell>Actions</TableCell>
-							<TableCell>Email</TableCell>
-							<TableCell>Login</TableCell>
-							<TableCell>Password</TableCell>
-							<TableCell>Mailbox</TableCell>
-						</TableRow>
+							<TableRow>
+								<TableCell>Actions</TableCell>
+								<TableCell>Email</TableCell>
+								<TableCell>Login</TableCell>
+								<TableCell>Password</TableCell>
+								<TableCell>Mailbox</TableCell>
+							</TableRow>
 						</TableHead>
-							<TableBody>
-								{
-									this.state.data.map((user) => (
-									<ListUserRow key={user.id} user={user} reload={this.reload} />))
-								}
+						<TableBody>
+						{
+							this.state.data.map((user) => (
+								<ListUserRow key={user.id} user={user} reload={this.reload} />
+							))
+						}
 						</TableBody>
 					</Table>
 					<div>
-					<Typography>
-						**Passwords are hidden by default, click the stars to reveal them.
-					</Typography>
+						<Typography>
+							**Passwords are hidden by default, click the stars to reveal them.
+						</Typography>
 					</div>
 				</Paper>
 			</div>

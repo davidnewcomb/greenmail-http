@@ -15,7 +15,7 @@ class ListFolderRow extends Component {
 		let {folder} = this.props
 		let l = "/folder/" + encodeURIComponent(folder.fullName)
 		return (
-			<TableRow>
+			<TableRow hover>
 				<TableCell>
 					<NavLink to={l} title="List messages" style={{margin:4}}>
 						<Tooltip title="List messages">

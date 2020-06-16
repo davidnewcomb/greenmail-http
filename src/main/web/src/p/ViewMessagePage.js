@@ -73,14 +73,14 @@ class ViewMessagePage extends Component {
 			<Paper>
 				<Table>
 					<TableBody>
-							{
-								mEntries.map((item) => (
-									<TableRow key={item}>
-										<TableCell>{item[0]}</TableCell>
-										<TableCell>{item[1]}</TableCell>
-									</TableRow>
-								))
-							}
+					{
+						mEntries.map((item) => (
+							<TableRow hover key={item}>
+								<TableCell>{item[0]}</TableCell>
+								<TableCell>{item[1]}</TableCell>
+							</TableRow>
+						))
+					}
 					</TableBody>
 				</Table>
 			</Paper>
@@ -93,38 +93,38 @@ class ViewMessagePage extends Component {
 			<Paper>
 				<Table>
 					<TableBody>
-						<TableRow>
+						<TableRow hover>
 							<TableCell>Flags</TableCell>
 							<TableCell>{flags.map(flag => {return flag})}</TableCell>
 						</TableRow>
-						<TableRow>
+						<TableRow hover>
 							<TableCell>From</TableCell>
 							<TableCell><EmailAddresses emails={from}/></TableCell>
 						</TableRow>
-						<TableRow>
+						<TableRow hover>
 							<TableCell>To</TableCell>
 							<TableCell><EmailAddresses emails={to}/></TableCell>
 						</TableRow>
-						<TableRow>
+						<TableRow hover>
 							<TableCell>Cc</TableCell>
 							<TableCell><EmailAddresses emails={cc}/></TableCell>
 						</TableRow>
-						<TableRow>
+						<TableRow hover>
 							<TableCell>Bcc</TableCell>
 							<TableCell><EmailAddresses emails={bcc}/></TableCell>
 						</TableRow>
-
-						<TableRow>
+						<TableRow hover>
 							<TableCell>Subject</TableCell>
 							<TableCell>{subject}</TableCell>
 						</TableRow>
-						<TableRow>
+						<TableRow hover>
 							<TableCell>Body</TableCell>
 							<TableCell>{body}</TableCell>
 						</TableRow>
 					</TableBody>
 				</Table>
-			</Paper>)
+			</Paper>
+		)
 	}
 
 	render() {

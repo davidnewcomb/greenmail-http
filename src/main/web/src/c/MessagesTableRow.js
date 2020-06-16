@@ -16,7 +16,7 @@ class MessagesTableRow extends Component {
 		let v = '/view/' + encodeURIComponent(m.mailbox) + '/' + m.uid
 
 		return (
-			<TableRow >
+			<TableRow hover>
 				<TableCell>
 					<NavLink to={v} title="List messages">
 						<Tooltip title="View">
