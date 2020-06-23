@@ -3,15 +3,21 @@ package uk.co.bigsoft.greenmail.http.commands;
 import com.icegreen.greenmail.imap.ImapHostManager;
 import com.icegreen.greenmail.store.MailFolder;
 import com.icegreen.greenmail.user.GreenMailUser;
+import com.icegreen.greenmail.user.UserException;
 import com.icegreen.greenmail.user.UserManager;
 
 import io.javalin.http.Context;
+import uk.co.bigsoft.greenmail.http.dto.Credentials;
 
 public class Utils {
 
 	public GreenMailUser getUser(Context ctx, UserManager um) {
 		String user = ctx.pathParam("email");
 		return um.getUserByEmail(user);
+	}
+
+	public GreenMailUser addUser(Credentials credentials, UserManager um) throws UserException {
+		return um.createUser(credentials.getEmail(),credentials.getLogin(),credentials.getPassword());
 	}
 
 	public String getEmail(Context ctx) {

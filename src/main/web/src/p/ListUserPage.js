@@ -2,15 +2,24 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Table from '@material-ui/core/Table'
+import Button from '@material-ui/core/Button'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableBody from '@material-ui/core/TableBody'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
-import {ListUsersUrl} from '../c/GmhUrl'
+import {AddUserUrl, ListUsersUrl} from '../c/GmhUrl'
+import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator'
 import ListUserRow from './ListUserRow'
+import Fab from '@material-ui/core/Fab'
+import PersonAddIcon from '@material-ui/icons/PersonAdd'
 import PageHeader from '../m/PageHeader'
+import Dialog from "@material-ui/core/Dialog/Dialog"
+import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle"
+import DialogContent from "@material-ui/core/DialogContent/DialogContent"
+import DialogContentText from "@material-ui/core/DialogContentText"
+import DialogActions from "@material-ui/core/DialogActions"
 
 class ListUserPage extends Component {
 
@@ -18,7 +27,13 @@ class ListUserPage extends Component {
 		super(props)
 		this.state = {
 			data: [],
-			error: false
+			error: false,
+			openAddDialog: false,
+			credentials : {
+				login: '',
+				password: '',
+				email: ''
+			}
 		}
 		this.reload = this.reload.bind(this)
 	}
@@ -26,7 +41,7 @@ class ListUserPage extends Component {
 	reload() {
 		let url = ListUsersUrl()
 		axios.get(url)
-			.then(res => {
+			.then( res => {
 				for (let i = 0 ; i < res.data.length ; ++i) {
 					res.data[i].id = '' + i
 				}
@@ -46,6 +61,45 @@ class ListUserPage extends Component {
 		this.reload()
 	}
 
+	addUser = () =>{
+		let url = AddUserUrl();
+		axios.post(url,{
+			login: this.state.credentials.login,
+			email: this.state.credentials.email,
+			password: this.state.credentials.password
+		}).then( res => {
+			this.reload()
+		}, (error) => {
+			this.setState({
+				data: error,
+				url: url,
+				error: true
+			})
+		})
+		this.handleClose()
+	}
+
+	handleOpen = () => {
+		this.setState({
+			openAddDialog:true
+		})
+	}
+
+	handleClose = () =>{
+		this.setState({
+			openAddDialog:false
+		})
+	}
+
+	handleChange = (event) => {
+		let credentials = this.state.credentials;
+		credentials[event.target.name] = event.target.value;
+		this.setState({
+			credentials : credentials
+		});
+	};
+
+
 	render() {
 
 		if (this.state.error) {
@@ -57,6 +111,63 @@ class ListUserPage extends Component {
 			<div>
 				<PageHeader title="All Users"/>
 				<Paper>
+					<Fab variant="extended" onClick={this.handleOpen} style={{float:'right'}}>
+						<PersonAddIcon/>
+						Add User
+					</Fab>
+
+					<Dialog open={this.state.openAddDialog} onClose={this.handleClose} aria-labelledby="form-dialog-title">
+						<ValidatorForm onSubmit={this.addUser}>
+							<DialogTitle id="form-dialog-title">Add User</DialogTitle>
+							<DialogContent>
+								<DialogContentText>
+									Enter User Details :
+								</DialogContentText>
+								<TextValidator
+									label="Email"
+									onChange={this.handleChange}
+									name="email"
+									type="email"
+									variant="outlined"
+									inputProps={{ maxLength: 60 }}
+									validators={['required']}
+									errorMessages={['this field is required']}
+									value={this.state.credentials.email}/>
+
+								<TextValidator
+									label="Login"
+									onChange={this.handleChange}
+									name="login"
+									type="text"
+									variant="outlined"
+									inputProps={{ maxLength: 60 }}
+									validators={['required']}
+									errorMessages={['this field is required']}
+									value={this.state.credentials.login}/>
+
+								<TextValidator
+									label="Password"
+									onChange={this.handleChange}
+									name="password"
+									type="password"
+									variant="outlined"
+									inputProps={{ maxLength: 60 }}
+									validators={['required']}
+									errorMessages={['this field is required']}
+									value={this.state.credentials.password}/>
+
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={this.handleClose} color="primary">
+									Cancel
+								</Button>
+								<Button type="submit" color="primary">
+									Add
+								</Button>
+							</DialogActions>
+						</ValidatorForm>
+					</Dialog>
+
 					<Table>
 						<TableHead>
 							<TableRow>
@@ -68,11 +179,11 @@ class ListUserPage extends Component {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-						{
-							this.state.data.map((user) => (
-								<ListUserRow key={user.id} user={user} reload={this.reload} />
-							))
-						}
+							{
+								this.state.data.map((user) => (
+									<ListUserRow key={user.id} user={user} reload={this.reload} />
+								))
+							}
 						</TableBody>
 					</Table>
 					<div>
