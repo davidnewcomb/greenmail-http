@@ -61,7 +61,7 @@ class ListUserPage extends Component {
 		this.reload()
 	}
 
-	addUser = () =>{
+	addUser = () => {
 		let url = AddUserUrl()
 		axios.post(url,{
 			login: this.state.credentials.login,
