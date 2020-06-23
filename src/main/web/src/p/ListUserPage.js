@@ -85,7 +85,7 @@ class ListUserPage extends Component {
 		})
 	}
 
-	handleClose = () =>{
+	handleClose = () => {
 		this.setState({
 			openAddDialog:false
 		})

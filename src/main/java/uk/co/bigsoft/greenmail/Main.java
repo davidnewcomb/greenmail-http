@@ -79,11 +79,11 @@ public class Main {
 
 			MailFolder supermanInbox = im.getInbox(superman);
 			MailFolder supermanPofF = im.createMailbox(superman, "PalaceOfF");
-
+			
 			MailFolder spidermanWebjuce = im.createMailbox(spiderman, "web-juice");
-
+			
 			MailFolder wonderwomanInbox = im.getInbox(wonderwoman);
-
+			
 			MimeMessage m1 = new MimeMessageBuilder(gm.getSmtp().createSession())
 					.withFrom(SUPERMAN)
 					.withTo(BATMAN)
@@ -120,7 +120,7 @@ public class Main {
 					.withSubject("New suit")
 					.withBody("I'm having a party to show off my new suit. Do you want to come?")
 					.build();
-
+			
 			MimeMessage m6 = new MimeMessageBuilder(gm.getSmtp().createSession())
 					.withFrom(ROBIN)
 					.withTo(WONDER_WOMAN).withTo(SUPERMAN)
@@ -193,7 +193,7 @@ public class Main {
 		app.get("/dn/:domain/to", new ListDomainMessageCommand(greenMail, "to"));
 		app.get("/dn/:domain/cc", new ListDomainMessageCommand(greenMail, "cc"));
 		app.get("/dn/:domain/bcc", new ListDomainMessageCommand(greenMail, "bcc"));
-
+		
 		if (cfg.useAccessControlAnywhere()) {
 			System.out.println("Allow REST connections from anywhere");
 			app.after("/*", new AccessControlAllowOriginHandler("*"));
