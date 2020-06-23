@@ -15,6 +15,7 @@ import uk.co.bigsoft.greenmail.http.commands.CfgClientCommand;
 import uk.co.bigsoft.greenmail.http.commands.CfgGreenMailCommand;
 import uk.co.bigsoft.greenmail.http.commands.DeleteMailboxCommand;
 import uk.co.bigsoft.greenmail.http.commands.DeleteMessageCommand;
+import uk.co.bigsoft.greenmail.http.commands.AddUserCommand;
 import uk.co.bigsoft.greenmail.http.commands.DeleteUserCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapAllMessagesCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapGetInBoxCommand;
@@ -79,11 +80,11 @@ public class Main {
 
 			MailFolder supermanInbox = im.getInbox(superman);
 			MailFolder supermanPofF = im.createMailbox(superman, "PalaceOfF");
-			
+
 			MailFolder spidermanWebjuce = im.createMailbox(spiderman, "web-juice");
-			
+
 			MailFolder wonderwomanInbox = im.getInbox(wonderwoman);
-			
+
 			MimeMessage m1 = new MimeMessageBuilder(gm.getSmtp().createSession())
 					.withFrom(SUPERMAN)
 					.withTo(BATMAN)
@@ -120,7 +121,7 @@ public class Main {
 					.withSubject("New suit")
 					.withBody("I'm having a party to show off my new suit. Do you want to come?")
 					.build();
-			
+
 			MimeMessage m6 = new MimeMessageBuilder(gm.getSmtp().createSession())
 					.withFrom(ROBIN)
 					.withTo(WONDER_WOMAN).withTo(SUPERMAN)
@@ -184,6 +185,7 @@ public class Main {
 		app.get("/d/:mailbox/:uid", new DeleteMessageCommand(greenMail));
 		app.get("/v/:mailbox/:uid", new ViewMessageCommand(greenMail));
 		app.get("/u/:email/delete", new DeleteUserCommand(greenMail));
+		app.post("/u/add", new AddUserCommand(greenMail));
 		app.get("/u/:email/from", new ListUserMessageCommand(greenMail, "from"));
 		app.get("/u/:email/to", new ListUserMessageCommand(greenMail, "to"));
 		app.get("/u/:email/cc", new ListUserMessageCommand(greenMail, "cc"));
@@ -192,7 +194,7 @@ public class Main {
 		app.get("/dn/:domain/to", new ListDomainMessageCommand(greenMail, "to"));
 		app.get("/dn/:domain/cc", new ListDomainMessageCommand(greenMail, "cc"));
 		app.get("/dn/:domain/bcc", new ListDomainMessageCommand(greenMail, "bcc"));
-		
+
 		if (cfg.useAccessControlAnywhere()) {
 			System.out.println("Allow REST connections from anywhere");
 			app.after("/*", new AccessControlAllowOriginHandler("*"));
