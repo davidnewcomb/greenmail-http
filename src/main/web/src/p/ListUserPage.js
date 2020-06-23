@@ -62,7 +62,7 @@ class ListUserPage extends Component {
 	}
 
 	addUser = () =>{
-		let url = AddUserUrl();
+		let url = AddUserUrl()
 		axios.post(url,{
 			login: this.state.credentials.login,
 			email: this.state.credentials.email,
@@ -133,7 +133,7 @@ class ListUserPage extends Component {
 									validators={['required']}
 									errorMessages={['this field is required']}
 									value={this.state.credentials.email}/>
-
+								<br/>
 								<TextValidator
 									label="Login"
 									onChange={this.handleChange}
@@ -144,7 +144,7 @@ class ListUserPage extends Component {
 									validators={['required']}
 									errorMessages={['this field is required']}
 									value={this.state.credentials.login}/>
-
+								<br/>
 								<TextValidator
 									label="Password"
 									onChange={this.handleChange}
