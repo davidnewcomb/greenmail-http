@@ -29,6 +29,7 @@ import uk.co.bigsoft.greenmail.http.commands.ReceivedMessagesForDomainCommand;
 import uk.co.bigsoft.greenmail.http.commands.ResetCommand;
 import uk.co.bigsoft.greenmail.http.commands.ViewMessageCommand;
 import uk.co.bigsoft.greenmail.javalin.AccessControlAllowOriginHandler;
+import uk.co.bigsoft.greenmail.javalin.AccessControlAllowOriginOptionsHandler;
 import uk.co.bigsoft.greenmail.mailx.MimeMessageBuilder;
 
 public class Main {
@@ -195,6 +196,7 @@ public class Main {
 		if (cfg.useAccessControlAnywhere()) {
 			System.out.println("Allow REST connections from anywhere");
 			app.after("/*", new AccessControlAllowOriginHandler("*"));
+			app.options("/*", new AccessControlAllowOriginOptionsHandler());
 		}
 	}
 }
