@@ -1,9 +1,10 @@
 package uk.co.bigsoft.greenmail.http.dto;
 
 public class Credentials {
-    String email;
-    String login;
-    String password;
+    
+    private String email;
+    private String login;
+    private String password;
 
     public Credentials() {
     }
