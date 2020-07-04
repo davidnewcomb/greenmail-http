@@ -16,7 +16,7 @@ public class Utils {
 		return um.getUserByEmail(user);
 	}
 
-	public GreenMailUser addUser(Credentials credentials, UserManager um) throws UserException {
+	public GreenMailUser addUser(UserManager um, Credentials credentials) throws UserException {
 		return um.createUser(credentials.getEmail(),credentials.getLogin(),credentials.getPassword());
 	}
 

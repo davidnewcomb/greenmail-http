@@ -15,7 +15,7 @@ public class AddUserCommand extends BaseHandler {
     public void handle(Context ctx) throws Exception {
         Credentials credentials = ctx.bodyAsClass(Credentials.class);
         UserManager um = gm.getManagers().getUserManager();
-        utils.addUser(credentials,um);
+        utils.addUser(um, credentials);
         ctx.json("OK");
     }
 
