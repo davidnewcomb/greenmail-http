@@ -10,8 +10,6 @@ import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import {ListUsersUrl} from '../c/GmhUrl'
 import ListUserRow from './ListUserRow'
-import Fab from '@material-ui/core/Fab'
-import PersonAddIcon from '@material-ui/icons/PersonAdd'
 import PageHeader from '../m/PageHeader'
 import AddUserDialog from '../c/AddUserDialog'
 
@@ -46,18 +44,6 @@ class ListUserPage extends Component {
 			})
 	}
 
-    openDialog = () => {
-        this.setState({
-            openAddDialog: true
-        })
-    }
-	
-	hideDialog = () => {
-        this.setState({
-            openAddDialog: false
-        })
-    }
-
 	componentDidMount() {
 		this.reload()
 	}
@@ -73,13 +59,9 @@ class ListUserPage extends Component {
 			<div>
 				<PageHeader title="All Users"/>
 				<Paper>
-                    <AddUserDialog show={this.state.openAddDialog} hide={this.hideDialog} reload={this.reload}/>
+					
+                    <AddUserDialog reload={this.reload}/>
                     
-					<Fab variant="extended" onClick={this.openDialog} style={{float:'right'}}>
-						<PersonAddIcon/>
-						Add User
-					</Fab>
-
 					<Table>
 						<TableHead>
 							<TableRow>
