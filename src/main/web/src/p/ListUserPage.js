@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper'
 import {ListUsersUrl} from '../c/GmhUrl'
 import ListUserRow from './ListUserRow'
 import PageHeader from '../m/PageHeader'
+import AddUserDialog from '../c/AddUserDialog'
 
 class ListUserPage extends Component {
 
@@ -26,7 +27,7 @@ class ListUserPage extends Component {
 	reload() {
 		let url = ListUsersUrl()
 		axios.get(url)
-			.then(res => {
+			.then( res => {
 				for (let i = 0 ; i < res.data.length ; ++i) {
 					res.data[i].id = '' + i
 				}
@@ -57,6 +58,9 @@ class ListUserPage extends Component {
 			<div>
 				<PageHeader title="All Users"/>
 				<Paper>
+
+					<AddUserDialog reload={this.reload}/>
+
 					<Table>
 						<TableHead>
 							<TableRow>
@@ -68,11 +72,11 @@ class ListUserPage extends Component {
 							</TableRow>
 						</TableHead>
 						<TableBody>
-						{
-							this.state.data.map((user) => (
-								<ListUserRow key={user.id} user={user} reload={this.reload} />
-							))
-						}
+							{
+								this.state.data.map((user) => (
+									<ListUserRow key={user.id} user={user} reload={this.reload} />
+								))
+							}
 						</TableBody>
 					</Table>
 					<div>
