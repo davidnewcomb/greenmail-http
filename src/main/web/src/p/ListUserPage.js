@@ -19,8 +19,7 @@ class ListUserPage extends Component {
 		super(props)
 		this.state = {
 			data: [],
-			error: false,
-			openAddDialog: false,
+			error: false
 		}
 		this.reload = this.reload.bind(this)
 	}
@@ -59,9 +58,9 @@ class ListUserPage extends Component {
 			<div>
 				<PageHeader title="All Users"/>
 				<Paper>
-					
-                    <AddUserDialog reload={this.reload}/>
-                    
+
+					<AddUserDialog reload={this.reload}/>
+
 					<Table>
 						<TableHead>
 							<TableRow>
