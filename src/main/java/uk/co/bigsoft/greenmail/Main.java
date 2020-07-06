@@ -27,6 +27,7 @@ import uk.co.bigsoft.greenmail.http.commands.PurgeEmailFromAllMailboxesCommand;
 import uk.co.bigsoft.greenmail.http.commands.ReceivedMessagesCommand;
 import uk.co.bigsoft.greenmail.http.commands.ReceivedMessagesForDomainCommand;
 import uk.co.bigsoft.greenmail.http.commands.ResetCommand;
+import uk.co.bigsoft.greenmail.http.commands.SmtpSendEmailCommand;
 import uk.co.bigsoft.greenmail.http.commands.ViewMessageCommand;
 import uk.co.bigsoft.greenmail.javalin.AccessControlAllowOriginHandler;
 import uk.co.bigsoft.greenmail.javalin.AccessControlAllowOriginOptionsHandler;
@@ -182,6 +183,7 @@ public class Main {
 		app.get("/m/:mailbox", new MailboxMessagesCommand(greenMail));
 		app.get("/m/:mailbox/delete", new DeleteMailboxCommand(greenMail));
 		app.get("/d/:mailbox/:uid", new DeleteMessageCommand(greenMail));
+		app.post("/send", new SmtpSendEmailCommand(greenMail));
 		app.get("/v/:mailbox/:uid", new ViewMessageCommand(greenMail));
 		app.get("/u/:email/delete", new DeleteUserCommand(greenMail));
 		app.get("/u/:email/from", new ListUserMessageCommand(greenMail, "from"));
