@@ -2,6 +2,13 @@
 
 Encapsulates GreenMail Standalone, adds a web server to deliver JSON and web pages showing the internals of GreenMail.
 
+## Frontend
+More screenshots and instructions in the [frontend](Documentation/frontend.md) section.
+![Project home](Documentation/images/project-home.png "Project home")
+
+## Browser access
+http://localhost:7000/
+
 ## Build
 While the project is in flux, it's not in the Maven repos, but it is now a one step build.
 
@@ -36,11 +43,15 @@ Using this flag will tell GreenMail HTTP to add Access-Control-Allow-Origin to t
 -Duk.co.bigsoft.greenmail.ac_anywhere
 ```
 
-## Browser access
-http://localhost:7000/
+## Developers
+I'm always happy to receive push requests. Just a couple of guidelines for a speedy merge.
 
-## Frontend development
-See [README](src/main/web/README.md).
+1. Take your branch from `master`.
+1. Follow the format and style in other files.
+1. Rebase before pushing.
+1. I like lots of smaller self-contained classes rather than huge source files containing everything.
+1. If possible, try to get the frontend working when running `yarn` separately.
+
 
 ## Versions
 
@@ -48,4 +59,3 @@ See [README](src/main/web/README.md).
 Initial release - Prototype
 ### 2.0.0
 Pretty frontend
-
