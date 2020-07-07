@@ -16,7 +16,8 @@ let mappings = {
 	DELETE_MESSAGE: '/d/:mailbox/:uid',
 	DELETE_MAILBOX: '/m/:mailbox/delete',
 	DELETE_USER: '/u/:email/delete',
-	ADD_USER: '/u/add'
+	ADD_USER: '/u/add',
+	SEND_EMAIL: '/send'
 }
 
 export let ServerConfig = () => {
@@ -77,4 +78,8 @@ export let ViewMessageUrl = (mailbox, uid) => {
 
 export let AddUserUrl = () => {
 	return base + mappings.ADD_USER;
+}
+
+export let SendEmailUrl = () => {
+	return base + mappings.SEND_EMAIL
 }

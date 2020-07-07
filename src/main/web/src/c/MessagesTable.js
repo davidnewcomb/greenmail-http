@@ -9,6 +9,7 @@ import MessagesTableRow from './MessagesTableRow'
 import RefreshIcon from '@material-ui/icons/Refresh'
 import {Tooltip} from '@material-ui/core'
 import Card from '@material-ui/core/Card'
+import ComposeEmailDialog from './ComposeEmailDialog'
 
 function MessagesTable(props) {
 
@@ -19,6 +20,8 @@ function MessagesTable(props) {
 	return (
 		<div>
 			<div>
+				<ComposeEmailDialog reload={reload}/>
+				
 				<Tooltip title="Refresh">
 					<Button onClick={reload}>
 						<RefreshIcon/>Refresh
