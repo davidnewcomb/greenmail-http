@@ -4,7 +4,7 @@
 
 	<groupId>uk.co.bigsoft</groupId>
 	<artifactId>greenmail-http</artifactId>
-	<version>2.0.0</version>
+	<version>2.0.1</version>
 
 	<packaging>jar</packaging>
 
@@ -50,10 +50,22 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<versions.slf4j>1.7.30</versions.slf4j>
-		<versions.greenmail>1.6.0</versions.greenmail>
-		<versions.greenmail.core>1.6.0</versions.greenmail.core>
-		<versions.eirslett>1.10.0</versions.eirslett>
+		<versions.greenmail>1.6.11</versions.greenmail>
+		<versions.greenmail.core>1.6.11</versions.greenmail.core>
+
+		<versions.eirslett>1.12.1</versions.eirslett>
+		<versions.jackson>2.14.0</versions.jackson>
+		
+		<versions.javalin>3.13.13</versions.javalin>
+		<versions.slf4j>1.7.36</versions.slf4j>
+		
+		<versions.maven-clean-plugin>3.1.0</versions.maven-clean-plugin>
+		<versions.maven-compiler-plugin>3.8.1</versions.maven-compiler-plugin>
+		<versions.maven-shade-plugin>3.2.4</versions.maven-shade-plugin>
+		
+		<versions.node>v14.3.0</versions.node>
+		<versions.yarn>v1.22.4</versions.yarn>
+		
 	</properties>
 
 	<dependencies>
@@ -86,12 +98,12 @@
 		<dependency>
 			<groupId>io.javalin</groupId>
 			<artifactId>javalin</artifactId>
-			<version>3.10.1</version>
+			<version>${versions.javalin}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.11.2</version>
+			<version>${versions.jackson}</version>
 		</dependency>
 
 	</dependencies>
@@ -102,7 +114,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<version>${versions.maven-compiler-plugin}</version>
 				<configuration>
 					<source>${maven.compiler.source}</source>
 					<target>${maven.compiler.target}</target>
@@ -111,7 +123,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.1.0</version>
+				<version>${versions.maven-clean-plugin}</version>
 				<configuration>
 					<filesets>
 						<fileset>
@@ -135,7 +147,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.2.4</version>
+				<version>${versions.maven-shade-plugin}</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -172,8 +184,8 @@
 						<!-- optional: default phase is "generate-resources" -->
 						<phase>generate-resources</phase>
 						<configuration>
-							<yarnVersion>v1.22.4</yarnVersion>
-							<nodeVersion>v14.3.0</nodeVersion>
+							<yarnVersion>${versions.yarn}</yarnVersion>
+							<nodeVersion>${versions.node}</nodeVersion>
 						</configuration>
 					</execution>
 

@@ -1,6 +1,6 @@
 # GreenMail HTTP
 
-Encapsulates GreenMail Standalone, adds a web server to deliver JSON and web pages showing the internals of GreenMail.
+Encapsulates GreenMail Standalone 1.6.x, adds a web server to deliver JSON and web pages showing the internals of GreenMail.
 
 ## Frontend
 More screenshots and instructions in the [frontend](Documentation/frontend.md) section.
