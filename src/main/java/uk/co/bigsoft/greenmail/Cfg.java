@@ -9,4 +9,8 @@ public class Cfg {
 	public boolean useAccessControlAnywhere() {
 		return System.getProperty("uk.co.bigsoft.greenmail.ac_anywhere") != null;
 	}
+
+	public int getWebPort() {
+		return Integer.parseInt(System.getProperty("uk.co.bigsoft.greenmail.web_port", "7000"));
+	}
 }
