@@ -8,10 +8,12 @@ import javax.mail.MessagingException;
 import javax.mail.Message.RecipientType;
 import javax.mail.internet.MimeMessage;
 
+import com.icegreen.greenmail.store.MailFolder;
 import com.icegreen.greenmail.store.StoredMessage;
 import com.icegreen.greenmail.util.GreenMail;
 
 import io.javalin.http.Context;
+import uk.co.bigsoft.greenmail.http.dto.MessageDto;
 
 public class ListDomainMessageCommand extends BaseHandler {
 
@@ -25,16 +27,18 @@ public class ListDomainMessageCommand extends BaseHandler {
 	@Override
 	public void handle(Context ctx) throws Exception {
 		String domain = utils.getDomain(ctx);
-		List<StoredMessage> allStoredMessages = im.getAllMessages();
+		List<MessageDto> messages = new ArrayList<>();
 
-		ArrayList<StoredMessage> end;
-		if ("from".equals(who)) {
-			end = filterBySender(domain, allStoredMessages);
-		} else {
-			end = filterByRecipientType(domain, allStoredMessages);
+		for(MailFolder mailbox : im.getStore().listMailboxes("*")) {
+			ArrayList<StoredMessage> end;
+			if ("from".equals(who)) {
+				end = filterBySender(domain, mailbox.getMessages());
+			} else {
+				end = filterByRecipientType(domain, mailbox.getMessages());
+			}
+			messages.addAll(dto.toMessages(mailbox, end));
 		}
-
-		ctx.json(dto.toMessages(null, end));
+		ctx.json(messages);
 	}
 
 	private ArrayList<StoredMessage> filterBySender(String domain, List<StoredMessage> allStoredMessages)
@@ -45,7 +49,6 @@ public class ListDomainMessageCommand extends BaseHandler {
 			MimeMessage m = sm.getMimeMessage();
 			Address a = m.getSender();
 			if (a == null) {
-				System.out.println("");
 				Address[] addresses = m.getFrom();
 				if (isDomainInAddress(domain, addresses)) {
 					ret.add(sm);

@@ -7,10 +7,13 @@ import javax.mail.Address;
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+
+import com.icegreen.greenmail.store.MailFolder;
 import com.icegreen.greenmail.store.StoredMessage;
 import com.icegreen.greenmail.util.GreenMail;
 
 import io.javalin.http.Context;
+import uk.co.bigsoft.greenmail.http.dto.MessageDto;
 
 public class ListUserMessageCommand extends BaseHandler {
 
@@ -24,16 +27,18 @@ public class ListUserMessageCommand extends BaseHandler {
 	@Override
 	public void handle(Context ctx) throws Exception {
 		String email = utils.getEmail(ctx);
-		List<StoredMessage> allStoredMessages = im.getAllMessages();
-		
-		ArrayList<StoredMessage> end;
-		if ("from".equals(who)) {
-			end = filterBySender(email, allStoredMessages);
-		} else {
-			end = filterByRecipientType(email, allStoredMessages);
-		}
+		List<MessageDto> messages = new ArrayList<>();
 
-		ctx.json(dto.toMessages(null, end));
+		for(MailFolder mailbox : im.getStore().listMailboxes("*")) {
+			ArrayList<StoredMessage> end;
+			if ("from".equals(who)) {
+				end = filterBySender(email, mailbox.getMessages());
+			} else {
+				end = filterByRecipientType(email, mailbox.getMessages());
+			}
+			messages.addAll(dto.toMessages(mailbox, end));
+		}
+		ctx.json(messages);
 	}
 
 	private ArrayList<StoredMessage> filterBySender(String email, List<StoredMessage> allStoredMessages) throws MessagingException {
@@ -43,7 +48,6 @@ public class ListUserMessageCommand extends BaseHandler {
 			MimeMessage m = sm.getMimeMessage();
 			Address a = m.getSender();
 			if (a == null) {
-				System.out.println("");
 				Address[] addresses = m.getFrom();
 				if (isEmailInAddresses(email, addresses)) {
 					ret.add(sm);
