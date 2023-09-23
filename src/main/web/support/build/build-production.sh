@@ -20,7 +20,7 @@ echo "Running React build"
 react-scripts build
 
 echo "Moving build folder to $OUT"
-if [ -f "$OUT" ]
+if [ -d "$OUT" ]
 then
 	echo "Removing old $OUT"
 	rm -rf $OUT
