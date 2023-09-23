@@ -50,11 +50,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<versions.greenmail>1.6.11</versions.greenmail>
-		<versions.greenmail.core>1.6.11</versions.greenmail.core>
+		<versions.greenmail>1.6.14</versions.greenmail>
+		<versions.greenmail.core>1.6.14</versions.greenmail.core>
 
 		<versions.eirslett>1.12.1</versions.eirslett>
-		<versions.jackson>2.14.0</versions.jackson>
+		<versions.jackson>2.14.3</versions.jackson>
 		
 		<versions.javalin>3.13.13</versions.javalin>
 		<versions.slf4j>1.7.36</versions.slf4j>
@@ -82,7 +82,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
+			<artifactId>slf4j-reload4j</artifactId>
 			<version>${versions.slf4j}</version>
 		</dependency>
 		<dependency>
