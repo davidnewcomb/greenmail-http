@@ -43,6 +43,12 @@ Using this flag will tell GreenMail HTTP to add Access-Control-Allow-Origin to t
 -Duk.co.bigsoft.greenmail.ac_anywhere
 ```
 
+### Run the webinterface on a different port
+By default, greenmail-http is accessible on port 7000. This can be changed by passing a different port to the following option:
+```
+-Duk.co.bigsoft.greenmail.web_port=8000
+```
+
 ## Developers
 I'm always happy to receive push requests. Just a couple of guidelines for a speedy merge.
 
