@@ -12,6 +12,8 @@ import uk.co.bigsoft.greenmail.http.commands.DeleteMailboxCommand;
 import uk.co.bigsoft.greenmail.http.commands.DeleteMessageCommand;
 import uk.co.bigsoft.greenmail.http.commands.AddUserCommand;
 import uk.co.bigsoft.greenmail.http.commands.DeleteUserCommand;
+import uk.co.bigsoft.greenmail.http.commands.EmlExportCommand;
+import uk.co.bigsoft.greenmail.http.commands.EmlImportCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapAllMessagesCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapGetInBoxCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapListMailBoxCommand;
@@ -79,6 +81,8 @@ public class Main {
 		app.get("/dn/:domain/to", new ListDomainMessageCommand(greenMail, "to"));
 		app.get("/dn/:domain/cc", new ListDomainMessageCommand(greenMail, "cc"));
 		app.get("/dn/:domain/bcc", new ListDomainMessageCommand(greenMail, "bcc"));
+		app.post("/import", new EmlImportCommand(greenMail));
+		app.get("/export/:mailbox/:uid", new EmlExportCommand(greenMail));
 		
 		if (cfg.useAccessControlAnywhere()) {
 			System.out.println("Allow REST connections from anywhere");
