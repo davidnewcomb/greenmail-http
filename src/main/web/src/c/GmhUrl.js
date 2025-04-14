@@ -1,5 +1,5 @@
 
-let base = 'http://localhost:7000'
+let base = window.location.origin;
 let mappings = {
 	//SERVER_CONFIG: '/',
 	ALL_IMAP: '/imap',

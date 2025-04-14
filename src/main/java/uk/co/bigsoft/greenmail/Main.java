@@ -52,7 +52,7 @@ public class Main {
 	}
 
 	private static void startHttpServer(GreenMail greenMail) {
-		Javalin app = Javalin.create().start(7000);
+		Javalin app = Javalin.create().start(cfg.getWebPort());
 		app.config.addStaticFiles("/frontend", Location.CLASSPATH);
 		app.get("/imap/:email/inbox", new ImapGetInBoxCommand(greenMail));
 		app.get("/imap/:email", new ImapListMailBoxCommand(greenMail));
