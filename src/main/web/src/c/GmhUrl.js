@@ -17,7 +17,9 @@ let mappings = {
 	DELETE_MAILBOX: '/m/:mailbox/delete',
 	DELETE_USER: '/u/:email/delete',
 	ADD_USER: '/u/add',
-	SEND_EMAIL: '/send'
+	SEND_EMAIL: '/send',
+	EML_IMPORT: '/import',
+	EML_EXPORT: '/export/:mailbox/:uid'
 }
 
 export let ServerConfig = () => {
@@ -82,4 +84,13 @@ export let AddUserUrl = () => {
 
 export let SendEmailUrl = () => {
 	return base + mappings.SEND_EMAIL
+}
+
+export let EmlImportUrl = () => {
+	return base + mappings.EML_IMPORT
+}
+
+export let EmlExportUrl = (mailbox, uid) => {
+	let encMailbox = encodeURIComponent(mailbox)
+	return base + mappings.EML_EXPORT.replace(':mailbox', encMailbox).replace(':uid', uid)
 }

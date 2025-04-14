@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import Alert from 'react-bootstrap/Alert'
 import Table from '@material-ui/core/Table'
-import {ViewMessageUrl} from '../c/GmhUrl'
+import {EmlExportUrl, ViewMessageUrl} from '../c/GmhUrl'
 import EmailAddresses from '../c/EmailAddresses'
 import {BreadcrumbContext} from '../c/breadcrumbContext'
 import PageHeader from '../m/PageHeader'
@@ -12,6 +12,8 @@ import Paper from '@material-ui/core/Paper'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import TableCell from '@material-ui/core/TableCell/TableCell'
+import GetAppIcon from '@material-ui/icons/GetApp'
+import Button from '@material-ui/core/Button'
 
 class ViewMessagePage extends Component {
 
@@ -133,10 +135,18 @@ class ViewMessagePage extends Component {
 			const eMessage = this.state.data.toString() + " " +this.state.url
 			return <Alert variant="danger" dismissible>{eMessage}</Alert>
 		}
+		const {mailbox, uid} = this.props.match.params
+		const url = EmlExportUrl(mailbox, uid)
 
 		return (
 			<div>
 				<PageHeader title="Message"/>
+				<a href={url} target="_blank" rel="noopener noreferrer" download>
+					<Button class="btn btn-primary">
+						<GetAppIcon/>
+						Export Email
+					</Button>
+				</a>
 				<Paper>
 					<Tabs
 						value={this.state.value}
