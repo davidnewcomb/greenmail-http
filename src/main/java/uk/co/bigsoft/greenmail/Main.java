@@ -12,6 +12,7 @@ import uk.co.bigsoft.greenmail.http.commands.DeleteMailboxCommand;
 import uk.co.bigsoft.greenmail.http.commands.DeleteMessageCommand;
 import uk.co.bigsoft.greenmail.http.commands.AddUserCommand;
 import uk.co.bigsoft.greenmail.http.commands.DeleteUserCommand;
+import uk.co.bigsoft.greenmail.http.commands.FrontendCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapAllMessagesCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapGetInBoxCommand;
 import uk.co.bigsoft.greenmail.http.commands.ImapListMailBoxCommand;
@@ -54,6 +55,13 @@ public class Main {
 	private static void startHttpServer(GreenMail greenMail) {
 		Javalin app = Javalin.create().start(7000);
 		app.config.addStaticFiles("/frontend", Location.CLASSPATH);
+		app.get("/m/all", new FrontendCommand(greenMail));
+		app.get("/u/all", new FrontendCommand(greenMail));
+		app.get("/c/g", new FrontendCommand(greenMail));
+		app.get("/view/*", new FrontendCommand(greenMail));
+		app.get("/user/*", new FrontendCommand(greenMail));
+		app.get("/domain/*", new FrontendCommand(greenMail));
+		app.get("/folder/*", new FrontendCommand(greenMail));
 		app.get("/imap/:email/inbox", new ImapGetInBoxCommand(greenMail));
 		app.get("/imap/:email", new ImapListMailBoxCommand(greenMail));
 		app.get("/imap", new ImapAllMessagesCommand(greenMail));
